@@ -1,15 +1,15 @@
 ﻿<#
     .Synopsis
-       TSSv2Collector1_2.ps1
+       TSSv2Collect.ps1
 
     .EXAMPLES
-       Invoke-TSSv2Collector
+       Invoke-TSSv2Collect
 
 Function EndScript{ 
     break
 }
 
-Function Invoke-TSSv2Collector{
+Function Invoke-TSSv2Collect{
 
 #>
 
@@ -21,7 +21,7 @@ mkdir c:\Dell -ErrorAction Ignore
 wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
 Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
 Clear-Host
-$Ver="1.2"
+$Ver="1.3"
 
 #IE Fix
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
