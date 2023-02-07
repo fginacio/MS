@@ -58,10 +58,10 @@ Switch ($MENU)
     #C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
     ping 8.8.8.8
     ##$Shell = New-Object -ComObject "WScript.Shell"
-    #$option="Logs available at C:\Dell\SDP_Setup\"
+    $option="Logs available at C:\Dell\SDP_Setup\"
     #$Button = $Shell.Popup("Logs available at C:\Dell\SDP_Setup\", 0, "Collection Successfull", 0)
     #Start-Sleep -Seconds 2
-    DisplayMenu
+    #DisplayMenu
     ##Write-Host "Logs available at C:\Dell\SDP_Setup\"
   }
         2 {
