@@ -45,7 +45,7 @@ Switch ($MENU)
     {
         1 {
     #OPTION1 - Default Collection
-    C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
+    #C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
     $output = "Logs available at C:\Dell\SDP_Setup\"
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at C:\Dell\SDP_Setup\", 0, "Collection Successfull", 0)
