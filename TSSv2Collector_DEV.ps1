@@ -55,11 +55,11 @@ Switch ($MENU)
     #OPTION1 - Default Collection
     #C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
     ping 8.8.8.8
-    Write-Host "Logs available at C:\Dell\SDP_Setup\"
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at C:\Dell\SDP_Setup\", 0, "Collection Successfull", 0)
     #Start-Sleep -Seconds 2
     DisplayMenu
+    Write-Host "Logs available at C:\Dell\SDP_Setup\"
   }
         2 {
     #OPTION2 - Cluster Collection
