@@ -53,7 +53,8 @@ Switch ($MENU)
     {
         1 {
     #OPTION1 - Default Collection
-    C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
+    #C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
+    ping 8.8.8.8
     Write-Host "Logs available at C:\Dell\SDP_Setup\"
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at C:\Dell\SDP_Setup\", 0, "Collection Successfull", 0)
@@ -62,7 +63,8 @@ Switch ($MENU)
   }
         2 {
     #OPTION2 - Cluster Collection
-    C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula
+    #C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula
+    ping 8.8.4.4
     Write-Host "Logs available at c:\Dell\SDP_Cluster\"
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at C:\Dell\SDP_Cluster\", 0, "Collection Successfull", 0)
@@ -71,7 +73,8 @@ Switch ($MENU)
   }
         3 {
     #OPTION3 - HyperV Collection
-    C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula
+    #C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula
+    ping 1.1.1.1
     Write-Host "Logs available at c:\Dell\SDP_HyperV\"
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at C:\Dell\SDP_HyperV\", 0, "Collection Successfull", 0)
