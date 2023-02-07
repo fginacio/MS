@@ -21,7 +21,7 @@ $option=" "
 Clear-Host
 Write-Host "Downloading TSSv2..."
 mkdir c:\Dell -ErrorAction Ignore
-wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
+#wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
 Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
 Clear-Host
 
