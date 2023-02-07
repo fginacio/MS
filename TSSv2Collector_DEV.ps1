@@ -46,7 +46,7 @@ Switch ($MENU)
         1 {
     #OPTION1 - Default Collection
     C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
-    #Write-Host "Logs available at C:\Dell\SDP_Setup\"
+    $output = "Logs available at C:\Dell\SDP_Setup\"
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at C:\Dell\SDP_Setup\", 0, "Collection Successfull", 0)
     #Start-Sleep -Seconds 2
@@ -86,6 +86,7 @@ default {
 }
 Stop-Transcript
 DisplayMenu
+$output
 #Removing extracted collector and zip file
     Remove-Item "C:\Dell\Tssv2" -recurse -force
     Remove-Item "C:\Dell\TSSv2.zip" -recurse -force
