@@ -28,9 +28,8 @@ This script simplify the log collection with only 3 collection options.
     |    Q: Press 'Q' for Exit.                     |
     +===============================================+
     
- ======
+
  Usage
- ======
  
 Copy the below powershell code and paste into PowerShell
 
