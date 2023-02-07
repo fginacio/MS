@@ -31,7 +31,7 @@ This script simplify the log collection with only 3 collection options.
 
  Usage
  
-Copy the below powershell code and paste into PowerShell
+Copy the below powershell code and paste into PowerShell as Administrator
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;Invoke-Expression('$module="ToolBox";$repo="PowershellScripts"'+(new-object net.webclient).DownloadString('https://raw.githubusercontent.com/fginacio/MS/main/TSSv2Collect1_2.ps1'))
 
