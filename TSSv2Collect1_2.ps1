@@ -1,4 +1,19 @@
-﻿#$TSSv2 = C:\dell\TSSv2\TSSv2.ps1 -sdp
+﻿<#
+    .Synopsis
+       TSSv2Collector1_2.ps1
+
+    .EXAMPLES
+       Invoke-TSSv2Collector
+
+Function EndScript{ 
+    break
+}
+
+Function Invoke-TSSv2Collector{
+
+#>
+
+#$TSSv2 = C:\dell\TSSv2\TSSv2.ps1 -sdp
 $dell="c:\Dell\"
 Clear-Host
 Write-Host "Downloading TSSv2..."
@@ -8,6 +23,9 @@ Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAct
 Clear-Host
 $Ver="1.2"
 
+#IE Fix
+Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
+    
     function DisplayMenu {
     Clear-Host
     Write-Host @"
@@ -71,3 +89,4 @@ default {
                     }
 }
 DisplayMenu
+#}
