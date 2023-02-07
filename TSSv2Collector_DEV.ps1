@@ -17,7 +17,7 @@ Function Invoke-TSSv2Collector{
 #$TSSv2 = C:\dell\TSSv2\TSSv2.ps1 -sdp
 $dell="c:\Dell\"
 $Ver="DEV"
-$option=" "
+$option="test"
 Clear-Host
 Write-Host "Downloading TSSv2..."
 mkdir c:\Dell -ErrorAction Ignore
@@ -58,7 +58,7 @@ Switch ($MENU)
     #C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
     ping 8.8.8.8
     ##$Shell = New-Object -ComObject "WScript.Shell"
-    $option="Logs available at C:\Dell\SDP_Setup\"
+    #$option="Logs available at C:\Dell\SDP_Setup\"
     #$Button = $Shell.Popup("Logs available at C:\Dell\SDP_Setup\", 0, "Collection Successfull", 0)
     #Start-Sleep -Seconds 2
     DisplayMenu
@@ -70,7 +70,7 @@ Switch ($MENU)
     ping 8.8.4.4
     ##Write-Host "Logs available at c:\Dell\SDP_Cluster\"
     ##$Shell = New-Object -ComObject "WScript.Shell"
-    $option="Logs available at C:\Dell\SDP_Cluster\"
+    #$option="Logs available at C:\Dell\SDP_Cluster\"
     #$Button = $Shell.Popup("Logs available at C:\Dell\SDP_Cluster\", 0, "Collection Successfull", 0)
     Start-Sleep -Seconds 2
     DisplayMenu
@@ -81,7 +81,7 @@ Switch ($MENU)
     ping 1.1.1.1
     ##Write-Host "Logs available at c:\Dell\SDP_HyperV\"
     ##$Shell = New-Object -ComObject "WScript.Shell"
-    $option="Logs available at C:\Dell\SDP_HyperV\"
+    #$option="Logs available at C:\Dell\SDP_HyperV\"
     #$Button = $Shell.Popup("Logs available at C:\Dell\SDP_HyperV\", 0, "Collection Successfull", 0)
     Start-Sleep -Seconds 2
     DisplayMenu
