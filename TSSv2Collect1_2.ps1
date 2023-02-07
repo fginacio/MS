@@ -27,6 +27,8 @@ $Ver="1.2"
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
     
     function DisplayMenu {
+    $DateTime=Get-Date -Format yyyyMMdd_HHmmss
+    Start-Transcript -NoClobber -Path "C:\Dell\TSSv2Collect_$DateTime.log"
     Clear-Host
     Write-Host @"
     +===============================================+
@@ -88,5 +90,6 @@ default {
         }
                     }
 }
+Stop-Transcript
 DisplayMenu
 #}
