@@ -14,11 +14,12 @@ $dell="c:\Dell\"
 Clear-Host
 Write-Host "Downloading TSSv2..."
 Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
+Remove-Item "C:\Dell\TSSv2Collect*.log" -recurse -force -ErrorAction Ignore
 mkdir c:\Dell -ErrorAction Ignore
 wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
 Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
 Clear-Host
-$Ver="DEV1"
+$Ver="DEV2"
 
 #IE Fix
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
