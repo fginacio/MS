@@ -4,6 +4,7 @@
 
     .EXAMPLES
        Invoke-TSSv2Collector
+       [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;Invoke-Expression('$module="ToolBox";$repo="PowershellScripts"'+(new-object net.webclient).DownloadString('https://raw.githubusercontent.com/fginacio/MS/main/TSSv2Collector_DEV.ps1'))
 
 Function EndScript{ 
     break
