@@ -92,7 +92,8 @@ default {
                     }
 }
 Stop-Transcript
-Remove-Item "C:\Dell\Tssv2" -recurse -force
-Remove-Item "C:\Dell\TSSv2.zip" -recurse -force
 DisplayMenu
+#Removing extracted collector and zip file
+    Remove-Item "C:\Dell\Tssv2" -recurse -force
+    Remove-Item "C:\Dell\TSSv2.zip" -recurse -force
 #}
