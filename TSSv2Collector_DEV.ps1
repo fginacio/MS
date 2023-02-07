@@ -90,6 +90,10 @@ Switch ($MENU)
     #OPTIONQ - EXIT
     Write-Host "Bye"
     Break
+    $Shell = New-Object -ComObject "WScript.Shell"
+    $Button = $Shell.Popup($option, 0, "Collection Successfull", 0)
+    Write-Host $option
+
     }
 default {
     #DEFAULT OPTION
@@ -100,9 +104,6 @@ default {
                     }
 }
 Stop-Transcript
-$Shell = New-Object -ComObject "WScript.Shell"
-$Button = $Shell.Popup($option, 0, "Collection Successfull", 0)
-Write-Host $option
 DisplayMenu
 #Removing extracted collector and zip file
     Remove-Item "C:\Dell\Tssv2" -recurse -force
