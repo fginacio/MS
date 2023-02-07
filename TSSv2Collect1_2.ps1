@@ -15,7 +15,6 @@ Function Invoke-TSSv2Collector{
 
 #$TSSv2 = C:\dell\TSSv2\TSSv2.ps1 -sdp
 $dell="c:\Dell\"
-#$removetss="C:\Dell\TSSv2"
 Clear-Host
 Write-Host "Downloading TSSv2..."
 mkdir c:\Dell -ErrorAction Ignore
