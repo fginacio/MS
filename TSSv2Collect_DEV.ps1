@@ -87,7 +87,7 @@ default {
 }
 Stop-Transcript
 DisplayMenu
-$logfolder=(gci -Path c:\dell\ | ? { $_.PSIsContainer } | sort CreationTime).name
+$logfolder=(gci -Path c:\dell\SDP_* | ? { $_.PSIsContainer } | sort CreationTime).name
 Write-Host "Logs available at c:\Dell\SDP_$logfolder"
 #Removing extracted collector and zip file
     Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
