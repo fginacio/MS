@@ -81,7 +81,6 @@ Switch ($MENU)
         Q {
     #OPTIONQ - EXIT
     Write-Host "Bye"
-    Remove-Item "C:\Dell\Tssv2" -recurse -force
     Break
     }
 default {
@@ -92,6 +91,7 @@ default {
         }
                     }
 }
+Remove-Item "C:\Dell\Tssv2" -recurse -force
 Stop-Transcript
 DisplayMenu
 #}
