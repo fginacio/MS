@@ -15,7 +15,7 @@ Function Invoke-TSSv2Collector{
 
 #$TSSv2 = C:\dell\TSSv2\TSSv2.ps1 -sdp
 $dell="c:\Dell\"
-$remove-tss="C:\Dell\TSSv2\"
+$removetss="C:\Dell\TSSv2\"
 Clear-Host
 Write-Host "Downloading TSSv2..."
 mkdir c:\Dell -ErrorAction Ignore
@@ -81,7 +81,7 @@ Switch ($MENU)
         Q {
     #OPTIONQ - EXIT
     Write-Host "Bye"
-    Remove-Item $remove-tss -recurse
+    Remove-Item $removetss -recurse
     Break
     }
 default {
