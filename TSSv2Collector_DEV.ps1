@@ -92,7 +92,7 @@ default {
                     }
 }
 Remove-Item "C:\Dell\Tssv2" -recurse -force
-Remove-Item "C:\Dell\Tssv2\TSSv2.zip" -recurse -force
+Remove-Item "C:\Dell\TSSv2.zip" -recurse -force
 Stop-Transcript
 DisplayMenu
 #}
