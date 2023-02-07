@@ -13,6 +13,7 @@ Function Invoke-TSSv2Collect{
 $dell="c:\Dell\"
 Clear-Host
 Write-Host "Downloading TSSv2..."
+Remove-Item "C:\Dell\SDP_*" -recurse -force
 mkdir c:\Dell -ErrorAction Ignore
 wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
 Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
@@ -45,8 +46,8 @@ Switch ($MENU)
     {
         1 {
     #OPTION1 - Default Collection
-    #C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
-    $output = "Logs available at C:\Dell\SDP_Setup\"
+    C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
+    #Write-Host "Logs available at C:\Dell\SDP_Setup\"
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at C:\Dell\SDP_Setup\", 0, "Collection Successfull", 0)
     #Start-Sleep -Seconds 2
@@ -86,7 +87,8 @@ default {
 }
 Stop-Transcript
 DisplayMenu
-$output
+$logfolder=(gci -Path c:\dell\ | ? { $_.PSIsContainer } | sort CreationTime).name
+Write-Host "Logs available at c:\Dell\SDP_$logfolder"
 #Removing extracted collector and zip file
     Remove-Item "C:\Dell\Tssv2" -recurse -force
     Remove-Item "C:\Dell\TSSv2.zip" -recurse -force
