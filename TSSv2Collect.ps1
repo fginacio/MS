@@ -29,8 +29,9 @@ $Ver="1.0"
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
 
 #Set Execution Policy
-Set-ExecutionPolicy -scope Process -ExecutionPolicy RemoteSigned -Force
-    
+#Set-ExecutionPolicy -scope Process -ExecutionPolicy RemoteSigned -Force
+Set-ExecutionPolicy Unrestricted
+
     function DisplayMenu {
     $DateTime=Get-Date -Format yyyyMMdd_HHmmss
     Start-Transcript -NoClobber -Path "C:\Dell\TSSv2Collect_$DateTime.log"
