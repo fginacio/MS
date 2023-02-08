@@ -15,6 +15,8 @@ Write-Host "Downloading TSSv2..."
 #Deleting old log collections and transcript logs
     Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     Remove-Item "C:\Dell\TSSv2Collect*.log" -recurse -force -ErrorAction Ignore
+    Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
+    Remove-Item "C:\Dell\TSSv2.zip" -recurse -force -ErrorAction Ignore
 #Creating c:\Dell folder and downloading TSSv2
     mkdir c:\Dell -ErrorAction Ignore
     wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
@@ -93,6 +95,6 @@ DisplayMenu
 $logfolder=(gci -Path c:\dell\SDP_* | ? { $_.PSIsContainer } | sort CreationTime).name
 Write-Host "Logs available at c:\Dell\$logfolder"
 #Removing extracted collector and zip file
-    Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
-    Remove-Item "C:\Dell\TSSv2.zip" -recurse -force -ErrorAction Ignore
+    #Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
+    #Remove-Item "C:\Dell\TSSv2.zip" -recurse -force -ErrorAction Ignore
 #}
