@@ -34,7 +34,7 @@ Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "
     Clear-Host
     Write-Host @"
     +===============================================+
-    |  TSSv2 - Log Collection  v$Ver                 |     
+    |  TSSv2 - Log Collection  v$Ver Offline Mode   |     
     |                                               |
     |           By: Fabiano Inacio                  | 
     +===============================================+
