@@ -27,7 +27,10 @@ $Ver="DEV2"
 
 #IE Fix
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
-    
+
+#Set Execution Policy
+Set-ExecutionPolicy Unrestricted
+   
     function DisplayMenu {
     $DateTime=Get-Date -Format yyyyMMdd_HHmmss
     Start-Transcript -NoClobber -Path "C:\Dell\TSSv2Collect_$DateTime.log"
