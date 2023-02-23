@@ -83,7 +83,7 @@ Switch ($MENU)
         Q {
     #OPTIONQ - EXIT
     Write-Host "Bye"
-    Remove-Item "C:\Dell\Tssv2" -recurse -force
+    #Remove-Item "C:\Dell\Tssv2" -recurse -force
     Break
     }
 default {
@@ -99,6 +99,6 @@ DisplayMenu
 $logfolder=(gci -Path c:\dell\SDP_* | ? { $_.PSIsContainer } | sort CreationTime).name
 Write-Host "Logs available at c:\Dell\$logfolder"
 #Removing extracted collector and zip file
-    #Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
+    Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
     #Remove-Item "C:\Dell\TSSv2.zip" -recurse -force -ErrorAction Ignore
 #}
