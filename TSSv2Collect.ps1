@@ -10,6 +10,7 @@ Function Invoke-TSSv2Collect{
 #>
 
 $dell="c:\Dell\"
+$TSS="C:\dell\TSSv2\"
 Clear-Host
 Write-Host "Downloading TSSv2..."
 #Deleting old log collections and transcript logs
@@ -29,7 +30,6 @@ $Ver="1.0"
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
 
 #Set Execution Policy
-#Set-ExecutionPolicy -scope Process -ExecutionPolicy RemoteSigned -Force
 Set-ExecutionPolicy Unrestricted
 
     function DisplayMenu {
@@ -56,17 +56,14 @@ Switch ($MENU)
         1 {
     #OPTION1 - Default Collection
     #C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
-    C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath c:\dell\ -AcceptEula
-    #Write-Host "Logs available at C:\Dell\SDP_Setup\"
-    $Shell = New-Object -ComObject "WScript.Shell"
-    $Button = $Shell.Popup("Logs available at C:\Dell\SDP_Setup\", 0, "Collection Successfull", 0)
-    #Start-Sleep -Seconds 2
+    ./C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath c:\dell\ -AcceptEula
+    #$Shell = New-Object -ComObject "WScript.Shell"
+    #$Button = $Shell.Popup("Logs available at C:\Dell\SDP_Setup\", 0, "Collection Successfull", 0)
     DisplayMenu
   }
         2 {
     #OPTION2 - Cluster Collection
     C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula
-    #Write-Host "Logs available at c:\Dell\SDP_*"
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at C:\Dell\SDP_Cluster\", 0, "Collection Successfull", 0)
     Start-Sleep -Seconds 2
@@ -75,7 +72,6 @@ Switch ($MENU)
         3 {
     #OPTION3 - HyperV Collection
     C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula
-    #Write-Host "Logs available at c:\Dell\SDP_*"
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at C:\Dell\SDP_HyperV\", 0, "Collection Successfull", 0)
     Start-Sleep -Seconds 2
@@ -84,7 +80,6 @@ Switch ($MENU)
         Q {
     #OPTIONQ - EXIT
     Write-Host "Bye"
-    #Remove-Item "C:\Dell\Tssv2" -recurse -force
     Break
     }
 default {
@@ -101,5 +96,4 @@ $logfolder=(gci -Path c:\dell\SDP_* | ? { $_.PSIsContainer } | sort CreationTime
 Write-Host "Logs available at c:\Dell\$logfolder"
 #Removing extracted collector and zip file
     Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
-    #Remove-Item "C:\Dell\TSSv2.zip" -recurse -force -ErrorAction Ignore
 #}
