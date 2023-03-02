@@ -16,13 +16,13 @@ Write-Host "Downloading TSSv2..."
 #Deleting old log collections and transcript logs
     Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     Remove-Item "C:\Dell\TSSv2Collect*.log" -recurse -force -ErrorAction Ignore
-    #Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
-    #Remove-Item "C:\Dell\TSSv2.zip" -recurse -force -ErrorAction Ignore
+    Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
+    Remove-Item "C:\Dell\TSSv2.zip" -recurse -force -ErrorAction Ignore
 #Creating c:\Dell folder and downloading TSSv2
     mkdir c:\Dell -ErrorAction Ignore
-    #wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
+    wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
 #Unpacking TSSv2 at C:\Dell
-    #Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
+    Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
 Clear-Host
 $Ver="1.0"
 
@@ -55,11 +55,10 @@ Switch ($MENU)
     {
         1 {
     #OPTION1 - Default Collection
-    #C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
+    C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
     cd $tss
-    ./TSSv2.ps1 -sdp Setup -LogFolderPath c:\dell\
-    #$Shell = New-Object -ComObject "WScript.Shell"
-    #$Button = $Shell.Popup("Logs available at C:\Dell\SDP_Setup\", 0, "Collection Successfull", 0)
+    $Shell = New-Object -ComObject "WScript.Shell"
+    $Button = $Shell.Popup("Logs available at C:\Dell\SDP_Setup\", 0, "Collection Successfull", 0)
     DisplayMenu
   }
         2 {
