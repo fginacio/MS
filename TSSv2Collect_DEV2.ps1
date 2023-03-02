@@ -1,10 +1,10 @@
 <#
     .Synopsis
-       TSSv2Collect.ps1
+       TSSv2Collect_DEV2.ps1
     .DESCRIPTION
        This script Colect the TSSv2 logs from Microsoft Support Cases
     .EXAMPLES
-       Invoke-TSSv2Collect
+       Invoke-TSSv2Collect_DEV2
 #>
 
 Function EndScript{ 
@@ -12,7 +12,7 @@ Function EndScript{
 }
 
 
-Function Invoke-TSSv2Collect{
+Function Invoke-TSSv2Collect_DEV2{
 #Clear-Host
 $Ver=1.0
 $text = @"
