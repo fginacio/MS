@@ -69,6 +69,7 @@ Function ShowMenu{
     ShowMenu
       
 	IF ($selection -match 1) {
+		write-host "entrou opcao 1"
 		C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
 	}
 
