@@ -7,7 +7,7 @@
 Function EndScript{ 
     break
 }
-Function Invoke-TSSv2Collect_Offline{
+#Function Invoke-TSSv2Collect_Offline{
     function DisplayMenu {
     $DateTime=Get-Date -Format yyyyMMdd_HHmmss
     Start-Transcript -NoClobber -Path "C:\Dell\TSSv2Collect_$DateTime.log"
@@ -67,7 +67,7 @@ default {
         }
                     }
 }
-}
+#}
 $dell="c:\Dell\"
 $TSS="C:\dell\TSSv2\"
 Clear-Host
