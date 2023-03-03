@@ -41,58 +41,11 @@ Write-Host "Downloading TSSv2..."
     #Remove-Item "C:\Dell\TSSv2.zip" -recurse -force -ErrorAction Ignore
 #Creating c:\Dell folder and downloading TSSv2
     mkdir c:\Dell -ErrorAction Ignore
-    wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
+    #wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
 #Unpacking TSSv2 at C:\Dell
-    Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
-
-
-<#Function ShowMenu{
-    do
-     {
-
-         $selection=""
-         #Start-Transcript -NoClobber -Path "C:\Dell\TSSv2Collect_$DateTime.log"
-	   Clear-Host
-	   Write-Host $text
-	   Write-Host "+===============================================+"
-	   Write-Host "|                                               |"
-	   Write-Host "|    1: Press '1' for Default collection.       |"
-	   Write-Host "|    2: Press '2' for Cluster collection.       |"
-	   Write-Host "|    3: Press '3' for HyperV collection.        |"
-	   Write-Host "|    Q: Press 'Q' for Exit.                     |"
-	   Write-Host "+===============================================+"
-	   $selection = Read-Host "Please make a selection"
-    }
-    until ($selection -match '[1-3,qQ]')
-    $Global:Confirm=$False
-    Pause
-    ShowMenu
-      
-	IF ($selection -match 1) {
-		write-host "entrou opcao 1"
-		C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
-	}
-
-	IF ($selection -match 2) {
-		C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula
-	}
-
-	IF ($selection -match 3) {
-		C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula
-	}
-
-	IF($selection -imatch 'q'){
-		Write-Host "Bye... "
-	    EndScript
-	}
-}#End of ShowMenu
-ShowMenu
-}
-#>
+    #Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
 
 Function ShowMenu{
-       {
-
 $MainMenu = {
 Write-Host "+===============================================+"
 Write-Host "|                                               |"
@@ -112,21 +65,21 @@ Invoke-Command $MainMenu
 $Select = Read-Host
 Switch ($Select)
     {
-    1 {
+    '1' {
        Write-Host
        C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
        Clear-Host
        Write-Host
        Clear-Host
        }
-    2 {
+    '2' {
        Write-Host
        C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula
        Clear-Host
        Write-Host
        Clear-Host
        }
-    3 {
+    '3' {
        Write-Host
        C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula
        Clear-Host
@@ -136,7 +89,7 @@ Switch ($Select)
        }
     }
 }
-While ($Select -ne 4)
+While ($Select -ne '4')
 
 }#End of ShowMenu
 ShowMenu
