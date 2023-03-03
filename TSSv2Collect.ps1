@@ -3,11 +3,12 @@
        TSSv2Collect.ps1
     .EXAMPLES
        Invoke-TSSv2Collect
+#>
+
 Function EndScript{ 
     break
 }
 Function Invoke-TSSv2Collect{
-#>
 
 $dell="c:\Dell\"
 $TSS="C:\dell\TSSv2\"
