@@ -36,7 +36,7 @@ Copy the below powershell code and paste into PowerShell as Administrator
 Echo TSSv2Collect;[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;Invoke-Expression('$module="TSSv2Collect"; $repo="PowershellScripts"'+(new-object net.webclient).DownloadString('https://raw.githubusercontent.com/fginacio/MS/main/TSSv2Collect.ps1'));Invoke-TSSv2Collect
 
 
-How To Use TSSv2Collect_Offline
+****# How To Use TSSv2Collect_Offline****
 
 1. Download the TSSv2 from this link <https://aka.ms/getTSS>;
 2. On server were you need make a collection, save the TSSv2.zip at c:\Dell\ folder;
