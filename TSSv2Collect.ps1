@@ -7,7 +7,7 @@
 Function EndScript{ 
     break
 }
-Function Invoke-TSSv2Collect{
+#Function Invoke-TSSv2Collect{
 
     function DisplayMenu {
     $DateTime=Get-Date -Format yyyyMMdd_HHmmss
@@ -68,7 +68,7 @@ default {
         }
                     }
     }
-}
+#}
 
 $dell="c:\Dell\"
 $TSS="C:\dell\TSSv2\"
