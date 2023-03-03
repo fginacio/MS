@@ -85,7 +85,7 @@ Write-Host "Downloading TSSv2..."
 #Unpacking TSSv2 at C:\Dell
     Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
 Clear-Host
-$Ver="1.0"
+$Ver="1.1"
 
 #IE Fix
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
@@ -94,6 +94,8 @@ Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "
 Set-ExecutionPolicy Unrestricted
 
 DisplayMenu
+
+#Invoke-TSSv2Collect
 
 $logfolder=(gci -Path c:\dell\SDP_* | ? { $_.PSIsContainer } | sort CreationTime).name
 Write-Host "Logs available at c:\Dell\$logfolder"
