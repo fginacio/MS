@@ -11,7 +11,7 @@ Function EndScript{
 
     function DisplayMenu {
     $DateTime=Get-Date -Format yyyyMMdd_HHmmss
-    #Start-Transcript -NoClobber -Path "C:\Dell\TSSv2Collect_$DateTime.log"
+    Start-Transcript -NoClobber -Path "C:\Dell\TSSv2Collect_$DateTime.log"
     Clear-Host
     Write-Host @"
     +===============================================+
