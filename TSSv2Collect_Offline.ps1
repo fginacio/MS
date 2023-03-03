@@ -10,7 +10,6 @@ Function EndScript{
 }
 Function Invoke-TSSv2Collect_Offline{
 
-
 $dell="c:\Dell\"
 $TSS="C:\dell\TSSv2\"
 Clear-Host
