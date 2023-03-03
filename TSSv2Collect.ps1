@@ -4,7 +4,6 @@
     .EXAMPLES
        Invoke-TSSv2Collect
 #>
-
 Function EndScript{ 
     break
 }
@@ -90,6 +89,7 @@ default {
     DisplayMenu
         }
                     }
+    }
 }
 Stop-Transcript
 DisplayMenu
