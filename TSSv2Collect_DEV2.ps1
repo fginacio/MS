@@ -67,7 +67,7 @@ Switch ($Select)
     {
     '1' {
        Write-Host
-       C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
+       invoke-expression -command C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
        Clear-Host
        Write-Host
        Clear-Host
