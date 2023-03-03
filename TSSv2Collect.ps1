@@ -98,3 +98,4 @@ Write-Host "Logs available at c:\Dell\$logfolder"
 #Removing extracted collector and zip file
     Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
 #}
+}
