@@ -9,32 +9,9 @@ Function EndScript{
 }
 Function Invoke-TSSv2Collect{
 
-$dell="c:\Dell\"
-$TSS="C:\dell\TSSv2\"
-Clear-Host
-Write-Host "Downloading TSSv2..."
-#Deleting old log collections and transcript logs
-    Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
-    Remove-Item "C:\Dell\TSSv2Collect*.log" -recurse -force -ErrorAction Ignore
-    Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
-    Remove-Item "C:\Dell\TSSv2.zip" -recurse -force -ErrorAction Ignore
-#Creating c:\Dell folder and downloading TSSv2
-    mkdir c:\Dell -ErrorAction Ignore
-    wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
-#Unpacking TSSv2 at C:\Dell
-    Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
-Clear-Host
-$Ver="1.0"
-
-#IE Fix
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
-
-#Set Execution Policy
-Set-ExecutionPolicy Unrestricted
-
     function DisplayMenu {
     $DateTime=Get-Date -Format yyyyMMdd_HHmmss
-    Start-Transcript -NoClobber -Path "C:\Dell\TSSv2Collect_$DateTime.log"
+    #Start-Transcript -NoClobber -Path "C:\Dell\TSSv2Collect_$DateTime.log"
     Clear-Host
     Write-Host @"
     +===============================================+
@@ -80,7 +57,8 @@ Switch ($MENU)
         Q {
     #OPTIONQ - EXIT
     Write-Host "Bye"
-    Break
+    Stop-Transcript
+    EndScript
     }
 default {
     #DEFAULT OPTION
@@ -91,8 +69,32 @@ default {
                     }
     }
 }
-Stop-Transcript
+
+$dell="c:\Dell\"
+$TSS="C:\dell\TSSv2\"
+Clear-Host
+Write-Host "Downloading TSSv2..."
+#Deleting old log collections and transcript logs
+    Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
+    Remove-Item "C:\Dell\TSSv2Collect*.log" -recurse -force -ErrorAction Ignore
+    Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
+    Remove-Item "C:\Dell\TSSv2.zip" -recurse -force -ErrorAction Ignore
+#Creating c:\Dell folder and downloading TSSv2
+    mkdir c:\Dell -ErrorAction Ignore
+    wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
+#Unpacking TSSv2 at C:\Dell
+    Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
+Clear-Host
+$Ver="1.0"
+
+#IE Fix
+Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
+
+#Set Execution Policy
+Set-ExecutionPolicy Unrestricted
+
 DisplayMenu
+
 $logfolder=(gci -Path c:\dell\SDP_* | ? { $_.PSIsContainer } | sort CreationTime).name
 Write-Host "Logs available at c:\Dell\$logfolder"
 #Removing extracted collector and zip file
