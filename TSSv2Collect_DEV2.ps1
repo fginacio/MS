@@ -14,7 +14,7 @@ Function EndScript{
 
 Function Invoke-TSSv2Collect_DEV2{
 #Clear-Host
-$Ver=1.0
+$Ver=1.0000
 $text = @"
 v$Ver
 	   +===============================================+
@@ -99,7 +99,7 @@ Write-Host "|                                               |"
 Write-Host "|    1: Press '1' for Default collection.       |"
 Write-Host "|    2: Press '2' for Cluster collection.       |"
 Write-Host "|    3: Press '3' for HyperV collection.        |"
-Write-Host "|    Q: Press 'Q' for Exit.                     |"
+Write-Host "|    4: Press '4' for Exit.                     |"
 Write-Host "+===============================================+" 
 Write-Host 
 Write-Host " Select an option and press Enter: "  -nonewline
