@@ -69,9 +69,8 @@ Switch ($Select)
        Write-Host
        cd C:\dell\TSSv2\
        invoke-expression -command ./TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
-       Clear-Host
-       Write-Host
-       Clear-Host
+       Pause
+       #Clear-Host
        }
     '2' {
        Write-Host
