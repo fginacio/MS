@@ -46,7 +46,7 @@ Write-Host "Downloading TSSv2..."
     Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
 
 
-Function ShowMenu{
+<#Function ShowMenu{
     do
      {
 
@@ -88,7 +88,59 @@ Function ShowMenu{
 }#End of ShowMenu
 ShowMenu
 }
+#>
 
+Function ShowMenu{
+       {
+
+$MainMenu = {
+Write-Host "+===============================================+"
+Write-Host "|                                               |"
+Write-Host "|    1: Press '1' for Default collection.       |"
+Write-Host "|    2: Press '2' for Cluster collection.       |"
+Write-Host "|    3: Press '3' for HyperV collection.        |"
+Write-Host "|    Q: Press 'Q' for Exit.                     |"
+Write-Host "+===============================================+" 
+Write-Host 
+Write-Host " Select an option and press Enter: "  -nonewline
+}
+Clear-Host
+
+Do { 
+Clear-Host
+Invoke-Command $MainMenu
+$Select = Read-Host
+Switch ($Select)
+    {
+    1 {
+       Write-Host
+       C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula
+       Clear-Host
+       Write-Host
+       Clear-Host
+       }
+    2 {
+       Write-Host
+       C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula
+       Clear-Host
+       Write-Host
+       Clear-Host
+       }
+    3 {
+       Write-Host
+       C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula
+       Clear-Host
+       Write-Host
+       Write-Host " Selected virtual machines have been started."
+       Clear-Host
+       }
+    }
+}
+While ($Select -ne 4)
+
+}#End of ShowMenu
+ShowMenu
+}
 
 
 	
