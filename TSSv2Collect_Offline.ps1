@@ -14,7 +14,7 @@ Function EndScript{
     Clear-Host
     Write-Host @"
     +===============================================+
-    |  TSSv2 - Log Collection  v$Ver                 |     
+    |  TSSv2 - Log Collection  v$Ver  Offline Mode   |     
     |                                               |
     |           By: Fabiano Inacio                  | 
     +===============================================+
@@ -79,7 +79,7 @@ Write-Host "Downloading TSSv2..."
 #Unpacking TSSv2 at C:\Dell
     Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
 Clear-Host
-$Ver="1.0"
+$Ver="1.1"
 
 #IE Fix
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
