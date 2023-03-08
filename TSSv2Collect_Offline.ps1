@@ -71,7 +71,7 @@ default {
 $dell="c:\Dell\"
 $TSS="C:\dell\TSSv2\"
 Clear-Host
-Write-Host "Downloading TSSv2..."
+Write-Host "Unpacking TSSv2..."
 #Deleting old log collections and transcript logs
     Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     Remove-Item "C:\Dell\TSSv2Collect*.log" -recurse -force -ErrorAction Ignore
