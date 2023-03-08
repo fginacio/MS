@@ -35,7 +35,7 @@ Copy the below powershell code and paste into PowerShell
 Echo TSSv2Collect;[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;Invoke-Expression('$module="TSSv2Collect"; $repo="PowershellScripts"'+(new-object net.webclient).DownloadString('https://raw.githubusercontent.com/fginacio/MS/main/TSSv2Collect.ps1'))
 ``` 
 
-
+-------------------------------------------------------------------------------------------------------------------------------------------------
 
 ****# How To Use TSSv2Collect_Offline****
 
@@ -43,9 +43,9 @@ Echo TSSv2Collect;[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityPro
 2. On server were you need make a collection, save the TSSv2.zip at c:\Dell\ folder;
 3. Download the TSSv2Collect_Offline.ps1 from this link <https://raw.githubusercontent.com/fginacio/MS/main/TSSv2Collect_Offline.ps1> and save at c:\Dell\ folder;
 4. Run the copied code
-
-Echo TSSv2Collect_Offline;[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;Invoke-Expression('$module="TSSv2Collect_Offline"; $repo="PowershellScripts"'+(new-object net.webclient).DownloadString('c:\dell\TSSv2Collect_offline.ps1'));Invoke-TSSv2Collect_offline
-
+```Powershell
+Echo TSSv2Collect_Offline;[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;Invoke-Expression('$module="TSSv2Collect_Offline"; $repo="PowershellScripts"'+(new-object net.webclient).DownloadString('c:\dell\TSSv2Collect_offline.ps1'));
+``` 
 5. The rest will run as normal
 
 
