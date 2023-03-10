@@ -37,7 +37,7 @@ Switch ($MENU)
     cd $tss
     Compress-Archive -path "C:\Dell\SDP_Setup\" -DestinationPath $dell
     $Shell = New-Object -ComObject "WScript.Shell"
-    $Button = $Shell.Popup("Logs available at C:\Dell\SDP_Setup\", 0, "Collection Successfull", 0)
+    $Button = $Shell.Popup("Logs available at C:\Dell\SDP_Mini\", 0, "Collection Successfull", 0)
     DisplayMenu
   }
         2 {
