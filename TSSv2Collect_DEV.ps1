@@ -32,10 +32,10 @@ Switch ($MENU)
     {
         1 {
     #OPTION1 - Default Collection
-    $path = Read-Host "Choose the logfile name or SupportCase Number"
+    $CaseNumber = Read-Host "Choose the logfile name or SupportCase Number"
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
-    Compress-Archive -path $dell$path -DestinationPath $dell
+    Compress-Archive -path "C:\Dell\SDP_Setup\" -DestinationPath $dell
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at C:\Dell\SDP_Setup\", 0, "Collection Successfull", 0)
     DisplayMenu
