@@ -87,7 +87,7 @@ Write-Host "Downloading TSSv2..."
 #Unpacking TSSv2 at C:\Dell
     Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
 Clear-Host
-$Ver="1.1"
+$Ver="1.2"
 
 #IE Fix
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
