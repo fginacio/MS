@@ -32,10 +32,10 @@ Switch ($MENU)
     {
         1 {
     #OPTION1 - Default Collection
-    $CaseNumber = Read-Host "Choose the logfile name or SupportCase Number"
+    $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
-    Compress-Archive -path "C:\Dell\SDP_Mini\" -DestinationPath $dell
+    Compress-Archive -path "C:\Dell\SDP_Mini\" -DestinationPath $dell\$CaseNumber
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at C:\Dell\SDP_Mini\", 0, "Collection Successfull", 0)
     DisplayMenu
@@ -87,7 +87,7 @@ Write-Host "Downloading TSSv2..."
 #Unpacking TSSv2 at C:\Dell
     Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
 Clear-Host
-$Ver="1.12"
+$Ver="1.2"
 
 #IE Fix
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
