@@ -23,7 +23,7 @@ Function EndScript{
     |  TSSv2 - Log Collection  v$Ver                 |     
     |                                               |
     |  Fixes:                                       |
-    |       $Fix                                     | 
+    |       $Fix   | 
     |                                               |
     |           By: Fabiano Inacio                  | 
     +===============================================+
