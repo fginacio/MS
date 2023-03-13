@@ -22,9 +22,6 @@ Function EndScript{
     +===============================================+
     |  TSSv2 - Log Collection  v$Ver                 |     
     |                                               |
-    |  Fixes:                                       |
-    |       $Fix   | 
-    |                                               |
     |           By: Fabiano Inacio                  | 
     +===============================================+
     |                                               |
@@ -102,7 +99,6 @@ Write-Host "Downloading TSSv2..."
     Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
 Clear-Host
 $Ver="1.2"
-$Fix="User can choose the output file name."
 
 #IE Fix
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
