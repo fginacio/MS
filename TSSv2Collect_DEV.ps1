@@ -37,7 +37,12 @@ Switch ($MENU)
     {
         1 {
     #OPTION1 - Default Collection
+    #$CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
+    if ([string]::IsNullOrWhiteSpace($CaseNumber))
+        {
+            $CaseNumber = ‘Default’
+        }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
     Compress-Archive -path "C:\Dell\SDP_Setup\" -DestinationPath $dell\$CaseNumber
@@ -48,7 +53,12 @@ Switch ($MENU)
   }
         2 {
     #OPTION2 - Cluster Collection
+    #$CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
+    if ([string]::IsNullOrWhiteSpace($CaseNumber))
+        {
+            $CaseNumber = ‘Default’
+        }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
     Compress-Archive -path "C:\Dell\SDP_Cluster\" -DestinationPath $dell\$CaseNumber
@@ -60,7 +70,12 @@ Switch ($MENU)
   }
         3 {
     #OPTION3 - HyperV Collection
+    #$CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
+    if ([string]::IsNullOrWhiteSpace($CaseNumber))
+        {
+            $CaseNumber = ‘Default’
+        }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
     Compress-Archive -path "C:\Dell\SDP_HyperV\" -DestinationPath $dell\$CaseNumber
