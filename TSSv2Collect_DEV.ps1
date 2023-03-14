@@ -128,8 +128,9 @@ DisplayMenu
 
 #Invoke-TSSv2Collect
 
-$logfolder=(gci -Path c:\dell\SDP_* | ? { $_.PSIsContainer } | sort CreationTime).name
-Write-Host "Logs available at c:\Dell\$logfolder"
+#$logfolder=(gci -Path c:\dell\*.zip | ? { $_.PSIsContainer } | sort CreationTime).name
+#Write-Host "Logs available at c:\Dell\$logfolder"
+Write-Host "Logs available at $dell\$CaseNumber"
 #Removing extracted collector and zip file
     Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
 #}
