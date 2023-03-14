@@ -87,7 +87,7 @@ Switch ($MENU)
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
         {
-            $CaseNumber = "Mini Collection"
+            $CaseNumber = "DefaultMini Collection"
         }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
