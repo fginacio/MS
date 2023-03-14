@@ -127,7 +127,7 @@ DisplayMenu
 
 $logfolder=(gci -Path c:\dell\$CaseNumber.zip | ? { $_.PSIsContainer } | sort CreationTime).name
 #Write-Host "Logs available at c:\Dell\$logfolder"
-Write-Host "Logs available at $dell\$CaseNumber.zip"
+Write-Host "Logs available at $dell\$logfolder.zip"
 
 #Removing extracted collector and zip file
     Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
