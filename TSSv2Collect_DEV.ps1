@@ -43,7 +43,7 @@ Switch ($MENU)
         {
             $CaseNumber = ‘Default Collection’
         }
-    invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula -noZip"
+    invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
     Compress-Archive -path "C:\Dell\SDP_Setup\" -DestinationPath $dell\$CaseNumber
     Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
