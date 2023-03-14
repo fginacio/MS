@@ -132,6 +132,4 @@ Write-Host "Logs available at $dell\$CaseNumber.zip"
 #Removing extracted collector and zip file
     Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
 
-#Clearing Variables
-    Clear-Variable -name ("Ver", "TSS", "CaseNumber", "LogFolder", "Menu", "DateTime" )
 #}
