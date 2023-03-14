@@ -135,6 +135,7 @@ $Ver="1.2"
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
 
 #Set Execution Policy
+$ExecutionPolicy = Get-ExecutionPolicy
 Set-ExecutionPolicy Unrestricted
 
 DisplayMenu
@@ -144,6 +145,7 @@ DisplayMenu
 $logfolder=(gci -Path c:\dell\$CaseNumber.zip | ? { $_.PSIsContainer } | sort CreationTime).name
 #Write-Host "Logs available at c:\Dell\$logfolder"
 Write-Host "Logs available at $dell\$CaseNumber.zip"
+Set-ExecutionPolicy $ExecutionPolicy
 
 #Removing extracted collector and zip file
     Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
