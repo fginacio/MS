@@ -82,7 +82,7 @@ Switch ($MENU)
     Start-Sleep -Seconds 2
     DisplayMenu
     }
-        lled {
+        m {
     #Hidden OPTION - Mini Collection
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
