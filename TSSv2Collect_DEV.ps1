@@ -141,10 +141,11 @@ Set-ExecutionPolicy Unrestricted
 DisplayMenu
 
 #Invoke-TSSv2Collect
-
-$logfolder=(gci -Path c:\dell\$CaseNumber.zip | ? { $_.PSIsContainer } | sort CreationTime).name
+Remove-Item "C:\Dell\TSSv2.zip" -recurse -force -ErrorAction Ignore
+$logfolder=(gci -Path c:\dell\*.zip -name)
+#$logfolder=(gci -Path c:\dell\*.zip | ? { $_.PSIsContainer } | sort CreationTime).name
 #Write-Host "Logs available at c:\Dell\$logfolder"
-Write-Host "Logs available at $dell\$CaseNumber.zip"
+Write-Host "Logs available at $dell\$logfolder"
 Set-ExecutionPolicy $ExecutionPolicy
 
 #Removing extracted collector and zip file
