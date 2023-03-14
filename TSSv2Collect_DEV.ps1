@@ -37,7 +37,6 @@ Switch ($MENU)
     {
         1 {
     #OPTION1 - Default Collection
-    #$CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
         {
@@ -53,7 +52,6 @@ Switch ($MENU)
   }
         2 {
     #OPTION2 - Cluster Collection
-    #$CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
         {
@@ -70,7 +68,6 @@ Switch ($MENU)
   }
         3 {
     #OPTION3 - HyperV Collection
-    #$CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
         {
@@ -128,9 +125,13 @@ DisplayMenu
 
 #Invoke-TSSv2Collect
 
-#$logfolder=(gci -Path c:\dell\*.zip | ? { $_.PSIsContainer } | sort CreationTime).name
+$logfolder=(gci -Path c:\dell\$CaseNumber.zip | ? { $_.PSIsContainer } | sort CreationTime).name
 #Write-Host "Logs available at c:\Dell\$logfolder"
-Write-Host "Logs available at $dell\$CaseNumber"
+Write-Host "Logs available at $dell\$CaseNumber.zip"
+
 #Removing extracted collector and zip file
     Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
+
+#Clearing Variables
+    Clear-Variable -name ()"Ver", "TSS", "CaseNumber", "LogFolder", "Menu", "DateTime" )
 #}
