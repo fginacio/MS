@@ -82,6 +82,22 @@ Switch ($MENU)
     Start-Sleep -Seconds 2
     DisplayMenu
     }
+        lled {
+    #Hidden OPTION - Mini Collection
+    $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
+    if ([string]::IsNullOrWhiteSpace($CaseNumber))
+        {
+            $CaseNumber = ‘Mini Collection’
+        }
+    invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -Mini HyperV -LogFolderPath $dell -AcceptEula -noZip"
+    cd $tss
+    Compress-Archive -path "C:\Dell\SDP_Mini\" -DestinationPath $dell\$CaseNumber
+    Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
+    $Shell = New-Object -ComObject "WScript.Shell"
+    $Button = $Shell.Popup("Logs available at $dell\$CaseNumber.zip", 0, "Collection Successfull", 0)
+    Start-Sleep -Seconds 2
+    DisplayMenu
+    } 
         Q {
     #OPTIONQ - EXIT
     Write-Host "Bye"
@@ -127,7 +143,7 @@ DisplayMenu
 
 $logfolder=(gci -Path c:\dell\$CaseNumber.zip | ? { $_.PSIsContainer } | sort CreationTime).name
 #Write-Host "Logs available at c:\Dell\$logfolder"
-Write-Host "Logs available at $dell\$logfolder.zip"
+Write-Host "Logs available at $dell\$CaseNumber.zip"
 
 #Removing extracted collector and zip file
     Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
