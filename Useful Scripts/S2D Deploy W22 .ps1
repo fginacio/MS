@@ -20,9 +20,9 @@ Set-VMNetworkAdapterVlan -ManagementOS -VMNetworkAdapterName Cluster -Access -Vl
 
 
 #set nics storage 
-#mellanox com windows 22 - RoCEv2
-#mellanox com windows 2019 - RoCE
-#Qlogic(outros hbas não mellanox) - iWarp
+#mellanox W22 - RoCEv2
+#mellanox w19 - RoCE
+#Qlogic, Intel - iWarp
 Set-NetAdapter -name Storage1 -VlanID 180
 Set-NetAdapter -name Storage2 -VlanID 181
 Set-NetAdapterAdvancedProperty -Name "Storage1" -DisplayName "NetworkDirect Technology" -DisplayValue "RoCEv2"
