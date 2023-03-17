@@ -130,7 +130,7 @@ $ps=($PSVersionTable).PSVersion.Major
 
 #Creating c:\Dell folder and downloading TSSv2
     mkdir c:\Dell -ErrorAction Ignore
-    wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
+    #wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
 
 #Unpacking TSSv2 at C:\Dell
 if ($ps -ge 5)
@@ -153,6 +153,7 @@ else
 
 "@
         Write-Host $ErrorMSG -ForegroundColor Red -BackgroundColor Yellow
+        EndScript
     }
 
 #    Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
