@@ -151,7 +151,7 @@ else
             Or Use the TSSv2 Offline available at 
             https://github.com/fginacio/MS#how-to-use-tssv2collect_offline
 
-            "@
+"@
         Write-Host $ErrorMSG -ForegroundColor Red -BackgroundColor Yellow
     }
 
