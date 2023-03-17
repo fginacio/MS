@@ -7,7 +7,6 @@
 Fixes and Improvements:
 V 1.2
     User can choose the output file name.
-    Check requirements before start scritp (powershell version 5.1 minimum)
 
 #>
 Function EndScript{ 
@@ -124,38 +123,11 @@ Write-Host "Downloading TSSv2..."
     Remove-Item "C:\Dell\TSSv2Collect*.log" -recurse -force -ErrorAction Ignore
     Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
     Remove-Item "C:\Dell\TSSv2.zip" -recurse -force -ErrorAction Ignore
-
-#Checking requirements to run (Minimun Powershell 5.1)
-$ps=($PSVersionTable).PSVersion.Major
-
 #Creating c:\Dell folder and downloading TSSv2
     mkdir c:\Dell -ErrorAction Ignore
     wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
-
 #Unpacking TSSv2 at C:\Dell
-if ($ps -ge 5)
-    {
-        (Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore)
-    }
-else
-    {
-        $ErrorMSG = 
-            @"
-
-            Your system dont meet the minimum requirements to run TSSv2 Collector.
-            Your current Powershell version is $ps.
-
-            Install Windows Management Framework 5.1 available at 
-            https://www.microsoft.com/en-us/download/details.aspx?id=54616
-
-            Or Use the TSSv2 Offline available at 
-            https://github.com/fginacio/MS#how-to-use-tssv2collect_offline
-
-            "@
-        Write-Host $ErrorMSG -ForegroundColor Red -BackgroundColor Yellow
-    }
-
-#    Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
+    Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
 Clear-Host
 $Ver="1.2"
 
