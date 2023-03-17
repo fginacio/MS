@@ -77,7 +77,7 @@ Write-Host "Unpacking TSSv2..."
     Remove-Item "C:\Dell\TSSv2Collect*.log" -recurse -force -ErrorAction Ignore
     Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
 #Unpacking TSSv2 at C:\Dell
-    Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
+    #Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
 Clear-Host
 $Ver="1.1"
 
