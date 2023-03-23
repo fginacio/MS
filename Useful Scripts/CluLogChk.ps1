@@ -30,6 +30,7 @@ $SDDCPath=Read-Host -Prompt "Path from cluster.log files"
 $ClusterLogFiles=Get-ChildItem -Path $SDDCPath -Filter "*_cluster.log" -Recurse -Depth 1        
         $SearchStringArray=@()  
 		$SearchStringArray+="missed more than 40 percent of consecutive heartbeats" 		# Heartbeats are failing which network connectivity issues between nodes
+        $SearchStringArray+="Missed 40% of the heart beats with node"               		# Heartbeats are failing which network connectivity issues between nodes
 		$SearchStringArray+="Cluster has lost the UDP connection from local endpoint" 		# UDP port 3343 comunication is vital between nodes
 		$SearchStringArray+="no longer accessible from this cluster nodes" 					# CSV Failures look like this
 		$SearchStringArray+="Initiating DrainNode" 											# Node drain initiated
@@ -40,6 +41,10 @@ $ClusterLogFiles=Get-ChildItem -Path $SDDCPath -Filter "*_cluster.log" -Recurse 
 		$SearchStringArray+="Capture C:\Windows\Cluster\Reports\" 							# Cluster service failed
 		$SearchStringArray+="was removed from the active failover cluster membership"		# Node removed due to network communication
         $SearchStringArray+="has entered a paused state because of 'STATUS"                 # CSV disconnect from node 
+        $SearchStringArray+="Received notification for two-fifth consecutive missed HBs"    # 2/5 Missed HB
+        $SearchStringArray+="got event: NetftTwoFifthMissedHeartbeats event"                # 2/5 Missed HB
+        $SearchStringArray+="Lost connection to node"                                       # Node Lost Connection
+        $SearchStringArray+="found at unsafe altitude"                                      # Unsafe Altitude
 $i++ 
      Write-Progress -Activity "Checking $ClusterLogFiles.FullName" -Status "Percent Complete" -PercentComplete (($i / ($ClusterLogFiles.count) * 10)) 
 
