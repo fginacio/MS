@@ -94,3 +94,6 @@ Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\spaceport\Paramet
 
 #set live migration mode
 Set-VMHost -VirtualMachineMigrationPerformanceOption SMB
+
+#Disable IPv6 iSM card
+Disable-NetAdapterBinding -InterfaceAlias "Ethernet" -ComponentID ms_tcpip6
