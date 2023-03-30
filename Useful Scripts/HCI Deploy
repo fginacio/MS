@@ -1,1 +1,160 @@
+# To get the operating system and latest hotfix versions
+    Get-ComputerInfo | select OSDisplayVersion,WindowsProductName
+    get-hotfix
+
+#Install roles and features
+    Install-WindowsFeature -Name Hyper-V, NetworkATC, NetworkHUD, FS-SMBBW, Failover-Clustering, Data-Center-Bridging, BitLocker, FS-FileServer,  RSAT-Clustering-PowerShell, FS-Data-Deduplication -IncludeAllSubFeature -IncludeManagementTools -verbose
+
+
+#Update out-of-box drivers
+    Get-PnpDevice | Select-Object Name, @{l='DriverVersion';e={(Get-PnpDeviceProperty - InstanceId $_.InstanceId -KeyName 'DEVPKEY_Device_DriverVersion').Data}} -Unique | Where-Object {($_.Name -like "*HBA*") -or ($_.Name -like "*mellanox*") -or ($_.Name -like "*Qlogic*") -or ($_.Name -like "*X710*") -or ($_.Name -like "*Broadcom*") -or ($_.Name -like "*marvell*") -or ($_.Name -like "*E810*") }
+
+#Change the hostname
+Rename-Computer -NewName S2DNode01 -Restart
+
+#Joining cluster nodes to an Active Directory domain
+    $credential = Get-Credential
+    Add-Computer -DomainName S2dlab.local -Credential $credential -Restart
+
+
+#Switchless Architecture with Network ATC
+    #Configure host networking
+    #Login to the host console of each system using iDRAC Virtual Console and assign host IPs and respective VLANs
+    #This step is not needed if you have DHCP in your environment. Ensure the hosts are assigned IPs in the correct VLAN.
+    
+    New-NetIPAddress -InterfaceAlias "pNIC1" -IPAddress 192.168.11.11 -PrefixLength 24 -AddressFamily IPv4 –Verbose
+    New-NetIPAddress -InterfaceAlias "pNIC2" -IPAddress 192.168.12.11 -PrefixLength 24 -AddressFamily IPv4 –Verbose
+    Get-NetAdapter -Name "pNIC1" | Set-NetAdapter -VlanID 202 -Confirm:$false
+    Get-NetAdapter -Name "pNIC2" | Set-NetAdapter -VlanID 202 -Confirm:$false
+    
+    #Do the above for all nodes.
+
+#Setup IPs manually on SMB NICs
+
+#Login to the host console of each system using iDRAC Virtual Console and assign host IPs and respective VLANs
+#This step is not needed if you have DHCP in your environment. Ensure the hosts are assigned IPs in the correct VLAN.
+
+    New-NetIPAddress -InterfaceAlias "pNIC1" -IPAddress 192.168.11.11 -PrefixLength 24 -AddressFamily IPv4 –Verbose
+    New-NetIPAddress -InterfaceAlias "pNIC2" -IPAddress 192.168.12.11 -PrefixLength 24 -AddressFamily IPv4 –Verbose
+    Get-NetAdapter -Name "pNIC1" | Set-NetAdapter -VlanID 202 -Confirm:$false
+    Get-NetAdapter -Name "pNIC2" | Set-NetAdapter -VlanID 202 -Confirm:$false
+
+#Do the above for all nodes.#Setup Storage Network for Switchless Topology 
+
+    $StorageSubnet = '172.16.0.0' 
+    $SingleStorageIPAddress = 
+    @('172.16.12','172.16.13','172.16.14','172.16.23','172.16.24','172.16.34') 
+
+    $DualStorageIPAddress = 
+    @('172.16.21','172.16.31','172.16.41','172.16.32','172.16.42','172.16.43')
+
+    $SingleAdapterNames = 
+    @('Storage1-2','Storage1-3','Storage1-4','Storage2-3','Storage2-4','Storage3-4')
+
+    $DualAdapterNames = 
+    @('Storage2-1','Storage3-1','Storage4-1','Storage3-2','Storage4-2','Storage4-3')
+
+    $StorageAddressPrefix = 29
+
+    $supportedAdapters = @("Mellanox", "QLogic", "E810")
+
+    $StorageAdapter = Get-NetAdapter | Where InterfaceDescription -Match ($supportedAdapters -Join "|") | ? Status -like Up | sort Name | Get-NetAdapterHardwareInfo | ? Slot -GE 1 | Sort-Object Slot,Function
+
+    if ( $StorageAdapter ) {
+        Write-Output 'These adapters will be used for storage (dependant on cluster size):'
+        Write-Output $($StorageAdapter | Format-Table Name,Description,Slot,Function)
+        Pause
+    } else {
+        throw 'No RDMA Storage Adapters found!'
+    }
+    
+    $SingleStorageIPAddress = $SingleStorageIPAddress | ForEach-Object { if (($_).Substring(($_).Length -2) -match $SwitchlessNodeID) { $_ } }
+    $DualStorageIPAddress = $DualStorageIPAddress | ForEach-Object { if (($_).Substring(($_).Length -2) -match $SwitchlessNodeID) { $_ } }
+    
+    $SingleStorageIPAddress = $SingleStorageIPAddress | ForEach-Object { $_ + '.' + $SwitchlessNodeID } 
+    $DualStorageIPAddress = $DualStorageIPAddress | ForEach-Object { $_ + '.' + $SwitchlessNodeID } 
+    
+    $StorageSubnet = $StorageSubnet.Split('.')[0] + '.' + $StorageSubnet.Split('.')[1] 
+    
+    $SingleStorageIPAddress = $SingleStorageIPAddress | ForEach-Object { $_.Replace('172.16',$StorageSubnet) } 
+    $DualStorageIPAddress = $DualStorageIPAddress | ForEach-Object { $_.Replace('172.16',$StorageSubnet) } 
+    $SingleAdapterNames = $SingleAdapterNames | ForEach-Object { if ( $_ -match $SwitchlessNodeID) { $_ } }
+    $DualAdapterNames = $DualAdapterNames | ForEach-Object { if ( $_ -match $SwitchlessNodeID) { $_ } }
+    
+    Write-Output "Storage IP Addresses: $(($SingleStorageIPAddress)[0..($SwitchlessClusterNodes -2)]) ($(($DualStorageIPAddress )[0..($SwitchlessClusterNodes 
+    -2)]))"
+    Write-Output "Storage Adapter Names: $(($SingleAdapterNames)[0..($SwitchlessClusterNodes -2)]) ($(($DualAdapterNames)[0..($SwitchlessClusterNodes -2)]))"
+    Pause
+
+
+    ##
+    $mlnx=$StorageAdapter.InterfaceDescription -Match "Mellanox"
+    $qlogic=$StorageAdapter.InterfaceDescription -Match "QLogic"
+    
+    $e810 =$StorageAdapter.InterfaceDescription -Match "E810" 
+    
+    if (($mlnx -and $qlogic) -or ($mlnx -and $e810) -or ($e810 -and $qlogic)) { 
+        throw 'Multiple vendors for storage adapters found'
+    } else {
+            if ($mlnx) {
+                    $NetProtocol = "RoCEv2"
+            } elseif ($qlogic) { 
+                    $NetProtocol = "iWarp"
+            } elseif ($e810) { 
+                    $NetProtocol = "iWarp" 
+            } else {
+                    Throw 'No RDMA storage adapters found!'
+            }
+    }
+
+
+    #Creating a cluster
+        New-Cluster -Name clusterName -Node node1,node2,node3,node4 -StaticAddress 172.18.50.110 -NoStorage -Verbose
+    #Create a Witness on a file share or Azure
+        Set-ClusterQuorum -FileShareWitness \\fileShare\share
+
+
+    #Creating network intents for switchless
+        $mgmt_compute_nics = @('pMgmtNic1','pMgmtNic2')
+        $storage_nics = @('pRDMANic1','pRDMANic2', 'pRDMANic3','pRDMANic4','pRDMANic5','pRDMANic6',)
+        $Mgmt_Vlan=202
+    
+    # Set QoS Override (only necessary if there’s a deviation from MS recommendations)
+        $QoSOverride = New-NetIntentQoSPolicyOverrides
+        $QoSOverride.BandwidthPercentage_Cluster = 2
+        $QoSOverride.PriorityValue8021Action_Cluster = 5
+
+    # RDMA/JumboPacket Override for SMB & Management NIC.
+        $MgmtAdapterPropertyOverrides = New-NetIntentAdapterPropertyOverrides
+        $MgmtAdapterPropertyOverrides.NetworkDirect = 0
+        $MgmtAdapterPropertyOverrides.JumboPacket = 9014
+        $StorAdapterPropertyOverrides = New-NetIntentAdapterPropertyOverrides
+        $StorAdapterPropertyOverrides.JumboPacket = 9014
+    
+    #Set storageOverride to prevent ATC from setting IPs automatically.
+        $storageOverride=New-NetIntentStorageOverrides 
+        $storageOverride.EnableAutomaticIPGeneration = $false
+    
+    # Create Management and Commpute Intent
+        Add-NetIntent -Name Management_Compute -Management -Compute -AdapterName $mgmt_compute_nics -ManagementVlan $Mgmt_Vlan -AdapterPropertyOverrides $MgmtAdapterPropertyOverrides   
+
+    # Create Storage Intent
+        Add-NetIntent -Name Storage -Storage -AdapterName $storage_nics -QosPolicyOverrides $QoSOverride -AdapterPropertyOverrides $AdapterPropertyOverrides –storageOverride $StorAdapterPropertyOverrides 
+
+#Enabling Storage Spaces Direct
+    Enable-ClusterS2D -Verbose
+
+      Get-ClusterS2D
+      Get-StoragePool
+      Get-StorageSubSystem -FriendlyName *Cluster* | Get-StorageHealthReport 
+
+#Configuring the host management network as a lower-priority network for live migration
+
+    $clusterResourceType = Get-ClusterResourceType -Name 'Virtual Machine'
+    $hostNetworkID = Get-ClusterNetwork | Where-Object { $_.Address -eq ‘172.16.102.0’ } | Select-Object -ExpandProperty ID
+    $otherNetworkID = (Get-ClusterNetwork).Where({$_.ID -ne $hostnetworkID}).ID
+    $newMigrationOrder = ($otherNetworkID + $hostNetworkID) -join ';'
+    Set-ClusterParameter -InputObject $clusterResourceType -Name MigrationNetworkOrder -Value $newMigrationOrder
+
+    
 
