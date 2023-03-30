@@ -1,4 +1,4 @@
-# To get the operating system and latest hotfix versions
+#To get the operating system and latest hotfix versions
     Get-ComputerInfo | select OSDisplayVersion,WindowsProductName
     get-hotfix
 
