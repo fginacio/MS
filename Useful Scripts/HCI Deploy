@@ -156,5 +156,38 @@ Rename-Computer -NewName S2DNode01 -Restart
     $newMigrationOrder = ($otherNetworkID + $hostNetworkID) -join ';'
     Set-ClusterParameter -InputObject $clusterResourceType -Name MigrationNetworkOrder -Value $newMigrationOrder
 
+#Updating the page file settings
     
+    $blockCacheMB = (Get-Cluster).BlockCacheSize 
+    
+    $pageFilePath = "C:\pagefile.sys"
+    $initialSize = [Math]::Round(51200 + $blockCacheMB)
+    $maximumSize = [Math]::Round(51200 + $blockCacheMB)
+    
+    $system = Get-WmiObject -Class Win32_ComputerSystem -EnableAllPrivileges
+    if ($system.AutomaticManagedPagefile) {
+        $system.AutomaticManagedPagefile = $false
+        $system.Put()
+    }
+    
+    $currentPageFile = Get-WmiObject -Class Win32_PageFileSetting
+    if ($currentPageFile.Name -eq $pageFilePath)
+    {
+        $currentPageFile.InitialSize = $InitialSize
+        $currentPageFile.MaximumSize = $MaximumSize
+        $currentPageFile.Put()
+    }
+    else
+    {
+        $currentPageFile.Delete()
+        Set-WmiInstance -Class Win32_PageFileSetting -Arguments @{Name=$pageFilePath; 
+    InitialSize = $initialSize; MaximumSize = $maximumSize}
+    }
+
+#Update the hardware timeout for the Spaces port
+    Set-ItemProperty -Path HKLM:\SYSTEM\CurrentControlSet\Services\spaceport\Parameters -Name HwTimeout -Value 0x00002710 -Verbose
+    Restart-Computer -Force
+
+
+
 
