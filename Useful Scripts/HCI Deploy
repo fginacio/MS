@@ -201,3 +201,22 @@ Rename-Computer -NewName S2DNode01 -Restart
 
 
 
+#Known issues
+
+    #Remove the USB NIC from any cluster communication
+
+    $rndisAdapter = Get-NetAdapter -InterfaceDescription 'Remote NDIS Compatible Device' -ErrorAction SilentlyContinue
+        if ($rndisAdapter)
+ 
+    {
+        Write-Log -Message 'Remote NDIS found on the system. Cluster communication will be disabled on this adapter.'
+    
+        # Get the network adapter and associated cluster network
+            $adapterId = [Regex]::Matches($rndisAdapter.InstanceID,'(?<={)(.*?)(?=})').Value
+            $usbNICInterface = (Get-ClusterNetworkInterface).Where({$_.adapterId -eq $adapterId})
+            $usbNICClusterNetwork = 
+            $usbNICInterface.Network
+        
+        # Disable Cluster communication on the identified cluster network
+            (Get-ClusterNetwork -Name $usbNICClusterNetwork.ToString()).Role = 0
+    }
