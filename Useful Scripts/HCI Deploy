@@ -189,5 +189,15 @@ Rename-Computer -NewName S2DNode01 -Restart
     Restart-Computer -Force
 
 
+#Enabling bit locker
+
+    Enable-BitLocker -MountPoint "C:" -RecoveryPasswordProtector -UsedSpaceOnly -SkipHardwareTest -WarningAction SilentlyContinue
+    Get-BitLockerVolume
+    (Get-BitlockerVolume -MountPoint "C:").KeyProtector | Where-Object {$_.KeyProtectorType -eq "RecoveryPassword"}
+
+#Recommended next steps
+    # TestCluster
+        Test-Cluster -Node S2DNode01, S2DNode02, S2DNode03, S2DNode04 -Include 'System Configuration', 'Inventory', 'Network', 'Storage Spaces Direct'
+
 
 
