@@ -1,0 +1,20 @@
+Clear
+
+ForEach ($computer in Get-Content -path "C:\Users\t3122026\Desktop\idracs.txt" ) {
+	Write-host "Testando conectividade da iDrac no Computador " $computer
+
+
+if (Test-Connection -ComputerName $computer -Quiet -Count 1) {
+	Write-Host "iniciando teste  ip"
+	$computer | Out-File -FilePath C:\Users\t3122026\Desktop\idrcsa_ok.txt -append -Encoding utf8
+	Write-Host "iDrac OK!" -ForegroundColor Yellow -BackgroundColor DarkGreen
+	Write-Host "Alteracoes finalizadas!"
+	Write-Host
+	Write-Host
+}
+
+else {
+	$computer | Out-File -FilePath C:\Users\t3122026\Desktop\idracs_BAD.txt -append -Encoding utf8
+	Write-Host
+	Write-Host "ATENCAO: iDrac do computador" $computer "nao respondeu! Tentando proxima..." -ForegroundColor Red -BackgroundColor Yellow}
+}
