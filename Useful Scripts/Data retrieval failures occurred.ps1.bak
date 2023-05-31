@@ -27,4 +27,4 @@ Remove-itemproperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Chan
 icm -ComputerName (Get-ClusterNode).name -ScriptBlock
 {Remove-itemproperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\Microsoft-Windows-Kernel-IoTrace/Diagnostic" -Name "Enabled"}
 
-#Restart all nodes to apply the changes
+#Restart all nodes to apply the changes.
