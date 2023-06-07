@@ -38,7 +38,7 @@ Switch ($MENU)
     {
         1 {
     #OPTION1 - Default Collection
-    $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
+    If($CaseNumber.length -eq 0){$CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"}
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
         {
             $CaseNumber = "Default Collection"
@@ -53,7 +53,7 @@ Switch ($MENU)
   }
         2 {
     #OPTION2 - Cluster Collection
-    $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
+    If($CaseNumber.length -eq 0){$CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"}
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
         {
             $CaseNumber = "DefaultCluster Collection"
@@ -69,7 +69,7 @@ Switch ($MENU)
   }
         3 {
     #OPTION3 - HyperV Collection
-    $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
+    If($CaseNumber.length -eq 0){$CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"}
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
         {
             $CaseNumber = "DefaultHyperV Collection"
@@ -85,7 +85,7 @@ Switch ($MENU)
     }
         m {
     #Hidden OPTION - Mini Collection
-    $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
+    If($CaseNumber.length -eq 0){$CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"}
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
         {
             $CaseNumber = "DefaultMini Collection"
@@ -158,7 +158,7 @@ else
 
 #    Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
 Clear-Host
-$Ver="1.2"
+$Ver="1.3"
 
 #IE Fix
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
