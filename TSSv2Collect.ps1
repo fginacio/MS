@@ -46,7 +46,7 @@ Switch ($MENU)
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
     Compress-Archive -path "C:\Dell\SDP_Setup\" -DestinationPath $dell\$CaseNumber
-    Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
+    #Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at $dell\$CaseNumber", 0, "Collection Successfull", 0)
     DisplayMenu
@@ -61,7 +61,7 @@ Switch ($MENU)
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
     Compress-Archive -path "C:\Dell\SDP_Cluster\" -DestinationPath $dell\$CaseNumber
-    Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
+    #Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at $dell\$CaseNumber", 0, "Collection Successfull", 0)
     Start-Sleep -Seconds 2
@@ -77,7 +77,7 @@ Switch ($MENU)
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
     Compress-Archive -path "C:\Dell\SDP_HyperV\" -DestinationPath $dell\$CaseNumber
-    Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
+    #Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at $dell\$CaseNumber", 0, "Collection Successfull", 0)
     Start-Sleep -Seconds 2
@@ -93,7 +93,7 @@ Switch ($MENU)
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
     Compress-Archive -path "C:\Dell\SDP_Mini\" -DestinationPath $dell\$CaseNumber
-    Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
+    #Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at $dell\$CaseNumber.zip", 0, "Collection Successfull", 0)
     Start-Sleep -Seconds 2
@@ -120,7 +120,7 @@ $TSS="C:\dell\TSSv2\"
 Clear-Host
 Write-Host "Downloading TSSv2..."
 #Deleting old log collections and transcript logs
-    Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
+    #Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     Remove-Item "C:\Dell\TSSv2Collect*.log" -recurse -force -ErrorAction Ignore
     Remove-Item "C:\Dell\Tssv2" -recurse -force -ErrorAction Ignore
     Remove-Item "C:\Dell\TSSv2.zip" -recurse -force -ErrorAction Ignore
