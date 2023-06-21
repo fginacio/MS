@@ -45,7 +45,13 @@ Switch ($MENU)
         }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
-    Compress-Archive -path "C:\Dell\SDP_Setup\" -DestinationPath $dell\$CaseNumber
+    #Compress-Archive -path "C:\Dell\SDP_Setup\" -DestinationPath $dell\$CaseNumber
+    $sourceFolder = "C:\Dell\SDP_Setup\"
+    [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
+    [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $destinationZip)
+    Write-Host "Compressing $sourceFolder folder to $destinationZip. This might take a while."
+    Start-Sleep -s 5 #give some time for logging to complete before starting zip
+    
     Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at $dell\$CaseNumber", 0, "Collection Successfull", 0)
@@ -60,7 +66,13 @@ Switch ($MENU)
         }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
-    Compress-Archive -path "C:\Dell\SDP_Cluster\" -DestinationPath $dell\$CaseNumber
+    #Compress-Archive -path "C:\Dell\SDP_Cluster\" -DestinationPath $dell\$CaseNumber
+    $sourceFolder = "C:\Dell\SDP_Cluster\"
+    [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
+    [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $destinationZip)
+    Write-Host "Compressing $sourceFolder folder to $destinationZip. This might take a while."
+    Start-Sleep -s 5 #give some time for logging to complete before starting zip
+    
     Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at $dell\$CaseNumber", 0, "Collection Successfull", 0)
@@ -76,7 +88,13 @@ Switch ($MENU)
         }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
-    Compress-Archive -path "C:\Dell\SDP_HyperV\" -DestinationPath $dell\$CaseNumber
+    #Compress-Archive -path "C:\Dell\SDP_HyperV\" -DestinationPath $dell\$CaseNumber
+    $sourceFolder = "C:\Dell\SDP_HyperV\"
+    [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
+    [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $destinationZip)
+    Write-Host "Compressing $sourceFolder folder to $destinationZip. This might take a while."
+    Start-Sleep -s 5 #give some time for logging to complete before starting zip
+    
     Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at $dell\$CaseNumber", 0, "Collection Successfull", 0)
@@ -92,7 +110,7 @@ Switch ($MENU)
         }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
-    Compress-Archive -path "C:\Dell\SDP_Mini\" -DestinationPath $dell\$CaseNumber
+    #Compress-Archive -path "C:\Dell\SDP_Mini\" -DestinationPath $dell\$CaseNumber
     Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at $dell\$CaseNumber.zip", 0, "Collection Successfull", 0)
@@ -117,6 +135,7 @@ default {
 
 $dell="c:\Dell\"
 $TSS="C:\dell\TSSv2\"
+$destinationZip = "$dell$CaseNumber.zip" 
 Clear-Host
 Write-Host "Downloading TSSv2..."
 #Deleting old log collections and transcript logs
