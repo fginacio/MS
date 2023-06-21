@@ -41,6 +41,7 @@ Switch ($MENU)
     Write-Host "Below symbols are not allowed." 
 	Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\"
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
+    $destinationZip = "$dell$CaseNumber.zip"
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
         {
             $CaseNumber = "Default Collection"
@@ -64,6 +65,7 @@ Switch ($MENU)
     Write-Host "Below symbols are not allowed." 
 	Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\"
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
+    $destinationZip = "$dell$CaseNumber.zip"
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
         {
             $CaseNumber = "DefaultCluster Collection"
@@ -88,6 +90,7 @@ Switch ($MENU)
     Write-Host "Below symbols are not allowed." 
 	Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\"
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
+    $destinationZip = "$dell$CaseNumber.zip"
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
         {
             $CaseNumber = "DefaultHyperV Collection"
@@ -112,6 +115,7 @@ Switch ($MENU)
     Write-Host "Below symbols are not allowed." 
 	Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\"
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
+    $destinationZip = "$dell$CaseNumber.zip"
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
         {
             $CaseNumber = "DefaultMini Collection"
@@ -149,7 +153,7 @@ default {
 
 $dell="c:\Dell\"
 $TSS="C:\dell\TSSv2\"
-$destinationZip = "$dell$CaseNumber.zip" 
+#$destinationZip = "$dell$CaseNumber.zip" 
 Clear-Host
 Write-Host "Downloading TSSv2..."
 #Deleting old log collections and transcript logs
