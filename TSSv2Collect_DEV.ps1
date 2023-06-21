@@ -119,7 +119,7 @@ Switch ($MENU)
 
     Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
-    $Button = $Shell.Popup("Logs available at $dell\$CaseNumber.zip", 0, "Collection Successfull", 0)
+    $Button = $Shell.Popup("Logs available at $dell$CaseNumber.zip", 0, "Collection Successfull", 0)
     Start-Sleep -Seconds 2
     DisplayMenu
     } 
