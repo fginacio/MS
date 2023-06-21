@@ -38,6 +38,8 @@ Switch ($MENU)
     {
         1 {
     #OPTION1 - Default Collection
+    Write-Host "Below symbols are not allowed." 
+	Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\"
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
         {
@@ -59,6 +61,8 @@ Switch ($MENU)
   }
         2 {
     #OPTION2 - Cluster Collection
+    Write-Host "Below symbols are not allowed." 
+	Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\"
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
         {
@@ -81,6 +85,8 @@ Switch ($MENU)
   }
         3 {
     #OPTION3 - HyperV Collection
+    Write-Host "Below symbols are not allowed." 
+	Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\"
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
         {
@@ -103,6 +109,8 @@ Switch ($MENU)
     }
         m {
     #Hidden OPTION - Mini Collection
+    Write-Host "Below symbols are not allowed." 
+	Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\"
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     if ([string]::IsNullOrWhiteSpace($CaseNumber))
         {
