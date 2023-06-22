@@ -8,7 +8,8 @@ Fixes and Improvements:
 V 1.2
     User can choose the output file name.
     Check requirements before start scritp (powershell version 5.1 minimum)
-
+V 1.3
+    Fix log compression.
 #>
 Function EndScript{ 
     break
@@ -48,7 +49,8 @@ Switch ($MENU)
             }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
-    #Compress-Archive -path "C:\Dell\SDP_Setup\" -DestinationPath $dell\$CaseNumber
+    
+    #Compressing logs
         $sourceFolder = "C:\Dell\SDP_Setup\"
         [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
         [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $destinationZip)
@@ -72,7 +74,8 @@ Switch ($MENU)
             }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
-    #Compress-Archive -path "C:\Dell\SDP_Cluster\" -DestinationPath $dell\$CaseNumber
+    
+    #Compressing logs
         $sourceFolder = "C:\Dell\SDP_Cluster\"
         [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
         [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $destinationZip)
@@ -97,7 +100,8 @@ Switch ($MENU)
             }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
-    #Compress-Archive -path "C:\Dell\SDP_HyperV\" -DestinationPath $dell\$CaseNumber
+    
+    #Compressing logs
         $sourceFolder = "C:\Dell\SDP_HyperV\"
         [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
         [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $destinationZip)
@@ -122,7 +126,8 @@ Switch ($MENU)
             }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
-    #Compress-Archive -path "C:\Dell\SDP_Mini\" -DestinationPath $dell\$CaseNumber
+    
+    #Compressing logs
         $sourceFolder = "C:\Dell\SDP_Mini\"
         [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
         [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $destinationZip)
@@ -211,7 +216,7 @@ Remove-Item "C:\Dell\TSSv2.zip" -recurse -force -ErrorAction Ignore
 $logfolder=(gci -Path c:\dell\*.zip -name)
 #$logfolder=(gci -Path c:\dell\*.zip | ? { $_.PSIsContainer } | sort CreationTime).name
 #Write-Host "Logs available at c:\Dell\$logfolder"
-Write-Host "Logs available at $dell\$logfolder"
+Write-Host "Logs available at $dell$logfolder"
 Set-ExecutionPolicy $ExecutionPolicy
 
 #Removing extracted collector and zip file
