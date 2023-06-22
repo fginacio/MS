@@ -38,22 +38,22 @@ Switch ($MENU)
     {
         1 {
     #OPTION1 - Default Collection
-    Write-Host "Below symbols are not allowed." 
-	Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\"
+    Write-Host "Below symbols are not allowed." -ForegroundColor Yellow -BackgroundColor DarkGray
+	Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\" -ForegroundColor Yellow -BackgroundColor DarkGray
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     $destinationZip = "$dell$CaseNumber.zip"
-    if ([string]::IsNullOrWhiteSpace($CaseNumber))
-        {
-            $CaseNumber = "Default Collection"
-        }
+        if ([string]::IsNullOrWhiteSpace($CaseNumber))
+            {
+                $CaseNumber = "Default Collection"
+            }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
     #Compress-Archive -path "C:\Dell\SDP_Setup\" -DestinationPath $dell\$CaseNumber
-    $sourceFolder = "C:\Dell\SDP_Setup\"
-    [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
-    [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $destinationZip)
-    Write-Host "Compressing $sourceFolder folder to $destinationZip. This might take a while."
-    Start-Sleep -s 5 #give some time for logging to complete before starting zip
+        $sourceFolder = "C:\Dell\SDP_Setup\"
+        [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
+        [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $destinationZip)
+        Write-Host "Compressing $sourceFolder folder to $destinationZip. This might take a while."
+        Start-Sleep -s 5 #give some time for logging to complete before starting zip
     
     Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
@@ -62,22 +62,22 @@ Switch ($MENU)
   }
         2 {
     #OPTION2 - Cluster Collection
-    Write-Host "Below symbols are not allowed." 
-	Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\"
+    Write-Host "Below symbols are not allowed." -ForegroundColor Yellow -BackgroundColor DarkGray
+	Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\" -ForegroundColor Yellow -BackgroundColor DarkGray
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     $destinationZip = "$dell$CaseNumber.zip"
-    if ([string]::IsNullOrWhiteSpace($CaseNumber))
-        {
-            $CaseNumber = "DefaultCluster Collection"
-        }
+        if ([string]::IsNullOrWhiteSpace($CaseNumber))
+            {
+                $CaseNumber = "DefaultCluster Collection"
+            }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
     #Compress-Archive -path "C:\Dell\SDP_Cluster\" -DestinationPath $dell\$CaseNumber
-    $sourceFolder = "C:\Dell\SDP_Cluster\"
-    [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
-    [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $destinationZip)
-    Write-Host "Compressing $sourceFolder folder to $destinationZip. This might take a while."
-    Start-Sleep -s 5 #give some time for logging to complete before starting zip
+        $sourceFolder = "C:\Dell\SDP_Cluster\"
+        [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
+        [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $destinationZip)
+        Write-Host "Compressing $sourceFolder folder to $destinationZip. This might take a while."
+        Start-Sleep -s 5 #give some time for logging to complete before starting zip
     
     Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
@@ -87,22 +87,22 @@ Switch ($MENU)
   }
         3 {
     #OPTION3 - HyperV Collection
-    Write-Host "Below symbols are not allowed." 
-	Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\"
+    Write-Host "Below symbols are not allowed." -ForegroundColor Yellow -BackgroundColor DarkGray
+	Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\" -ForegroundColor Yellow -BackgroundColor DarkGray
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     $destinationZip = "$dell$CaseNumber.zip"
-    if ([string]::IsNullOrWhiteSpace($CaseNumber))
-        {
-            $CaseNumber = "DefaultHyperV Collection"
-        }
+        if ([string]::IsNullOrWhiteSpace($CaseNumber))
+            {
+                $CaseNumber = "DefaultHyperV Collection"
+            }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
     #Compress-Archive -path "C:\Dell\SDP_HyperV\" -DestinationPath $dell\$CaseNumber
-    $sourceFolder = "C:\Dell\SDP_HyperV\"
-    [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
-    [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $destinationZip)
-    Write-Host "Compressing $sourceFolder folder to $destinationZip. This might take a while."
-    Start-Sleep -s 5 #give some time for logging to complete before starting zip
+        $sourceFolder = "C:\Dell\SDP_HyperV\"
+        [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
+        [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $destinationZip)
+        Write-Host "Compressing $sourceFolder folder to $destinationZip. This might take a while."
+        Start-Sleep -s 5 #give some time for logging to complete before starting zip
     
     Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
@@ -112,22 +112,22 @@ Switch ($MENU)
     }
         m {
     #Hidden OPTION - Mini Collection
-    Write-Host "Below symbols are not allowed." 
-	Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\"
+    Write-Host "Below symbols are not allowed." -ForegroundColor Yellow -BackgroundColor DarkGray
+	Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\" -ForegroundColor Yellow -BackgroundColor DarkGray
     $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag"
     $destinationZip = "$dell$CaseNumber.zip"
-    if ([string]::IsNullOrWhiteSpace($CaseNumber))
-        {
-            $CaseNumber = "DefaultMini Collection"
-        }
+        if ([string]::IsNullOrWhiteSpace($CaseNumber))
+            {
+                $CaseNumber = "DefaultMini Collection"
+            }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula -noZip"
     cd $tss
     #Compress-Archive -path "C:\Dell\SDP_Mini\" -DestinationPath $dell\$CaseNumber
-    $sourceFolder = "C:\Dell\SDP_HyperV\"
-    [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
-    [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $destinationZip)
-    Write-Host "Compressing $sourceFolder folder to $destinationZip. This might take a while."
-    Start-Sleep -s 5 #give some time for logging to complete before starting zip
+        $sourceFolder = "C:\Dell\SDP_Mini\"
+        [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
+        [System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $destinationZip)
+        Write-Host "Compressing $sourceFolder folder to $destinationZip. This might take a while."
+        Start-Sleep -s 5 #give some time for logging to complete before starting zip
 
     Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
