@@ -129,7 +129,7 @@ Switch ($MENU)
     #$destinationZip = "$dell$CaseNumber.zip"
         if ([string]::IsNullOrWhiteSpace($CaseNumber))
             {
-                $CaseNumber = "BSOD Collection"
+                $CaseNumber = "Default BSOD Collection"
             }
     #Copying logs
         #Creating a temporary dumps folder
