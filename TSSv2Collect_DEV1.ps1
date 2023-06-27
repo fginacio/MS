@@ -48,7 +48,7 @@ Switch ($MENU)
     #$destinationZip = "$dell$CaseNumber.zip"
         if ([string]::IsNullOrWhiteSpace($CaseNumber))
             {
-                $CaseNumber = "Default Collection"
+                $CaseNumber = "Default Collection $DateTime"
             }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula"
     cd $tss
@@ -75,7 +75,7 @@ Switch ($MENU)
     #$destinationZip = "$dell$CaseNumber.zip"
         if ([string]::IsNullOrWhiteSpace($CaseNumber))
             {
-                $CaseNumber = "DefaultCluster Collection"
+                $CaseNumber = "DefaultCluster Collection $DateTime"
             }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
     cd $tss
@@ -102,7 +102,7 @@ Switch ($MENU)
     #$destinationZip = "$dell$CaseNumber.zip"
         if ([string]::IsNullOrWhiteSpace($CaseNumber))
             {
-                $CaseNumber = "DefaultHyperV Collection"
+                $CaseNumber = "DefaultHyperV Collection $DateTime"
             }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula"
     cd $tss
@@ -129,7 +129,7 @@ Switch ($MENU)
     #$destinationZip = "$dell$CaseNumber.zip"
         if ([string]::IsNullOrWhiteSpace($CaseNumber))
             {
-                $CaseNumber = "Default BSOD Collection"
+                $CaseNumber = "Default BSOD Collection $DateTime"
             }
     #Copying logs
         #Creating a temporary dumps folder
@@ -180,7 +180,7 @@ Switch ($MENU)
     #$destinationZip = "$dell$CaseNumber.zip"
         if ([string]::IsNullOrWhiteSpace($CaseNumber))
             {
-                $CaseNumber = "DefaultMini Collection"
+                $CaseNumber = "DefaultMini Collection $DateTime"
             }
     invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula"
     cd $tss
