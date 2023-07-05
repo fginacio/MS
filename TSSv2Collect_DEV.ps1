@@ -3,7 +3,6 @@
        TSSv2Collect.ps1
     .EXAMPLES
        Invoke-TSSv2Collect
-
 Fixes and Improvements:
 V 1.2
     User can choose the output file name.
@@ -160,49 +159,11 @@ function DisplayMenu {
 
             #Compress-Archive -path "$DumpFolder" -DestinationPath "c:\Dell\$CaseNumber.zip" -Force
             $DestPath = "C:\Dell\$CaseNumber.zip"
-
-            Add-Type -AssemblyName System.IO.Compression.FileSystem
-
-            $files = Get-ChildItem -Path $DumpFolder -File -Recurse
-            $totalSize = ($files | Measure-Object -Property Length -Sum).Sum
-            $progress = 0
-
-            $zipFileStream = [System.IO.File]::Open($DestPath,[System.IO.FileMode]::Create)
-            $zipArchive = New-Object System.IO.Compression.ZipArchive ($zipFileStream,[System.IO.Compression.ZipArchiveMode]::Update)
-
-            $bufferSize = 1MB # Tamanho do buffer em 1 MB
-
-            foreach ($file in $files) {
-                $entryName = $file.FullName.Substring($DumpFolder.length + 1)
-                $entry = $zipArchive.CreateEntry($entryName,[System.IO.Compression.CompressionLevel]::Optimal)
-
-                $fileStream = [System.IO.File]::OpenRead($file.FullName)
-                $entryStream = $entry.Open()
-
-                $buffer = New-Object byte[] $bufferSize
-                $count = $fileStream.Read($buffer,0,$buffer.length)
-
-                while ($count -gt 0) {
-                    $entryStream.Write($buffer,0,$count)
-                    $count = $fileStream.Read($buffer,0,$buffer.length)
-
-                    $progress += $count
-                    $currentProgress = [math]::Min(($progress / $totalSize * 100),100)
-                    Write-Progress -Activity "Compactando Arquivo" -Status "Progresso" -PercentComplete $currentProgress
-                }
-
-                $entryStream.Close()
-                $fileStream.Close()
-            }
-
-            $zipArchive.Dispose()
-            $zipFileStream.Close()
-
-            <#
-        [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
-        [System.IO.Compression.ZipFile]::CreateFromDirectory("$DumpFolder", "c:\Dell\$CaseNumber.zip", [System.IO.Compression.CompressionLevel]::Optimal, $true)
+           
+            [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
+            [System.IO.Compression.ZipFile]::CreateFromDirectory("$DumpFolder", "c:\Dell\$CaseNumber.zip", [System.IO.Compression.CompressionLevel]::Optimal, $true)
      
-     #>
+    
 
             #Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
             Remove-Item "C:\Dell\dumps" -Recurse -Force -ErrorAction Ignore
@@ -289,16 +250,12 @@ else
 {
     $ErrorMSG =
     @"
-
             Your system dont meet the minimum requirements to run TSSv2 Collector.
             Your current Powershell version is $ps.
-
             Install Windows Management Framework 5.1 available at 
             https://www.microsoft.com/en-us/download/details.aspx?id=54616
-
             Or Use the TSSv2 Offline available at 
             https://github.com/fginacio/MS#how-to-use-tssv2collect_offline
-
 "@
     Write-Host $ErrorMSG -ForegroundColor Red -BackgroundColor Yellow
     EndScript
