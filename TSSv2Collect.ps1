@@ -130,8 +130,8 @@ $ps=($PSVersionTable).PSVersion.Major
 
 #Creating c:\Dell folder and downloading TSSv2
     mkdir c:\Dell -ErrorAction Ignore
-    #wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
-    wget https://github.com/fginacio/MS/raw/main/TSSv2.zip -OutFile c:\Dell\TSSv2.zip
+    wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
+    #wget https://github.com/fginacio/MS/raw/main/TSSv2.zip -OutFile c:\Dell\TSSv2.zip
 
 #Unpacking TSSv2 at C:\Dell
 if ($ps -ge 5)
