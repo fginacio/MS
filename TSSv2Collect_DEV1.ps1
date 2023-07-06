@@ -49,7 +49,8 @@ function DisplayMenu {
             {
                 $CaseNumber = "Default Collection $DateTime"
             }
-            Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula"
+            #Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noUpdate"
             Set-Location $tss
 
             #Compressing logs
@@ -76,7 +77,8 @@ function DisplayMenu {
             {
                 $CaseNumber = "DefaultCluster Collection $DateTime"
             }
-            Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
+            #Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula -noUpdate"
             Set-Location $tss
 
             #Compressing logs
@@ -103,7 +105,8 @@ function DisplayMenu {
             {
                 $CaseNumber = "DefaultHyperV Collection $DateTime"
             }
-            Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula"
+            #Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula -noUpdate"
             Set-Location $tss
 
             #Compressing logs
@@ -253,7 +256,8 @@ Write-Host "Compactação concluída."
             {
                 $CaseNumber = "DefaultMini Collection $DateTime"
             }
-            Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula"
+            #Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula -noUpdate"
             Set-Location $tss
 
             #Compressing logs
@@ -304,7 +308,8 @@ $ps = ($PSVersionTable).PSVersion.Major
 #mkdir c:\Dell -ErrorAction Ignore
 New-Item -Path C:\Dell\TSSv2 -ItemType Directory
 Start-Sleep -Seconds 5
-wget http://aka.ms/getTss -OutFile "c:\Dell\TSSv2.zip" -ErrorAction SilentlyContinue
+#wget http://aka.ms/getTss -OutFile "c:\Dell\TSSv2.zip" -ErrorAction SilentlyContinue
+wget https://github.com/fginacio/MS/raw/main/TSSv2.zip -OutFile c:\Dell\TSSv2.zip
 
 
 #Unpacking TSSv2 at C:\Dell

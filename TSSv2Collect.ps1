@@ -43,7 +43,8 @@ Switch ($MENU)
         {
             $CaseNumber = "Default Collection"
         }
-    invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noZip"
+    #invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noZip"
+    invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noZip -noUpdate"
     cd $tss
     Compress-Archive -path "C:\Dell\SDP_Setup\" -DestinationPath $dell\$CaseNumber
     #Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
@@ -58,7 +59,8 @@ Switch ($MENU)
         {
             $CaseNumber = "DefaultCluster Collection"
         }
-    invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula -noZip"
+    #invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula -noZip"
+    invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula -noZip -noUpdate"
     cd $tss
     Compress-Archive -path "C:\Dell\SDP_Cluster\" -DestinationPath $dell\$CaseNumber
     #Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
@@ -74,7 +76,8 @@ Switch ($MENU)
         {
             $CaseNumber = "DefaultHyperV Collection"
         }
-    invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula -noZip"
+    #invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula -noZip"
+    invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula -noZip -noUpdate"
     cd $tss
     Compress-Archive -path "C:\Dell\SDP_HyperV\" -DestinationPath $dell\$CaseNumber
     #Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
@@ -90,7 +93,8 @@ Switch ($MENU)
         {
             $CaseNumber = "DefaultMini Collection"
         }
-    invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula -noZip"
+    #invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula -noZip"
+    invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula -noZip -noUpdate"
     cd $tss
     Compress-Archive -path "C:\Dell\SDP_Mini\" -DestinationPath $dell\$CaseNumber
     #Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
@@ -130,8 +134,8 @@ $ps=($PSVersionTable).PSVersion.Major
 
 #Creating c:\Dell folder and downloading TSSv2
     mkdir c:\Dell -ErrorAction Ignore
-    wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
-    #wget https://github.com/fginacio/MS/raw/main/TSSv2.zip -OutFile c:\Dell\TSSv2.zip
+    #wget http://aka.ms/getTss -OutFile c:\Dell\TSSv2.zip
+    wget https://github.com/fginacio/MS/raw/main/TSSv2.zip -OutFile c:\Dell\TSSv2.zip
 
 #Unpacking TSSv2 at C:\Dell
 if ($ps -ge 5)
