@@ -76,7 +76,7 @@ function DisplayMenu {
             #$destinationZip = "$dell$CaseNumber.zip"
             if ([string]::IsNullOrWhiteSpace($CaseNumber))
             {
-                $CaseNumber = "DefaultCluster Collection $DateTime"
+                $CaseNumber = "Cluster Collection $DateTime"
             }
             
             Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
@@ -105,7 +105,7 @@ function DisplayMenu {
             #$destinationZip = "$dell$CaseNumber.zip"
             if ([string]::IsNullOrWhiteSpace($CaseNumber))
             {
-                $CaseNumber = "DefaultHyperV Collection $DateTime"
+                $CaseNumber = "HyperV Collection $DateTime"
             }
             
             Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula"
@@ -134,7 +134,7 @@ function DisplayMenu {
             #$destinationZip = "$dell$CaseNumber.zip"
             if ([string]::IsNullOrWhiteSpace($CaseNumber))
             {
-                $CaseNumber = "Default BSOD Collection $DateTime"
+                $CaseNumber = "BSOD Collection $DateTime"
             }
             #Copying logs
             #Creating a temporary dumps folder
@@ -187,7 +187,7 @@ function DisplayMenu {
             #$destinationZip = "$dell$CaseNumber.zip"
             if ([string]::IsNullOrWhiteSpace($CaseNumber))
             {
-                $CaseNumber = "DefaultMini Collection $DateTime"
+                $CaseNumber = "Mini Collection $DateTime"
             }
             
             Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula"
