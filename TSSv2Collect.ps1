@@ -50,7 +50,7 @@ function DisplayMenu {
                 $CaseNumber = "Default Collection $DateTime"
             }
             
-            Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula"
             #Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noUpdate"
             Set-Location $tss
 
@@ -79,7 +79,7 @@ function DisplayMenu {
                 $CaseNumber = "Cluster Collection $DateTime"
             }
             
-            Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
             #Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula -noUpdate"
             Set-Location $tss
 
@@ -108,7 +108,7 @@ function DisplayMenu {
                 $CaseNumber = "HyperV Collection $DateTime"
             }
             
-            Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula"
             #Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula -noUpdate"
             Set-Location $tss
 
@@ -190,7 +190,7 @@ function DisplayMenu {
                 $CaseNumber = "Mini Collection $DateTime"
             }
             
-            Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula"
             #Invoke-Expression -Command "C:\dell\TSSv2\TSSv2.ps1 -sdp Mini -LogFolderPath $dell -AcceptEula -noUpdate"
             Set-Location $tss
 
