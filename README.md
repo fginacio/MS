@@ -17,7 +17,7 @@ Note: https://cesdiagtools.blob.core.windows.net/windows/TSSv2.ver will always r
 This script simplify the log collection with only 3 collection options.
 
     +===============================================+
-    |  TSSv2 - Log Collection                       |     
+    |  TSSv2 - Log Collection  v1.3                 |     
     |                                               |
     |           By: Fabiano Inacio                  | 
     +===============================================+
@@ -25,9 +25,9 @@ This script simplify the log collection with only 3 collection options.
     |    1: Press '1' for Default collection.       |
     |    2: Press '2' for Cluster collection.       |
     |    3: Press '3' for HyperV collection.        |
+    |    4: Press '4' for BSOD collection.          |
     |    Q: Press 'Q' for Exit.                     |
-    +===============================================+
-    
+    +===============================================+    
 
 ### Usage
 Copy the below powershell code and paste into PowerShell
