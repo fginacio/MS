@@ -31,7 +31,8 @@ Switch ($MENU)
     {
         1 {
     #OPTION1 - Default Collection
-    invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula"
+    #invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula"
+    invoke-expression -command "C:\dell\TSSv2\TSS.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula"
     cd $tss
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at C:\Dell\SDP_Setup\", 0, "Collection Successfull", 0)
@@ -39,7 +40,8 @@ Switch ($MENU)
   }
         2 {
     #OPTION2 - Cluster Collection
-    invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
+    #invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
+    invoke-expression -command "C:\dell\TSSv2\TSS.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at C:\Dell\SDP_Cluster\", 0, "Collection Successfull", 0)
     Start-Sleep -Seconds 2
@@ -47,7 +49,8 @@ Switch ($MENU)
   }
         3 {
     #OPTION3 - HyperV Collection
-    invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula"
+    #invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula"
+    invoke-expression -command "C:\dell\TSSv2\TSS.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula"
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at C:\Dell\SDP_HyperV\", 0, "Collection Successfull", 0)
     Start-Sleep -Seconds 2
@@ -79,7 +82,7 @@ Write-Host "Unpacking TSSv2..."
 #Unpacking TSSv2 at C:\Dell
     #Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
 Clear-Host
-$Ver="1.1"
+$Ver="1.2"
 
 #IE Fix
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
