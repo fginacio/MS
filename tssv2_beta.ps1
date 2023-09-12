@@ -159,7 +159,7 @@ function DisplayMenu {
 
                     #Compressing logs
                     Clear-Host
-                    $sourceFolder = "C:\Dell\SDP_Setup\"
+                    $sourceFolder = "C:\Dell\SDP_mini\"
                     Write-Host "Compressing $sourceFolder folder to " c:\Dell\$CaseNumber_SDP.zip". This might take a while."
                     $logtemp = Get-ChildItem -Path C:\Dell\SDP_Setup\*setup.zip
                     Move-Item -Path C:\Dell\SDP_Setup\*setup.zip -Destination "c:\Dell\$CaseNumber_SDP.zip"
@@ -203,7 +203,7 @@ function DisplayMenu {
 
             #Compressing logs
             Clear-Host
-            $sourceFolder = "C:\Dell\SDP_Cluster\"
+            $sourceFolder = "C:\Dell\SDP_mini\"
             Write-Host "Compressing $sourceFolder folder to " c:\Dell\$CaseNumber.zip". This might take a while."
             $logtemp = Get-ChildItem -Path c:\Dell\SDP_Cluster\*Cluster.zip
             Move-Item -Path c:\Dell\SDP_Cluster\*cluster.zip -Destination "c:\Dell\$CaseNumber.zip"
@@ -231,7 +231,7 @@ function DisplayMenu {
 
             #Compressing logs
             Clear-Host
-            $sourceFolder = "C:\Dell\SDP_HyperV\"
+            $sourceFolder = "C:\Dell\SDP_mini\"
             Write-Host "Compressing $sourceFolder folder to " c:\Dell\$CaseNumber.zip". This might take a while."
             $logtemp = Get-ChildItem -Path c:\Dell\SDP_HyperV\*HyperV.zip
             Move-Item -Path c:\Dell\SDP_HyperV\*HyperV.zip -Destination "c:\Dell\$CaseNumber.zip"
@@ -259,7 +259,7 @@ function DisplayMenu {
 
             #Compressing logs
             Clear-Host
-            $sourceFolder = "C:\Dell\SDP_DOM\"
+            $sourceFolder = "C:\Dell\SDP_mini\"
             Write-Host "Compressing $sourceFolder folder to " c:\Dell\$CaseNumber.zip". This might take a while."
             $logtemp = Get-ChildItem -Path C:\Dell\SDP_DOM\*setup.zip
             Move-Item -Path C:\Dell\SDP_Setup\*setup.zip -Destination "c:\Dell\$CaseNumber.zip"
@@ -288,7 +288,7 @@ function DisplayMenu {
 
             #Compressing logs
             Clear-Host
-            $sourceFolder = "C:\Dell\SDP_Setup\"
+            $sourceFolder = "C:\Dell\SDP_mini\"
             Write-Host "Compressing $sourceFolder folder to " c:\Dell\$CaseNumber.zip". This might take a while."
             $logtemp = Get-ChildItem -Path C:\Dell\SDP_Setup\*setup.zip
             Move-Item -Path C:\Dell\SDP_Setup\*setup.zip -Destination "c:\Dell\$CaseNumber.zip"
