@@ -188,16 +188,16 @@ function DisplayMenu {
                     $CaseNumber = "Cluster Collection $DateTime"
                 }
             
-            Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp mini -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
             #Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula -noUpdate"
             Set-Location $tss
 
             #Compressing logs
             Clear-Host
-            $sourceFolder = "C:\Dell\SDP_mini\"
+            $sourceFolder = "C:\Dell\SDP_Cluster\"
             Write-Host "Compressing $sourceFolder folder to " c:\Dell\$CaseNumber.zip". This might take a while."
-            $logtemp = Get-ChildItem -Path c:\Dell\SDP_mini\*mini.zip
-            Move-Item -Path c:\Dell\SDP_mini\*mini.zip -Destination "c:\Dell\$CaseNumber.zip"
+            $logtemp = Get-ChildItem -Path c:\Dell\SDP_Cluster\*Cluster.zip
+            Move-Item -Path c:\Dell\SDP_Cluster\*Cluster.zip -Destination "c:\Dell\$CaseNumber.zip"
 
             Remove-Item "C:\Dell\SDP_*" -Recurse -Force -ErrorAction Ignore
             $Shell = New-Object -ComObject "WScript.Shell"
