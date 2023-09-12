@@ -66,7 +66,6 @@ function DisplayMenu {
                     #PowerShell Create directory if not exists
                     New-Item $DumpFolder -ItemType Directory
                 }
-            #New-Item -path c:\dell\dumps -ItemType Directory
             #Copying Memory.dmp
             Copy-Item -Path "C:\Windows\MEMORY.DMP" -Destination "$DumpFolder" -Recurse
             #Copying MiniDump folder
@@ -77,8 +76,7 @@ function DisplayMenu {
             Write-Host "Compressing $DumpFolder folder to " c:\Dell\$CaseNumber.zip". This might take a while."
             Start-Sleep -s 5 #give some time for logging to complete before starting zip
 
-            #Compress-Archive -path "$DumpFolder" -DestinationPath "c:\Dell\$CaseNumber.zip" -Force
-            $DestPath = "C:\Dell\$CaseNumber.zip"
+            $DestPath = "C:\Dell\$CaseNumber_DUMP.zip"
             $maximumFileSize = 4GB
             $files = Get-ChildItem -Path $DumpFolder -File -Recurse
 
@@ -172,13 +170,6 @@ function DisplayMenu {
 
     # Display the completion message after the progress bar
     Write-Host "Compactação concluída."
-         <#       
-            [Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
-            [System.IO.Compression.ZipFile]::CreateFromDirectory("$DumpFolder", "c:\Dell\$CaseNumber.zip", [System.IO.Compression.CompressionLevel]::Optimal, $true)
-     
-        #>
-
-            #Remove-Item "C:\Dell\SDP_*" -recurse -force -ErrorAction Ignore
             Remove-Item "C:\Dell\dumps" -Recurse -Force -ErrorAction Ignore
             $Shell = New-Object -ComObject "WScript.Shell"
             $Button = $Shell.Popup("Logs available at c:\Dell\$CaseNumber.zip",0,"Collection Successfull",0)
