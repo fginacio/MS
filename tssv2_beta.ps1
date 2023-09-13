@@ -144,29 +144,29 @@ function DisplayMenu {
                             $totalProgress += $progressPerFile
                             Write-Progress -Activity "Compactando Arquivos" -Status "Progresso" -PercentComplete $totalProgress
                         }
-                    #OPTION - Default Collection + DUMP LOGS
-                    Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp mini -LogFolderPath $dell -AcceptEula"
-                    #Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noUpdate"
-                    Set-Location $tss
-
-                    #Compressing logs
-                    Clear-Host
-                    $sourceFolder = "C:\Dell\SDP_mini\"
-                    Write-Host "Compressing $sourceFolder folder to " c:\Dell\$CaseNumber_SDP.zip". This might take a while."
-                    $logtemp = Get-ChildItem -Path C:\Dell\SDP_mini\*mini.zip
-                    Move-Item -Path C:\Dell\SDP_mini\*mini.zip -Destination "c:\Dell\$CaseNumber_SDP.zip"
-
-                    Remove-Item "C:\Dell\SDP_*" -Recurse -Force -ErrorAction Ignore
-                    $Shell = New-Object -ComObject "WScript.Shell"
-                    $Button = $Shell.Popup("Logs available at $dell$CaseNumber_SDP .zip",0,"Collection Successfull",0)
 
                 }
+    #OPTION - Default Collection + DUMP LOGS
+    Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp mini -LogFolderPath $dell -AcceptEula"
+    #Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noUpdate"
+    Set-Location $tss
+
+    #Compressing logs
+    Clear-Host
+    $sourceFolder = "C:\Dell\SDP_mini\"
+    Write-Host "Compressing $sourceFolder folder to " c:\Dell\$CaseNumber_SDP.zip". This might take a while."
+    $logtemp = Get-ChildItem -Path C:\Dell\SDP_mini\*mini.zip
+    Move-Item -Path C:\Dell\SDP_mini\*mini.zip -Destination "c:\Dell\$CaseNumber_SDP.zip"
+
+    Remove-Item "C:\Dell\SDP_*" -Recurse -Force -ErrorAction Ignore
+    $Shell = New-Object -ComObject "WScript.Shell"
+    $Button = $Shell.Popup("Logs available at $dell$CaseNumber_SDP .zip",0,"Collection Successfull",0)
 
     #Display the completion message after the progress bar#
     Write-Host "Compactação concluída."
             Remove-Item "C:\Dell\dumps" -Recurse -Force -ErrorAction Ignore
             $Shell = New-Object -ComObject "WScript.Shell"
-            $Button = $Shell.Popup("Logs available at c:\Dell\$CaseNumber.zip",0,"Collection Successfull",0)
+            $Button = $Shell.Popup("Logs available at c:\Dell\$CaseNumber.zip and c:\Dell\$CaseNumber_SDP.zip",0,"Collection Successfull",0)
             Start-Sleep -Seconds 2
             Remove-Variable CaseNumber
             DisplayMenu
