@@ -198,7 +198,6 @@ function DisplayMenu {
             $Button = $Shell.Popup("Logs available at $dell$CaseNumber .zip",0,"Collection Successfull",0)
             Start-Sleep -Seconds 2
             Remove-Variable CaseNumber
-            DisplayMenu
             }
     ELSEIF  (get-WindowsFeature -Name Hyper-V | where Installed) {
     #OPTION - HyperV Collection#
@@ -226,7 +225,6 @@ function DisplayMenu {
             $Button = $Shell.Popup("Logs available at $dell$CaseNumber .zip",0,"Collection Successfull",0)
             Start-Sleep -Seconds 2
             Remove-Variable CaseNumber
-            DisplayMenu
             }
     ELSEIF  (get-WindowsFeature -Name AD-Domain-Services | where Installed) {
     #OPTION - Active Directory Collection#
@@ -254,7 +252,6 @@ function DisplayMenu {
             $Button = $Shell.Popup("Logs available at $dell$CaseNumber .zip",0,"Collection Successfull",0)
             Start-Sleep -Seconds 2
             Remove-Variable CaseNumber
-            #DisplayMenu
             }
     ELSE {
     #OPTION - Default Collection#
@@ -283,8 +280,6 @@ function DisplayMenu {
             $Button = $Shell.Popup("Logs available at $dell$CaseNumber .zip",0,"Collection Successfull",0)
             Start-Sleep -Seconds 2
             Remove-Variable CaseNumber
-            DisplayMenu
-
 }
 
             Remove-Item "C:\Dell\dumps" -Recurse -Force -ErrorAction Ignore
