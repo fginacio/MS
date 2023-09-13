@@ -41,7 +41,7 @@ function DisplayMenu {
         #OPTION - BSOD Collection#
             Write-Host "Below symbols are not allowed." -ForegroundColor Yellow -BackgroundColor DarkGray
             Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\" -ForegroundColor Yellow -BackgroundColor DarkGray
-            if ($CaseNumber.length -eq 0) { $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag" }
+            if ($CaseNumber.length -eq 0) { $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag for Dump log" }
             if ([string]::IsNullOrWhiteSpace($CaseNumber))
                 {
                     $CaseNumber = "BSOD Collection Only $DateTime"
@@ -150,7 +150,7 @@ function DisplayMenu {
     #Remove-Variable CaseNumber
     Write-Host "Below symbols are not allowed." -ForegroundColor Yellow -BackgroundColor DarkGray
     Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\" -ForegroundColor Yellow -BackgroundColor DarkGray
-    if ($CaseNumber2.length -eq 0) { $CaseNumber2 = Read-Host -Prompt "Please enter relevant case number or Service tag" }
+    if ($CaseNumber2.length -eq 0) { $CaseNumber2 = Read-Host -Prompt "Please enter relevant case number or Service tag for TSS log" }
     if ([string]::IsNullOrWhiteSpace($CaseNumber2))
         {
             $CaseNumber2 = "SDP Collection Only $DateTime"
@@ -171,7 +171,7 @@ function DisplayMenu {
 
     Remove-Item "C:\Dell\SDP_*" -Recurse -Force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
-    $Button = $Shell.Popup("Logs available at $dell$CaseNumber and $casenumber2 .zip",0,"Collection Successfull",0)
+    $Button = $Shell.Popup("Logs available at $dell$CaseNumber and $dell$$casenumber2 .zip",0,"Collection Successfull",0)
 
     #Display the completion message after the progress bar#
     Write-Host "Compactação concluída."
