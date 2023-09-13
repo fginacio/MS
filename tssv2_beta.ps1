@@ -169,15 +169,14 @@ function DisplayMenu {
     $logtemp = Get-ChildItem -Path C:\Dell\SDP_mini\*mini.zip
     Move-Item -Path C:\Dell\SDP_mini\*mini.zip -Destination "c:\Dell\$CaseNumber2.zip"
 
-    Remove-Item "C:\Dell\SDP_*" -Recurse -Force -ErrorAction Ignore
-    $Shell = New-Object -ComObject "WScript.Shell"
-    $Button = $Shell.Popup("Logs available at $dell$CaseNumber and $dell$$casenumber2 .zip",0,"Collection Successfull",0)
-
     #Display the completion message after the progress bar#
     Write-Host "Compactação concluída."
     Remove-Item "C:\Dell\dumps" -Recurse -Force -ErrorAction Ignore
+    Remove-Item "C:\Dell\SDP_*" -Recurse -Force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
-    $Button = $Shell.Popup("Logs available at c:\Dell\$CaseNumber.zip and $casebumber2 .zip",0,"Collection Successfull",0)
+    $Button = $Shell.Popup("Logs available at $dell$CaseNumber and $dell$CaseNumber2 .zip",0,"Collection Successfull",0)
+    #$Shell = New-Object -ComObject "WScript.Shell"
+    #$Button = $Shell.Popup("Logs available at c:\Dell\$CaseNumber.zip and $casebumber2 .zip",0,"Collection Successfull",0)
     Start-Sleep -Seconds 2
     Remove-Variable CaseNumber
     DisplayMenu
@@ -384,7 +383,8 @@ DisplayMenu
 #Invoke-TSSv2Collect#
 Remove-Item -Path "C:\Dell\TSSv2.zip" -Recurse -Force -ErrorAction Ignore
 $logfolder = (Get-ChildItem -Path c:\dell\*.zip -Name)
-Write-Host "Logs available at $dell$logfolder"
+#Write-Host "Logs available at $dell$logfolder"
+Write-Host "Logs available at $dell$CaseNumber and $dell$CaseNumber2"
 Set-ExecutionPolicy $ExecutionPolicy
 
 #Removing extracted collector and zip file#
