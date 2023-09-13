@@ -21,10 +21,6 @@ function DisplayMenu {
     $DateTime = Get-Date -Format yyyyMMdd_HHmmss
     Start-Transcript -NoClobber -Path "C:\Dell\TSSv2Collect_$DateTime.log"
     Clear-Host
-    #$roles= get-WindowsFeature -Name * | where Installed
-    #Write-Host "Checking installed Features/Roles. " -ForegroundColor Green -BackgroundColor DarkGray
-    #Start-Sleep -Seconds 2
-    #Clear-Host
 
     Write-Host @"
 
@@ -258,7 +254,7 @@ function DisplayMenu {
             $Button = $Shell.Popup("Logs available at $dell$CaseNumber .zip",0,"Collection Successfull",0)
             Start-Sleep -Seconds 2
             Remove-Variable CaseNumber
-            DisplayMenu
+            #DisplayMenu
             }
     ELSE {
     #OPTION - Default Collection#
