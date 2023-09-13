@@ -44,7 +44,7 @@ function DisplayMenu {
             if ($CaseNumber.length -eq 0) { $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag" }
             if ([string]::IsNullOrWhiteSpace($CaseNumber))
                 {
-                    $CaseNumber = "BSOD Collection $DateTime"
+                    $CaseNumber = "BSOD Collection Only $DateTime"
                 }
             #Copying logs#
             #Creating a temporary dumps folder#
@@ -147,14 +147,14 @@ function DisplayMenu {
 
                 }
 
-    Remove-Variable CaseNumber
+    #Remove-Variable CaseNumber
     Write-Host "Below symbols are not allowed." -ForegroundColor Yellow -BackgroundColor DarkGray
     Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\" -ForegroundColor Yellow -BackgroundColor DarkGray
-    if ($CaseNumber.length -eq 0) { $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag" }
-        if ([string]::IsNullOrWhiteSpace($CaseNumber))
-            {
-                $CaseNumber = "BSOD Collection $DateTime"
-            }
+    if ($CaseNumber2.length -eq 0) { $CaseNumber2 = Read-Host -Prompt "Please enter relevant case number or Service tag" }
+    if ([string]::IsNullOrWhiteSpace($CaseNumber2))
+        {
+            $CaseNumber2 = "SDP Collection Only $DateTime"
+        }
            
 
     #OPTION - Default Collection + DUMP LOGS
@@ -165,22 +165,22 @@ function DisplayMenu {
     #Compressing logs
     Clear-Host
     $sourceFolder = "C:\Dell\SDP_mini\"
-    Write-Host "Compressing $sourceFolder folder to " c:\Dell\$CaseNumber.zip". This might take a while."
+    Write-Host "Compressing $sourceFolder folder to " c:\Dell\$CaseNumber2.zip". This might take a while."
     $logtemp = Get-ChildItem -Path C:\Dell\SDP_mini\*mini.zip
-    Move-Item -Path C:\Dell\SDP_mini\*mini.zip -Destination "c:\Dell\$CaseNumber.zip"
+    Move-Item -Path C:\Dell\SDP_mini\*mini.zip -Destination "c:\Dell\$CaseNumber2.zip"
 
     Remove-Item "C:\Dell\SDP_*" -Recurse -Force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
-    $Button = $Shell.Popup("Logs available at $dell$CaseNumber .zip",0,"Collection Successfull",0)
+    $Button = $Shell.Popup("Logs available at $dell$CaseNumber and $casenumber2 .zip",0,"Collection Successfull",0)
 
     #Display the completion message after the progress bar#
     Write-Host "Compactação concluída."
-            Remove-Item "C:\Dell\dumps" -Recurse -Force -ErrorAction Ignore
-            $Shell = New-Object -ComObject "WScript.Shell"
-            $Button = $Shell.Popup("Logs available at c:\Dell\$CaseNumber.zip",0,"Collection Successfull",0)
-            Start-Sleep -Seconds 2
-            Remove-Variable CaseNumber
-            DisplayMenu
+    Remove-Item "C:\Dell\dumps" -Recurse -Force -ErrorAction Ignore
+    $Shell = New-Object -ComObject "WScript.Shell"
+    $Button = $Shell.Popup("Logs available at c:\Dell\$CaseNumber.zip and $casebumber2 .zip",0,"Collection Successfull",0)
+    Start-Sleep -Seconds 2
+    Remove-Variable CaseNumber
+    DisplayMenu
         }
         N {
     IF      (get-WindowsFeature -Name Failover-clustering | where Installed) {
