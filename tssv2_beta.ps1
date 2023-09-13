@@ -29,7 +29,7 @@ function DisplayMenu {
     Write-Host @"
 
     +===============================================+
-    |  TSS - Log Collection  v$Ver                  |     
+    |  TSS - Log Collection  v$Ver                   |     
     |                                               |
     |           By: Fabiano Inacio                  |
     |                                               |
