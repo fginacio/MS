@@ -253,7 +253,7 @@ function DisplayMenu {
             $sourceFolder = "C:\Dell\SDP_DOM\"
             Write-Host "Compressing $sourceFolder folder to " c:\Dell\$CaseNumber.zip". This might take a while."
             $logtemp = Get-ChildItem -Path C:\Dell\SDP_DOM\*DOM.zip
-            Move-Item -Path C:\Dell\SDP_mini\*DOM.zip -Destination "c:\Dell\$CaseNumber.zip"
+            Move-Item -Path C:\Dell\SDP_DOM\*DOM.zip -Destination "c:\Dell\$CaseNumber.zip"
 
             Remove-Item "C:\Dell\SDP_*" -Recurse -Force -ErrorAction Ignore
             $Shell = New-Object -ComObject "WScript.Shell"
