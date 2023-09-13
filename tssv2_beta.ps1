@@ -148,6 +148,14 @@ function DisplayMenu {
                 }
 
     Remove-Variable CaseNumber
+    Write-Host "Below symbols are not allowed." -ForegroundColor Yellow -BackgroundColor DarkGray
+    Write-Host "=> Illegal characters/symbols: #<>*_/\{}$+%`|=@\" -ForegroundColor Yellow -BackgroundColor DarkGray
+    if ($CaseNumber.length -eq 0) { $CaseNumber = Read-Host -Prompt "Please enter relevant case number or Service tag" }
+        if ([string]::IsNullOrWhiteSpace($CaseNumber))
+            {
+                $CaseNumber = "BSOD Collection $DateTime"
+            }
+           
 
     #OPTION - Default Collection + DUMP LOGS
     Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp mini -LogFolderPath $dell -AcceptEula"
