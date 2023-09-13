@@ -11,13 +11,16 @@ V 1.3
     Improvements at compression/unpacking logs.
     New option for collect BSDO files.
     Fixed incorrect Unicode characters;
+V 1.4
+    Now TSS run automatically and collect SDP based on installed Roles/Features
+    BSOD collection includes SDP_Setup
+    Rename main scritp to TSS.ps1
 #>
-function EndScript {
+Function EndScript {
     break
 }
-#Function Invoke-TSSv2Collect{
 
-function DisplayMenu {
+Function DisplayMenu {
     $DateTime = Get-Date -Format yyyyMMdd_HHmmss
     Start-Transcript -NoClobber -Path "C:\Dell\TSSv2Collect_$DateTime.log"
     Clear-Host
@@ -64,6 +67,7 @@ function DisplayMenu {
                 }
             #Copying Memory.dmp#
             Copy-Item -Path "C:\Windows\MEMORY.DMP" -Destination "$DumpFolder" -Recurse
+            
             #Copying MiniDump folder#
             Copy-Item -Path "C:\Windows\Minidump" -Destination "$DumpFolder" -Recurse
 
@@ -158,16 +162,16 @@ function DisplayMenu {
            
 
     #OPTION - Default Collection + DUMP LOGS
-    Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp mini -LogFolderPath $dell -AcceptEula"
+    Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula"
     #Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noUpdate"
     Set-Location $tss
 
     #Compressing logs
     Clear-Host
-    $sourceFolder = "C:\Dell\SDP_mini\"
+    $sourceFolder = "C:\Dell\SDP_Setup\"
     Write-Host "Compressing $sourceFolder folder to " c:\Dell\$CaseNumber2.zip". This might take a while."
-    $logtemp = Get-ChildItem -Path C:\Dell\SDP_mini\*mini.zip
-    Move-Item -Path C:\Dell\SDP_mini\*mini.zip -Destination "c:\Dell\$CaseNumber2.zip"
+    $logtemp = Get-ChildItem -Path C:\Dell\SDP_Setup\*Setup.zip
+    Move-Item -Path C:\Dell\SDP_Setup\*Setup.zip -Destination "c:\Dell\$CaseNumber2.zip"
 
     #Display the completion message after the progress bar#
     Write-Host "Compactação concluída."
@@ -175,8 +179,6 @@ function DisplayMenu {
     Remove-Item "C:\Dell\SDP_*" -Recurse -Force -ErrorAction Ignore
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at $dell$CaseNumber and $dell$CaseNumber2 .zip",0,"Collection Successfull",0)
-    #$Shell = New-Object -ComObject "WScript.Shell"
-    #$Button = $Shell.Popup("Logs available at c:\Dell\$CaseNumber.zip and $casebumber2 .zip",0,"Collection Successfull",0)
     Start-Sleep -Seconds 2
     Remove-Variable CaseNumber
     DisplayMenu
@@ -274,16 +276,16 @@ function DisplayMenu {
                     $CaseNumber = "Default Collection $DateTime"
                 }
             
-            Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp mini -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula"
             #Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noUpdate"
             Set-Location $tss
 
             #Compressing logs#
             Clear-Host
-            $sourceFolder = "C:\Dell\SDP_mini\"
+            $sourceFolder = "C:\Dell\SDP_Setup\"
             Write-Host "Compressing $sourceFolder folder to " c:\Dell\$CaseNumber.zip". This might take a while."
-            $logtemp = Get-ChildItem -Path C:\Dell\SDP_mini\*mini.zip
-            Move-Item -Path C:\Dell\SDP_mini\*mini.zip -Destination "c:\Dell\$CaseNumber.zip"
+            $logtemp = Get-ChildItem -Path C:\Dell\SDP_Setup\*Setup.zip
+            Move-Item -Path C:\Dell\SDP_Setup\*Setup.zip -Destination "c:\Dell\$CaseNumber.zip"
 
             Remove-Item "C:\Dell\SDP_*" -Recurse -Force -ErrorAction Ignore
             $Shell = New-Object -ComObject "WScript.Shell"
@@ -388,5 +390,3 @@ Set-ExecutionPolicy $ExecutionPolicy
 
 #Removing extracted collector and zip file#
 Remove-Item "C:\Dell\Tssv2" -Recurse -Force -ErrorAction Ignore
-
-#}
