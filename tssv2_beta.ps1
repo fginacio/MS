@@ -383,8 +383,7 @@ DisplayMenu
 #Invoke-TSSv2Collect#
 Remove-Item -Path "C:\Dell\TSSv2.zip" -Recurse -Force -ErrorAction Ignore
 $logfolder = (Get-ChildItem -Path c:\dell\*.zip -Name)
-#Write-Host "Logs available at $dell$logfolder"
-Write-Host "Logs available at $dell$CaseNumber and $dell$CaseNumber2"
+Write-Host "Logs available at $dell$logfolder"
 Set-ExecutionPolicy $ExecutionPolicy
 
 #Removing extracted collector and zip file#
