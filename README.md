@@ -40,7 +40,7 @@ Echo TSSv2Collect;[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityPro
 ### How To Use TSSv2Collect_Offline
 
 1. Download the TSSv2 from this link <https://aka.ms/getTSS>;
-2. On server were you need make the collection, save the TSSv2.zip at c:\Dell\ folder and unzip to c:\dell\TSSv2\;
+2. On server were you need make the collection, save the TSS.zip at c:\Dell\ folder and unzip to c:\dell\TSSv2\;
 3. Download the TSSv2Collect_Offline.ps1 from this link <https://raw.githubusercontent.com/fginacio/MS/main/TSSv2Collect_Offline.ps1> and save at c:\Dell\ folder;
 4. Run the copied code
 ```Powershell
