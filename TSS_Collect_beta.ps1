@@ -181,7 +181,11 @@ Function DisplayMenu {
     $Button = $Shell.Popup("Logs available at $dell$CaseNumber and $dell$CaseNumber2 .zip",0,"Collection Successfull",0)
     Start-Sleep -Seconds 2
     Remove-Variable CaseNumber
-    DisplayMenu
+    #DisplayMenu
+    Clear-Host
+    Write-Host "Bye"
+    Stop-Transcript
+    EndScript
         }
         N {
     IF      (get-WindowsFeature -Name Failover-clustering | where Installed) {
@@ -210,6 +214,10 @@ Function DisplayMenu {
             $Button = $Shell.Popup("Logs available at $dell$CaseNumber .zip",0,"Collection Successfull",0)
             Start-Sleep -Seconds 2
             Remove-Variable CaseNumber
+            Clear-Host
+            Write-Host "Bye"
+            Stop-Transcript
+            EndScript
             }
     ELSEIF  (get-WindowsFeature -Name Hyper-V | where Installed) {
     #OPTION - HyperV Collection#
@@ -237,6 +245,10 @@ Function DisplayMenu {
             $Button = $Shell.Popup("Logs available at $dell$CaseNumber .zip",0,"Collection Successfull",0)
             Start-Sleep -Seconds 2
             Remove-Variable CaseNumber
+            Clear-Host
+            Write-Host "Bye"
+            Stop-Transcript
+            EndScript
             }
     ELSEIF  (get-WindowsFeature -Name AD-Domain-Services | where Installed) {
     #OPTION - Active Directory Collection#
@@ -303,7 +315,11 @@ Function DisplayMenu {
             $Button = $Shell.Popup("Logs available at c:\Dell\$CaseNumber.zip",0,"Collection Successfull",0)
             Start-Sleep -Seconds 2
             Remove-Variable CaseNumber
-            DisplayMenu
+            #DisplayMenu
+            Clear-Host
+            Write-Host "Bye"
+            Stop-Transcript
+            EndScript
             }
         Q {
             #OPTIONQ - EXIT#
