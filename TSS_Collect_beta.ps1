@@ -260,10 +260,13 @@ Function DisplayMenu {
             Move-Item -Path C:\Dell\SDP_DOM\*DOM.zip -Destination "c:\Dell\$CaseNumber.zip"
 
             Remove-Item "C:\Dell\SDP_*" -Recurse -Force -ErrorAction Ignore
-            $Shell = New-Object -ComObject "WScript.Shell"
-            $Button = $Shell.Popup("Logs available at $dell$CaseNumber .zip",0,"Collection Successfull",0)
+           #$Shell = New-Object -ComObject "WScript.Shell"
+           #$Button = $Shell.Popup("Logs available at $dell$CaseNumber .zip",0,"Collection Successfull",0)
             Start-Sleep -Seconds 2
             Remove-Variable CaseNumber
+            Write-Host "Bye"
+            Stop-Transcript
+            EndScript
             }
     ELSE {
     #OPTION - Default Collection#
