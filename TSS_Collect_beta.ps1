@@ -264,6 +264,7 @@ Function DisplayMenu {
             $Button = $Shell.Popup("Logs available at $dell$CaseNumber .zip",0,"Collection Successfull",0)
             Start-Sleep -Seconds 2
             Remove-Variable CaseNumber
+            Clear-Host
             Write-Host "Bye"
             Stop-Transcript
             EndScript
