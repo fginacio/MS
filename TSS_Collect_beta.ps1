@@ -308,18 +308,19 @@ Function DisplayMenu {
             $Button = $Shell.Popup("Logs available at $dell$CaseNumber .zip",0,"Collection Successfull",0)
             Start-Sleep -Seconds 2
             Remove-Variable CaseNumber
-}
-
-            Remove-Item "C:\Dell\dumps" -Recurse -Force -ErrorAction Ignore
-            $Shell = New-Object -ComObject "WScript.Shell"
-            $Button = $Shell.Popup("Logs available at c:\Dell\$CaseNumber.zip",0,"Collection Successfull",0)
-            Start-Sleep -Seconds 2
-            Remove-Variable CaseNumber
-            #DisplayMenu
             Clear-Host
             Write-Host "Bye"
             Stop-Transcript
             EndScript
+}
+
+            #Remove-Item "C:\Dell\dumps" -Recurse -Force -ErrorAction Ignore
+            #$Shell = New-Object -ComObject "WScript.Shell"
+            #$Button = $Shell.Popup("Logs available at c:\Dell\$CaseNumber.zip",0,"Collection Successfull",0)
+            #Start-Sleep -Seconds 2
+            #Remove-Variable CaseNumber
+            #DisplayMenu
+
             }
         Q {
             #OPTIONQ - EXIT#
