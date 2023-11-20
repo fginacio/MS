@@ -23,7 +23,7 @@ Function EndScript {
 Function DisplayMenu {
     $DateTime = Get-Date -Format yyyyMMdd_HHmmss
     Start-Transcript -NoClobber -Path "C:\Dell\TssCollect_$DateTime.log"
-    Clear-Host
+    clear-host
 
     Write-Host @"
 
@@ -64,7 +64,7 @@ Function DisplayMenu {
             Set-Location $tss
 
             #Compressing logs#
-            Clear-Host
+            clear-host
             $sourceFolder = "C:\Dell\SDP_Cluster\"
             Write-Host "Compressing $sourceFolder folder to " c:\Dell\Logs\$CaseNumber.zip". This might take a while."
             $logtemp = Get-ChildItem -Path c:\Dell\SDP_Cluster\*Cluster.zip
@@ -75,7 +75,7 @@ Function DisplayMenu {
             $Button = $Shell.Popup("Logs available at c:\Dell\Logs",0,"Collection Successfull",0)
             Start-Sleep -Seconds 2
             Remove-Variable CaseNumber
-            Clear-Host
+            clear-host
             Write-Host "Bye"
             Stop-Transcript
             EndScript
@@ -87,7 +87,7 @@ Function DisplayMenu {
             Set-Location $tss
 
             #Compressing logs#
-            Clear-Host
+            clear-host
             $sourceFolder = "C:\Dell\SDP_HyperV\"
             Write-Host "Compressing $sourceFolder folder to " c:\Dell\Logs\$CaseNumber.zip". This might take a while."
             $logtemp = Get-ChildItem -Path c:\Dell\SDP_HyperV\*HyperV.zip
@@ -98,7 +98,7 @@ Function DisplayMenu {
             $Button = $Shell.Popup("Logs available at c:\Dell\Logs",0,"Collection Successfull",0)
             Start-Sleep -Seconds 2
             Remove-Variable CaseNumber
-            Clear-Host
+            clear-host
             Write-Host "Bye"
             Stop-Transcript
             EndScript
@@ -110,7 +110,7 @@ Function DisplayMenu {
             Set-Location $tss
 
             #Compressing logs#
-            Clear-Host
+            clear-host
             $sourceFolder = "C:\Dell\SDP_DOM\"
             Write-Host "Compressing $sourceFolder folder to " c:\Dell\Logs\$CaseNumber.zip". This might take a while."
             $logtemp = Get-ChildItem -Path C:\Dell\SDP_DOM\*DOM.zip
@@ -121,7 +121,7 @@ Function DisplayMenu {
             $Button = $Shell.Popup("Logs available at c:\Dell\Logs",0,"Collection Successfull",0)
             Start-Sleep -Seconds 2
             Remove-Variable CaseNumber
-            Clear-Host
+            clear-host
             Write-Host "Bye"
             Stop-Transcript
             EndScript
@@ -133,7 +133,7 @@ Function DisplayMenu {
             Set-Location $tss
 
             #Compressing logs#
-            Clear-Host
+            clear-host
             $sourceFolder = "C:\Dell\SDP_Setup\"
             Write-Host "Compressing $sourceFolder folder to " c:\Dell\Logs\$CaseNumber.zip". This might take a while."
             $logtemp = Get-ChildItem -Path C:\Dell\SDP_Setup\*Setup.zip
@@ -144,7 +144,7 @@ Function DisplayMenu {
             $Button = $Shell.Popup("Logs available at c:\Dell\Logs",0,"Collection Successfull",0)
             Start-Sleep -Seconds 2
             Remove-Variable CaseNumber
-            Clear-Host
+            clear-host
             Write-Host "Bye"
             Stop-Transcript
             EndScript
@@ -166,10 +166,10 @@ Function DisplayMenu {
     }
 
 }
-
+Set-PSDebug -Trace 0
 $dell = "c:\Dell\"
 $TSS = "C:\dell\Tss\"
-Clear-Host
+clear-host
 Write-Host "Downloading and Unpacking Tss..."
 
 #Deleting old log collections and transcript logs#
@@ -216,7 +216,7 @@ else
     EndScript
 }
 
-Clear-Host
+clear-host
 $Ver = "1.4"
 
 #IE Fix#
@@ -230,128 +230,120 @@ Set-ExecutionPolicy Unrestricted
 $roles= get-WindowsFeature -Name * | where Installed
 Write-Host "Checking installed Features/Roles. " -ForegroundColor Green -BackgroundColor DarkGray
 Start-Sleep -Seconds 2
-Clear-Host
+clear-host
 
 #OPTION - BSOD Collection#
 #Copying logs#
 #Creating a temporary dumps folder#
+
+
+
             $DumpFolder = "c:\dell\dumps"
             if (Test-Path "$DumpFolder")
                 {
-                    Write-Host "Folder Exists"
-                    #Get-ChildItem -Path $DumpFolder | Where-Object {$_.CreationTime -gt (Get-Date).Date}   
+                    #Write-Host "Folder Exists"
                     Get-ChildItem -Path $DumpFolder | Remove-Item -Recurse -Force
                 }
             else
                 {
-                    Write-Host "Folder Doesn't Exists, creating..."
+                    #Write-Host "Folder Doesn't Exists, creating..."
 
                     #PowerShell Create directory if not exists
                     New-Item $DumpFolder -ItemType Directory
                 }
 
-            #Checking dump file timestamp is more than 30 Days
-            $memoryDmpPath = "c:\windows\memory.dmp"
-            $minidumpPath = "c:\windows\minidump"
-            
-            $memoryDmpTimestamp = (Get-Item $memoryDmpPath).LastWriteTime
-            $currentTimestamp = Get-Date
 
-            $daysDifference = ($currentTimestamp - $memoryDmpTimestamp).Days
+        # Checking dump file timestamp is more than 30 Days
+        $memoryDmpPath = "c:\windows\memory.dmp"
+        $minidumpPath = "c:\windows\minidump"
+        $DumpFolder = "c:\dell\dumps"
 
-            #Copying Memory.dmp#
-            #Copying MiniDump folder#
-            if ($daysDifference -lt 30) {
-                Copy-Item -Path $memoryDmpPath -Destination $DumpFolder -Recurse
-                Copy-Item -Path $minidumpPath -Destination $DumpFolder -Recurse
+        # Check if at least one of the paths exist before accessing their LastWriteTime
+        if ((Test-Path $memoryDmpPath) -or (Test-Path $minidumpPath)) {
+           
+            # Check if the file exists before accessing its LastWriteTime
+            if (Test-Path $memoryDmpPath) {
+                $memoryDmpTimestamp = (Get-Item $memoryDmpPath).LastWriteTime
+                $currentTimestamp = Get-Date
+                $daysDifference = ($currentTimestamp - $memoryDmpTimestamp).Days
+
+                # Copy Memory.dmp if the conditions are met
+                if ($daysDifference -lt 30) {
+                    Copy-Item -Path $memoryDmpPath -Destination $DumpFolder -Recurse -ErrorAction SilentlyContinue
+                }
             }
 
-        #Compressing logs#
-            Write-Host "Compressing $DumpFolder folder to " c:\Dell\Logs\dump.zip". This might take a while."
-            Start-Sleep -s 5 #give some time for logging to complete before starting zip
+            # Check if the file exists before accessing its LastWriteTime
+            if (Test-Path $minidumpPath) {
+                $minidumpPathTimestamp = (Get-Item $minidumpPath).LastWriteTime
+                $currentTimestamp = Get-Date
+                $daysDifference2 = ($currentTimestamp - $minidumpPathTimestamp).Days
 
-            $DestPath = "C:\Dell\logs\dump.zip"
-            $maximumFileSize = 4GB
-            $files = Get-ChildItem -Path $DumpFolder -File -Recurse
-
-            $totalSize = ($files | Measure-Object -Property Length -Sum).Sum
-
-            if ($totalSize -gt $maximumFileSize) 
-                {
-                    Write-Warning "Starting a fresh compression for large files using the System.IO.Compression.ZipFile class."
-
-                    $smallFiles = $files | Where-Object { $_.Length -le $maximumFileSize }
-
-                    #Create a temporary directory to store the large files#
-                    $tempDir = New-Item -ItemType Directory -Path (Join-Path -Path $env:TEMP -ChildPath "LargeFilesTemp")
-                    $largeFiles = $files | Where-Object { $_.Length -gt $maximumFileSize }
-    
-                    #Copy the large files to the temporary directory#
-                                foreach ($file in $largeFiles) 
-                                {
-                                    $destinationPath = Join-Path -Path $tempDir.FullName -ChildPath $file.Name
-                                    Copy-Item -Path $file.FullName -Destination $destinationPath -Force
-                                }
-
-                    #Create a new zip archive#
-                    [System.IO.Compression.ZipFile]::CreateFromDirectory($tempDir.FullName, $DestPath, 'Optimal', $true)
-
-                    #Include the small files in the zip archive#
-                    $zipArchive = [System.IO.Compression.ZipFile]::Open($DestPath, 'Update')
-                    $progress = 0
-                    $totalProgress = 0
-                    foreach ($file in $smallFiles) 
-                        {
-                            $entryName = $file.FullName.Substring($DumpFolder.Length + 1)
-                            $entry = $zipArchive.CreateEntry($entryName, 'Optimal')
-                            $stream = $entry.Open()
-                            $fileStream = [System.IO.File]::OpenRead($file.FullName)
-                            $bufferSize = 8KB
-                            $buffer = New-Object byte[] $bufferSize
-                            $count = $fileStream.Read($buffer, 0, $bufferSize)
-
-                        while ($count -gt 0) 
-                            {
-                                $stream.Write($buffer, 0, $count)
-                                $count = $fileStream.Read($buffer, 0, $bufferSize)
-
-                                $progress += $count
-                                $currentProgress = [math]::Min(($progress / $file.Length * 100), 100)
-                                $totalProgress = ($totalProgress + $currentProgress) / 2
-                                Write-Progress -Activity "Compressing Files" -Status "Progress" -PercentComplete $totalProgress
-                            }
-
-                            $stream.Close()
-                            $fileStream.Close()
-                        }
-                    $zipArchive.Dispose()
-
-                    #Remove the temporary directory#
-                    Remove-Item -Path $tempDir.FullName -Force -Recurse
-                } 
-            else 
-                {
-                    # Compress all files using Compress-Archive
-                    $files | Compress-Archive -DestinationPath $DestPath -Update -CompressionLevel Optimal
-
-                    # Calculate the progress per file
-                    $progressPerFile = 100 / $files.Count
-                    $totalProgress = 0
-
-                    foreach ($file in $files) 
-                        {
-                            $totalProgress += $progressPerFile
-                            Write-Progress -Activity "Compressing Files" -Status "Progress" -PercentComplete $totalProgress
-                        }
-
+                # Copy files from minidump folder if the conditions are met
+                if ($daysDifference2 -lt 30) {
+                    Copy-Item -Path $minidumpPath -Destination $DumpFolder -Recurse -ErrorAction SilentlyContinue
                 }
+            }
+        }
 
+# Compressing logs #
+$DumpFolder = "c:\dell\dumps"
+$DestPath = "C:\Dell\logs\dump.zip"
+$maximumFileSize = 4GB
+
+# Check if there are files in the folder before proceeding with compression
+$files = Get-ChildItem -Path $DumpFolder -File -Recurse -Force
+
+if ($files.Count -gt 0) {
+    # Give some time for logging to complete before starting zip
+    Start-Sleep -Seconds 5
+
+    $totalSize = ($files | Measure-Object -Property Length -Sum).Sum
+
+    if ($totalSize -gt $maximumFileSize) {
+        Write-Host "Starting a fresh compression for large files using System.IO.Compression.ZipFile class."
+
+        # Create a temporary directory to store the large files
+        $tempDir = New-Item -ItemType Directory -Path (Join-Path -Path $env:TEMP -ChildPath "LargeFilesTemp")
+
+        # Separate large and small files
+        $largeFiles = $files | Where-Object { $_.Length -gt $maximumFileSize }
+        $smallFiles = $files | Where-Object { $_.Length -le $maximumFileSize }
+
+        # Copy the large files to the temporary directory
+        foreach ($file in $largeFiles) {
+            $destinationPath = Join-Path -Path $tempDir.FullName -ChildPath $file.Name
+            Copy-Item -Path $file.FullName -Destination $destinationPath -Force
+        }
+
+        # Create a new zip archive
+        [System.IO.Compression.ZipFile]::CreateFromDirectory($tempDir.FullName, $DestPath, 'Optimal', $true)
+
+        # Include the small files in the zip archive
+        $smallFiles | Compress-Archive -DestinationPath $DestPath -Update -CompressionLevel Optimal
+
+        # Remove the temporary directory
+        Remove-Item -Path $tempDir.FullName -Force -Recurse
+    } else {
+        # Compress all files using Compress-Archive
+        $files | Compress-Archive -DestinationPath $DestPath -Update -CompressionLevel Optimal
+
+        # Calculate the progress per file
+        $progressPerFile = 100 / $files.Count
+        $totalProgress = 0
+
+        foreach ($file in $files) {
+            $totalProgress += $progressPerFile
+            Write-Progress -Activity "Compressing Files" -Status "Progress" -PercentComplete $totalProgress
+        }
+    }
+} 
 
 #MainMenu#
 DisplayMenu
 
 #Invoke-TssCollect#
-Clear-Host
+clear-host
 Remove-Item -Path "C:\Dell\Tss.zip" -Recurse -Force -ErrorAction Ignore
 $logfolder = (Get-ChildItem -Path c:\dell\Logs\*.zip -Name)
 Write-Host "Logs available at c:\Dell\Logs"
