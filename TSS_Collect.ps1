@@ -16,9 +16,11 @@ V 1.4
     BSOD collection includes SDP_Setup
     Rename main scritp to TSS.ps1
 #>
+
+
+
+Function Invoke-TssCollect {
 Function EndScript {
-    break
-}
 
 Function DisplayMenu {
     $DateTime = Get-Date -Format yyyyMMdd_HHmmss
@@ -354,3 +356,5 @@ Write-Host "Logs available at c:\Dell\Logs"
 #Removing extracted collector and zip file#
 Remove-Item "C:\Dell\Tss" -Recurse -Force -ErrorAction Ignore
 Remove-Item "C:\Dell\Dumps" -Recurse -Force -ErrorAction Ignore
+}
+}
