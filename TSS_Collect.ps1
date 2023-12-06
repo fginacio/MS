@@ -357,4 +357,4 @@ Write-Host "Logs available at c:\Dell\Logs"
 Remove-Item "C:\Dell\Tss" -Recurse -Force -ErrorAction Ignore
 Remove-Item "C:\Dell\Dumps" -Recurse -Force -ErrorAction Ignore
 }
-}
+
