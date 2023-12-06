@@ -224,9 +224,7 @@ Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "
 
 #Set Execution Policy#
 $ExecutionPolicy = Get-ExecutionPolicy
-Write-Host "Set ExecutionPolicy Bypass..."
-    Set-ExecutionPolicy Bypass -Scope Process -Force
-Write-Host "    ExecutionPolicy:"$env:PSExecutionPolicyPreference
+Set-ExecutionPolicy Unrestricted
 
 #Detect Roles/Features#
 $roles= get-WindowsFeature -Name * | where Installed
@@ -349,7 +347,7 @@ clear-host
 Remove-Item -Path "C:\Dell\Tss.zip" -Recurse -Force -ErrorAction Ignore
 $logfolder = (Get-ChildItem -Path c:\dell\Logs\*.zip -Name)
 Write-Host "Logs available at c:\Dell\Logs"
-
+Set-ExecutionPolicy $ExecutionPolicy
 
 #Removing extracted collector and zip file#
 Remove-Item "C:\Dell\Tss" -Recurse -Force -ErrorAction Ignore
