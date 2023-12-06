@@ -223,7 +223,7 @@ $Ver = "1.4"
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
 
 #Set Execution Policy#
-$ExecutionPolicy = Get-ExecutionPolicy
+#$ExecutionPolicy = Get-ExecutionPolicy
 Write-Host "Set ExecutionPolicy Bypass..."
     Set-ExecutionPolicy Bypass -Scope Process -Force
 Write-Host "    ExecutionPolicy:"$env:PSExecutionPolicyPreference
