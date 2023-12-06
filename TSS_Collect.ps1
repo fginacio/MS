@@ -18,9 +18,10 @@ V 1.4
 #>
 
 
-
 Function Invoke-TssCollect {
 Function EndScript {
+Break
+}
 
 Function DisplayMenu {
     $DateTime = Get-Date -Format yyyyMMdd_HHmmss
