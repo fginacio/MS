@@ -60,7 +60,7 @@ Function DisplayMenu {
     {
  
     Y {
-    IF      (((Get-Service Clussvc).Status -ne "Running")) {
+    IF      ((Get-Service ClusSvc -ErrorAction SilentlyContinue | Where-Object {$_.Status -eq "Running"})) {
     #OPTION - Cluster Collection#
             
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
@@ -83,7 +83,7 @@ Function DisplayMenu {
             Stop-Transcript
             EndScript
             }
-    ELSEIF  ((Get-Service VMMS).Status -ne "Running") {
+    ELSEIF  ((Get-Service VMMS -ErrorAction SilentlyContinue | Where-Object {$_.Status -eq "Running"})) {
     #OPTION - HyperV Collection#
             
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula"
@@ -106,7 +106,7 @@ Function DisplayMenu {
             Stop-Transcript
             EndScript
             }
-    ELSEIF  ((Get-Service NTDS).Status -ne "Running") {
+    ELSEIF  ((Get-Service NTDS -ErrorAction SilentlyContinue | Where-Object {$_.Status -eq "Running"})) {
     #OPTION - Active Directory Collection#
            
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp DOM -LogFolderPath $dell -AcceptEula"
