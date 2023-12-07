@@ -60,7 +60,7 @@ Function DisplayMenu {
     {
  
     Y {
-    IF      (get-WindowsFeature -Name Failover-clustering | where Installed) {
+    IF      (((Get-Service Clussvc).Status -ne "Running")) {
     #OPTION - Cluster Collection#
             
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
@@ -83,7 +83,7 @@ Function DisplayMenu {
             Stop-Transcript
             EndScript
             }
-    ELSEIF  (get-WindowsFeature -Name Hyper-V | where Installed) {
+    ELSEIF  ((Get-Service VMMS).Status -ne "Running") {
     #OPTION - HyperV Collection#
             
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula"
@@ -106,7 +106,7 @@ Function DisplayMenu {
             Stop-Transcript
             EndScript
             }
-    ELSEIF  (get-WindowsFeature -Name AD-Domain-Services | where Installed) {
+    ELSEIF  ((Get-Service NTDS).Status -ne "Running") {
     #OPTION - Active Directory Collection#
            
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp DOM -LogFolderPath $dell -AcceptEula"
