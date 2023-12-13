@@ -13,8 +13,9 @@ V 1.3
     Fixed incorrect Unicode characters;
 V 1.4
     Now TSS run automatically and collect SDP based on installed Roles/Features
-    BSOD collection includes SDP_Setup
-    Rename main scritp to TSS.ps1
+    Checks for BSOD events with less than 30 days and collect Dump log (Memory.dmp and minidump folder) 
+    Renamed main script to TSS.ps1
+    Output logs available at c:\Dell\Logs
 #>
 
 
@@ -60,7 +61,7 @@ Function DisplayMenu {
     {
  
     Y {
-    IF      ((Get-Service ClusSvc -ErrorAction SilentlyContinue | Where-Object {$_.Status -eq "Running"})) {
+    IF      (get-WindowsFeature -Name Failover-clustering | where Installed) {
     #OPTION - Cluster Collection#
             
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
@@ -83,7 +84,7 @@ Function DisplayMenu {
             Stop-Transcript
             EndScript
             }
-    ELSEIF  ((Get-Service VMMS -ErrorAction SilentlyContinue | Where-Object {$_.Status -eq "Running"})) {
+    ELSEIF  (get-WindowsFeature -Name Hyper-V | where Installed) {
     #OPTION - HyperV Collection#
             
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula"
@@ -106,7 +107,7 @@ Function DisplayMenu {
             Stop-Transcript
             EndScript
             }
-    ELSEIF  ((Get-Service NTDS -ErrorAction SilentlyContinue | Where-Object {$_.Status -eq "Running"})) {
+    ELSEIF  (get-WindowsFeature -Name AD-Domain-Services | where Installed) {
     #OPTION - Active Directory Collection#
            
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp DOM -LogFolderPath $dell -AcceptEula"
