@@ -14,25 +14,28 @@ https://aka.ms/getTSS
 https://cesdiagtools.blob.core.windows.net/windows/TSSv2.zip
 Note: https://cesdiagtools.blob.core.windows.net/windows/TSSv2.ver will always reflect latest version number
 
-This script simplify the log collection with only 3 collection options.
+This script simplify the log collection and will gather logs based on installed roles/features.
 
-    +===============================================+
-    |  TSSv2 - Log Collection  v1.3                 |     
-    |                                               |
-    |           By: Fabiano Inacio                  | 
-    +===============================================+
-    |                                               |
-    |    1: Press '1' for Default collection.       |
-    |    2: Press '2' for Cluster collection.       |
-    |    3: Press '3' for HyperV collection.        |
-    |    4: Press '4' for BSOD collection.          |
-    |    Q: Press 'Q' for Exit.                     |
-    +===============================================+    
+    +======================================================================+
+    |                                                                      |
+    |                                                                      |                
+    |   _____  ___  ___   _                  ___       _  _           _    |
+    |  |_   _|/ __|/ __| | |    ___  __ _   / __| ___ | || | ___  __ | |_  |
+    |    | |  \__ \\__ \ | |__ / _ \/ _` | | (__ / _ \| || |/ -_)/ _||  _  |
+    |    |_|  |___/|___/ |____|\___/\__, |  \___|\___/|_||_|\___|\__| \__| |
+    |                               |___/                                  |
+    |                                                                      | 
+    |                                           v1.4                       |     
+    |                                                                      |
+    |                               By: Fabiano Inacio                     |
+    |                                                                      |
+    |                                                                      |
+    +======================================================================+   
 
 ### Usage
 Copy the below powershell code and paste into PowerShell
 ```Powershell
-Echo TSSv2Collect;[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;Invoke-Expression('$module="TSSv2Collect"; $repo="PowershellScripts"'+(new-object net.webclient).DownloadString('https://raw.githubusercontent.com/fginacio/MS/main/TSSv2Collect.ps1'))
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;Invoke-Expression('$module="TSSCollect"; $repo="PowershellScripts"'+(new-object net.webclient).DownloadString('https://raw.githubusercontent.com/fginacio/MS/main/TSSCollect.ps1'));Invoke-TSSCollect
 ``` 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
