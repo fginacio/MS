@@ -20,6 +20,23 @@ V 1.4
 
 
 Function Invoke-TssCollect {
+Function Check-FreeSpace {
+    # Get the free space of the C:\ drive in gigabytes
+    $freeSpaceGB = [math]::Round((Get-WmiObject Win32_LogicalDisk -Filter "DeviceID='C:'").FreeSpace / 1GB, 2)
+
+    # Define the threshold
+    $thresholdGB = 60
+
+    # Check if free space is less than the threshold
+    if ($freeSpaceGB -lt $thresholdGB) {
+        $Shell = New-Object -ComObject "WScript.Shell"
+        $Button = $Shell.Popup("There is not enough space in C: to run de data collection tool. Please release space in C: drive and try again. Available space: $($freeSpaceGB.ToString("0.00")) GB", 0, "Error", 0x0)
+        Write-Host "Error: There is not enough space in C: to run de data collection tool. Please release space in C: drive and try again. Available space: $($freeSpaceGB.ToString("0.00")) GB" -ForegroundColor Red -BackgroundColor Yellow
+        Exit
+    } else {
+        Write-Host "Free space on C:\ drive is sufficient: $($freeSpaceGB.ToString("0.00")) GB"
+    }
+}
 Function EndScript {
 Break
 }
@@ -192,22 +209,7 @@ New-Item -Path C:\Dell\Tss -ItemType Directory
 New-Item -Path C:\Dell\Logs -ItemType Directory
 Start-Sleep -Seconds 5
 
-# Get the free space of the C:\ drive in gigabytes
-$freeSpaceGB = [math]::Round((Get-WmiObject Win32_LogicalDisk -Filter "DeviceID='C:'").FreeSpace / 1GB, 2)
-
-# Define the threshold
-$thresholdGB = 60
-
-# Check if free space is less than the threshold
-if ($freeSpaceGB -lt $thresholdGB) {
-    $Shell = New-Object -ComObject "WScript.Shell"
-    $Button = $Shell.Popup("There is not enough space in C: to run de data collection tool. Please release space in C: drive and try again. Available space: $($freeSpaceGB.ToString("0.00")) GB", 0, "Error", 0x0)
-    Write-Host "Error: There is not enough space in C: to run de data collection tool. Please release space in C: drive and try again. Available space: $($freeSpaceGB.ToString("0.00")) GB" -ForegroundColor Red -BackgroundColor Yellow
-    EndScript
-} else {
-    Write-Host "Free space on C:\ drive is sufficient: $($freeSpaceGB.ToString("0.00")) GB"
-}
-
+Check-FreeSpace
 
 #Downloading TSS#
 wget http://aka.ms/getTss -OutFile "c:\Dell\Tss.zip" -ErrorAction SilentlyContinue
