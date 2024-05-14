@@ -32,7 +32,13 @@ Function Check-FreeSpace {
         $Shell = New-Object -ComObject "WScript.Shell"
         $Button = $Shell.Popup("There is not enough space in C: to run de data collection tool. Please release space in C: drive and try again. Available space: $($freeSpaceGB.ToString("0.00")) GB", 0, "Error", 0x0)
         Write-Host "Error: There is not enough space in C: to run de data collection tool. Please release space in C: drive and try again. Available space: $($freeSpaceGB.ToString("0.00")) GB" -ForegroundColor Red -BackgroundColor Yellow
-        Exit
+        Remove-Item "C:\Dell\Dumps" -Recurse -Force -ErrorAction Ignore
+        Remove-Item "C:\Dell\Logs" -Recurse -Force -ErrorAction Ignore
+        Remove-Item "C:\Dell\SDP_*" -Recurse -Force -ErrorAction Ignore
+        Remove-Item "C:\Dell\TssCollect*.log" -Recurse -Force -ErrorAction Ignore
+        Remove-Item "C:\Dell\Tss" -Recurse -Force -ErrorAction Ignore
+        Remove-Item "C:\Dell\Tss.zip" -Recurse -Force -ErrorAction Ignore
+        EndScript
     } else {
         Write-Host "Free space on C:\ drive is sufficient: $($freeSpaceGB.ToString("0.00")) GB"
     }
