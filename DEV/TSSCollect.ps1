@@ -39,9 +39,8 @@ Function Check-FreeSpace {
         Remove-Item "C:\Dell\Tss" -Recurse -Force -ErrorAction Ignore
         Remove-Item "C:\Dell\Tss.zip" -Recurse -Force -ErrorAction Ignore
         EndScript
-    } else {
-        Write-Host "Free space on C:\ drive is sufficient: $($freeSpaceGB.ToString("0.00")) GB"
-    }
+    } 
+    #else {Write-Host "Free space on C:\ drive is sufficient: $($freeSpaceGB.ToString("0.00")) GB"}
 }
 Function EndScript {
 Break
