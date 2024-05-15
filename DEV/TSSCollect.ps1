@@ -123,9 +123,16 @@ Function DisplayMenu {
             }
     ELSEIF  (get-WindowsFeature -Name AD-Domain-Services | where Installed) {
     #OPTION - Active Directory Collection#
-            
+            try{
             # Attempt to execute the command
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp DOM -LogFolderPath $dell -AcceptEula"
+            } catch {
+                # Check if the error message indicates disk full
+                if ($_.Exception.Message -like "*disk*full*") {
+                    Write-Host "Error: Disk is full."
+                    Check-FreeSpace
+                }
+            }
             Set-Location $tss
             #Compressing logs#
             clear-host
