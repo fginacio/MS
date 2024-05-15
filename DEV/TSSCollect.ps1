@@ -128,7 +128,7 @@ Function DisplayMenu {
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp DOM -LogFolderPath $dell -AcceptEula"
             } catch {
                 # Check if the error message indicates disk full
-                if ($_.Exception.Message -like "*disk*full*") {
+                if ($_.Exception.Message -like "*enough*space*disk*") {
                     Write-Host "Error: Disk is full."
                     Check-FreeSpace
                 }
