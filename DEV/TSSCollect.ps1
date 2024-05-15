@@ -121,9 +121,9 @@ Function DisplayMenu {
             }
     ELSEIF  (get-WindowsFeature -Name AD-Domain-Services | where Installed) {
     #OPTION - Active Directory Collection#
-            Function Check-FreeSpace
+            Check-FreeSpace
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp DOM -LogFolderPath $dell -AcceptEula"
-            Function Check-FreeSpace
+            Check-FreeSpace
             Set-Location $tss
             #Compressing logs#
             clear-host
