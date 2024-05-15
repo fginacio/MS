@@ -89,13 +89,6 @@ Function DisplayMenu {
             # Attempt to execute the command
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
             Set-Location $tss
-
-            #Compressing logs#
-            clear-host
-            $sourceFolder = "C:\Dell\SDP_Cluster\"
-            Write-Host "Compressing $sourceFolder folder to " c:\Dell\Logs\$CaseNumber.zip". This might take a while."
-            $logtemp = Get-ChildItem -Path c:\Dell\SDP_Cluster\*Cluster.zip
-            Move-Item -Path c:\Dell\SDP_Cluster\*Cluster.zip -Destination "c:\Dell\Logs\$CaseNumber.zip"
             } catch {
                 # Check if the error message indicates disk full
                 if ($_.Exception.Message -like "*disk*full*") {
@@ -104,7 +97,14 @@ Function DisplayMenu {
                     Check-FreeSpace
                 }
             }   
-                
+            
+            #Compressing logs#
+            clear-host
+            $sourceFolder = "C:\Dell\SDP_Cluster\"
+            Write-Host "Compressing $sourceFolder folder to " c:\Dell\Logs\$CaseNumber.zip". This might take a while."
+            $logtemp = Get-ChildItem -Path c:\Dell\SDP_Cluster\*Cluster.zip
+            Move-Item -Path c:\Dell\SDP_Cluster\*Cluster.zip -Destination "c:\Dell\Logs\$CaseNumber.zip"
+                            
             Remove-Item "C:\Dell\SDP_*" -Recurse -Force -ErrorAction Ignore
             $Shell = New-Object -ComObject "WScript.Shell"
             $Button = $Shell.Popup("$Button at c:\Dell\Logs",0,"Collection Successfull",0)
@@ -121,13 +121,6 @@ Function DisplayMenu {
             # Attempt to execute the command
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula"
             Set-Location $tss
-
-            #Compressing logs#
-            clear-host
-            $sourceFolder = "C:\Dell\SDP_HyperV\"
-            Write-Host "Compressing $sourceFolder folder to " c:\Dell\Logs\$CaseNumber.zip". This might take a while."
-            $logtemp = Get-ChildItem -Path c:\Dell\SDP_HyperV\*HyperV.zip
-            Move-Item -Path c:\Dell\SDP_HyperV\*HyperV.zip -Destination "c:\Dell\Logs\$CaseNumber.zip"
             } catch {
                 # Check if the error message indicates disk full
                 if ($_.Exception.Message -like "*disk*full*") {
@@ -135,8 +128,15 @@ Function DisplayMenu {
                     Write-Host "Checking free space on C: drive..."
                     Check-FreeSpace
                 }
-            }     
-
+            }   
+            
+            #Compressing logs#
+            clear-host
+            $sourceFolder = "C:\Dell\SDP_HyperV\"
+            Write-Host "Compressing $sourceFolder folder to " c:\Dell\Logs\$CaseNumber.zip". This might take a while."
+            $logtemp = Get-ChildItem -Path c:\Dell\SDP_HyperV\*HyperV.zip
+            Move-Item -Path c:\Dell\SDP_HyperV\*HyperV.zip -Destination "c:\Dell\Logs\$CaseNumber.zip"
+            
             Remove-Item "C:\Dell\SDP_*" -Recurse -Force -ErrorAction Ignore
             $Shell = New-Object -ComObject "WScript.Shell"
             $Button = $Shell.Popup("$Button at c:\Dell\Logs",0,"Collection Successfull",0)
@@ -153,14 +153,13 @@ Function DisplayMenu {
             # Attempt to execute the command
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp DOM -LogFolderPath $dell -AcceptEula"
             Set-Location $tss
-
             } catch {
                 # Check if the error message indicates disk full
                 if ($_.Exception.Message -like "There is not enough space on the disk") {
                     Write-Host "Error: Disk is full."
                     Check-FreeSpace
                 }
-            
+
             #Compressing logs#
             clear-host
             $sourceFolder = "C:\Dell\SDP_DOM\"
@@ -184,13 +183,6 @@ Function DisplayMenu {
             # Attempt to execute the command 
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula"
             Set-Location $tss
-
-            #Compressing logs#
-            clear-host
-            $sourceFolder = "C:\Dell\SDP_Setup\"
-            Write-Host "Compressing $sourceFolder folder to " c:\Dell\Logs\$CaseNumber.zip". This might take a while."
-            $logtemp = Get-ChildItem -Path C:\Dell\SDP_Setup\*Setup.zip
-            Move-Item -Path C:\Dell\SDP_Setup\*Setup.zip -Destination "c:\Dell\Logs\$CaseNumber.zip"
             } catch {
                 # Check if the error message indicates disk full
                 if ($_.Exception.Message -like "*disk*full*") {
@@ -198,8 +190,15 @@ Function DisplayMenu {
                     Write-Host "Checking free space on C: drive..."
                     Check-FreeSpace
                 }
-            } 
-
+            }   
+            
+            #Compressing logs#
+            clear-host
+            $sourceFolder = "C:\Dell\SDP_Setup\"
+            Write-Host "Compressing $sourceFolder folder to " c:\Dell\Logs\$CaseNumber.zip". This might take a while."
+            $logtemp = Get-ChildItem -Path C:\Dell\SDP_Setup\*Setup.zip
+            Move-Item -Path C:\Dell\SDP_Setup\*Setup.zip -Destination "c:\Dell\Logs\$CaseNumber.zip"
+           
             Remove-Item "C:\Dell\SDP_*" -Recurse -Force -ErrorAction Ignore
             $Shell = New-Object -ComObject "WScript.Shell"
             $Button = $Shell.Popup("Logs available at c:\Dell\Logs",0,"Collection Successfull",0)
