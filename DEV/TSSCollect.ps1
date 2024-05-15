@@ -78,7 +78,6 @@ Function DisplayMenu {
     IF      (get-WindowsFeature -Name Failover-clustering | where Installed) {
     #OPTION - Cluster Collection#
             
-            # Attempt to execute the command
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
             Set-Location $tss
             #Compressing logs#
@@ -101,7 +100,6 @@ Function DisplayMenu {
     ELSEIF  (get-WindowsFeature -Name Hyper-V | where Installed) {
     #OPTION - HyperV Collection#
             
-            # Attempt to execute the command
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula"
             Set-Location $tss
             #Compressing logs#
@@ -123,16 +121,9 @@ Function DisplayMenu {
             }
     ELSEIF  (get-WindowsFeature -Name AD-Domain-Services | where Installed) {
     #OPTION - Active Directory Collection#
-            try{
-            # Attempt to execute the command
+            Function Check-FreeSpace
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp DOM -LogFolderPath $dell -AcceptEula"
-            } catch {
-                # Check if the error message indicates disk full
-                if ($_.Exception.Message -like "*enough*space*disk*") {
-                    Write-Host "Error: Disk is full."
-                    Check-FreeSpace
-                }
-            }
+            Function Check-FreeSpace
             Set-Location $tss
             #Compressing logs#
             clear-host
@@ -154,7 +145,6 @@ Function DisplayMenu {
     ELSE {
     #OPTION - Default Collection#
             
-            # Attempt to execute the command 
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula"
             Set-Location $tss
             #Compressing logs#
