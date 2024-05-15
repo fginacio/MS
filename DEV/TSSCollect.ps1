@@ -381,7 +381,17 @@ if ($files.Count -gt 0) {
         }
 
         # Create a new zip archive
+         try {
         [System.IO.Compression.ZipFile]::CreateFromDirectory($tempDir.FullName, $DestPath, 'Optimal', $true)
+
+        } catch {
+                # Check if the error message indicates disk full
+                if ($_.Exception.Message -like "*disk*full*") {
+                    Write-Host "Error: Disk is full."
+                    Write-Host "Checking free space on C: drive..."
+                    Check-FreeSpace
+                }
+            } 
 
         # Include the small files in the zip archive
         $smallFiles | Compress-Archive -DestinationPath $DestPath -Update -CompressionLevel Optimal
@@ -390,7 +400,17 @@ if ($files.Count -gt 0) {
         Remove-Item -Path $tempDir.FullName -Force -Recurse
     } else {
         # Compress all files using Compress-Archive
+        try {
         $files | Compress-Archive -DestinationPath $DestPath -Update -CompressionLevel Optimal
+
+        } catch {
+                # Check if the error message indicates disk full
+                if ($_.Exception.Message -like "*disk*full*") {
+                    Write-Host "Error: Disk is full."
+                    Write-Host "Checking free space on C: drive..."
+                    Check-FreeSpace
+                }
+            } 
 
         # Calculate the progress per file
         $progressPerFile = 100 / $files.Count
