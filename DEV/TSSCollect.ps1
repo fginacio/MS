@@ -162,7 +162,7 @@ Function DisplayMenu {
             Move-Item -Path C:\Dell\SDP_DOM\*DOM.zip -Destination "c:\Dell\Logs\$CaseNumber.zip"
             } catch {
                 # Check if the error message indicates disk full
-                if ($_.Exception.Message -like "*disk*full*") {
+                if ($_.Exception.Message -like "There is not enough space on the disk") {
                     Write-Host "Error: Disk is full."
                     Write-Host "Checking free space on C: drive..."
                     Check-FreeSpace
