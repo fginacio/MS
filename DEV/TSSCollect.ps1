@@ -18,6 +18,11 @@ V 1.4
     Output logs available at c:\Dell\Logs
 #>
 Function Invoke-TssCollect {
+
+Function EndScript {
+Break
+}
+Function DisplayMenu {
 Function Check-FreeSpace {
     # Get the free space of the C:\ drive in gigabytes
     $freeSpaceGB = [math]::Round((Get-WmiObject Win32_LogicalDisk -Filter "DeviceID='C:'").FreeSpace / 1GB, 2)
@@ -38,10 +43,6 @@ Function Check-FreeSpace {
     } 
     #else {Write-Host "Free space on C:\ drive is sufficient: $($freeSpaceGB.ToString("0.00")) GB"}
 }
-Function EndScript {
-Break
-}
-Function DisplayMenu {
     $DateTime = Get-Date -Format yyyyMMdd_HHmmss
     Start-Transcript -NoClobber -Path "C:\Dell\TssCollect_$DateTime.log"
     clear-host
@@ -123,9 +124,9 @@ Function DisplayMenu {
     #OPTION - Active Directory Collection#
             Check-FreeSpace
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp DOM -LogFolderPath $dell -AcceptEula"
-            Check-FreeSpace
+            #Check-FreeSpace
             Set-Location $tss
-            #Compressing logs#
+            Compressing logs#
             clear-host
             $sourceFolder = "C:\Dell\SDP_DOM\"
             Write-Host "Compressing $sourceFolder folder to " c:\Dell\Logs\$CaseNumber.zip". This might take a while."
