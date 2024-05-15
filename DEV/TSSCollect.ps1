@@ -154,21 +154,20 @@ Function DisplayMenu {
             Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp DOM -LogFolderPath $dell -AcceptEula"
             Set-Location $tss
 
+            } catch {
+                # Check if the error message indicates disk full
+                if ($_.Exception.Message -like "There is not enough space on the disk") {
+                    Write-Host "Error: Disk is full."
+                    Check-FreeSpace
+                }
+            
             #Compressing logs#
             clear-host
             $sourceFolder = "C:\Dell\SDP_DOM\"
             Write-Host "Compressing $sourceFolder folder to " c:\Dell\Logs\$CaseNumber.zip". This might take a while."
             $logtemp = Get-ChildItem -Path C:\Dell\SDP_DOM\*DOM.zip
             Move-Item -Path C:\Dell\SDP_DOM\*DOM.zip -Destination "c:\Dell\Logs\$CaseNumber.zip"
-            } catch {
-                # Check if the error message indicates disk full
-                if ($_.Exception.Message -like "There is not enough space on the disk") {
-                    Write-Host "Error: Disk is full."
-                    Write-Host "Checking free space on C: drive..."
-                    Check-FreeSpace
-                }
-            } 
-
+           
             Remove-Item "C:\Dell\SDP_*" -Recurse -Force -ErrorAction Ignore
             $Shell = New-Object -ComObject "WScript.Shell"
             $Button = $Shell.Popup("$Button at c:\Dell\Logs",0,"Collection Successfull",0)
