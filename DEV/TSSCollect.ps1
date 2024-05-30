@@ -249,7 +249,7 @@ Start-Sleep -Seconds 2
 clear-host
 #OPTION - BSOD Collection#
 #Copying logs#
-#Creating a temporary dumps folder#
+<##Creating a temporary dumps folder#
         # Checking dump file timestamp is more than 30 Days
         $memoryDmpPath = "c:\windows\memory.dmp"
         $minidumpPath = "c:\windows\minidump"
@@ -298,9 +298,58 @@ clear-host
             }
             # Close ZipFile #
             $zipArchive.Dispose()
+        }#>
+        #Creating a temporary dumps folder#
+        # Checking dump file timestamp is more than 30 Days
+        $memoryDmpPath = "c:\windows\memory.dmp"
+        $minidumpPath = "c:\windows\minidump"
+        $DumpFolder = "C:\Dell\logs\dump.zip"
+
+        # Check if at least one of the paths exist before accessing their LastWriteTime
+        if ((Test-Path $memoryDmpPath -and ((Get-Date) - (Get-Item $memoryDmpPath).LastWriteTime).Days -lt 30) -or 
+            (Test-Path $minidumpPath -and ((Get-Date) - (Get-Item $minidumpPath).LastWriteTime).Days -lt 30)) {
+    
+            $zipArchive = [System.IO.Compression.ZipFile]::Open($DumpFolder, 'Create')
+            Write-Host "Collecting Dump files, This process may take around 5-10 minutes, please wait!"
+    
+            # Check if the file exists before accessing its LastWriteTime
+            if (Test-Path $memoryDmpPath) {
+                $memoryDmpTimestamp = (Get-Item $memoryDmpPath).LastWriteTime
+                $currentTimestamp = Get-Date
+                $daysDifference = ($currentTimestamp - $memoryDmpTimestamp).Days
+        
+                # Checking Memory.dmp if the conditions are met
+                if ($daysDifference -lt 30) {
+                    Get-ChildItem -Path $memoryDmpPath | ForEach-Object {
+            
+                    # Compressing MEMORY.DMP log #
+                        [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $_.FullName, $_.Name)
+                    }
+                }
+            }
+            # Check if the file exists before accessing its LastWriteTime
+            if (Test-Path $minidumpPath) {
+                $minidumpPathTimestamp = (Get-Item $minidumpPath).LastWriteTime
+                $currentTimestamp = Get-Date
+                $daysDifference2 = ($currentTimestamp - $minidumpPathTimestamp).Days
+        
+                # Checking files from minidump folder if the conditions are met
+                if ($daysDifference2 -lt 30) {
+            
+                    # Get all files in the minidump folder
+                    $minidumpFiles = Get-ChildItem -Path $minidumpPath
+                    foreach ($file in $minidumpFiles) {
+               
+                    # Compressing MiniDump logs
+                        [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $file.FullName, $file.Name)
+                    }
+                }
+            }
+            # Close ZipFile #
+            $zipArchive.Dispose()
         }
-        # Close ZipFile #
-        #$zipArchive.Dispose()
+
+
 #MainMenu#
 DisplayMenu
 #Invoke-TssCollect#
