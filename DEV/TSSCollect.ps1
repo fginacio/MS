@@ -224,7 +224,7 @@ else
     EndScript
 }
 clear-host
-$Ver = "1.4"
+$Ver = "DEV"
 #IE Fix#
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
 #Set Execution Policy#
