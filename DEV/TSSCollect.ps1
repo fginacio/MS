@@ -257,7 +257,7 @@ clear-host
         $memoryDmpPath = "c:\windows\memory.dmp"
         $minidumpPath = "c:\windows\minidump"
         #$DumpFolder = "c:\dell\dumps"
-        $DumpFolder = "c:\dell\Logs"
+        $DumpFolder = "C:\Dell\logs\dump.zip"
         # Check if at least one of the paths exist before accessing their LastWriteTime
         if ((Test-Path $memoryDmpPath) -or (Test-Path $minidumpPath)) {
            
@@ -269,7 +269,8 @@ clear-host
                 # Copy Memory.dmp if the conditions are met
                 if ($daysDifference -lt 30) {
                     #Copy-Item -Path $memoryDmpPath -Destination $DumpFolder -Recurse -ErrorAction SilentlyContinue
-                    Compress-Archive -Path $memoryDmpPath -DestinationPath $DumpFolder -Force -CompressionLevel Optimal
+                    #Compress-Archive -Path $memoryDmpPath -DestinationPath $DumpFolder -Force -CompressionLevel Optimal
+                    [System.IO.Compression.ZipFile]::CreateFromDirectory($memoryDmpPath.FullName, $DestPath, 'Optimal', $true)
 
                 }
             }
@@ -281,7 +282,7 @@ clear-host
                 # Copy files from minidump folder if the conditions are met
                 if ($daysDifference2 -lt 30) {
                     #Copy-Item -Path $minidumpPath -Destination $DumpFolder -Recurse -ErrorAction SilentlyContinue
-                    Compress-Archive -Path $memoryDmpPath -DestinationPath $DumpFolder -Force -CompressionLevel Optimal
+                    Compress-Archive -Path $memoryDmpPath -DestinationPath $DumpFolder -Update -CompressionLevel Optimal -Force
                 }
             }
         }
