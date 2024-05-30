@@ -241,7 +241,7 @@ clear-host
 #OPTION - BSOD Collection#
 #Copying logs#
 #Creating a temporary dumps folder#
-            $DumpFolder = "c:\dell\dumps"
+         <#   $DumpFolder = "c:\dell\dumps"
             if (Test-Path "$DumpFolder")
                 {
                     #Write-Host "Folder Exists"
@@ -252,7 +252,7 @@ clear-host
                     #Write-Host "Folder Doesn't Exists, creating..."
                     #PowerShell Create directory if not exists
                     New-Item $DumpFolder -ItemType Directory
-                }
+                }#>
         # Checking dump file timestamp is more than 30 Days
         $memoryDmpPath = "c:\windows\memory.dmp"
         $minidumpPath = "c:\windows\minidump"
