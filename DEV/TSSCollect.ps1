@@ -262,6 +262,7 @@ clear-host
 
         # Check if at least one of the paths exist before accessing their LastWriteTime
         if ((Test-Path $memoryDmpPath) -or (Test-Path $minidumpPath)) {
+        Write-Host "Collecting Dump files, This process may take around 5-10 minutes, please wait!"
            
             # Check if the file exists before accessing its LastWriteTime
             if (Test-Path $memoryDmpPath) {
