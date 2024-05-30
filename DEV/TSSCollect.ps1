@@ -16,6 +16,10 @@ V 1.4
     Checks for BSOD events with less than 30 days and collect Dump log (Memory.dmp and minidump folder) 
     Renamed main script to TSS.ps1
     Output logs available at c:\Dell\Logs
+V 1.5
+    Memory.dmp now is directly compressed to c:\dell\logs without a temp folder
+    Check-Freespae function will monitoring the free space available on system during execution
+
 #>
 Function Invoke-TssCollect {
 
@@ -230,7 +234,7 @@ else
     EndScript
 }
 clear-host
-$Ver = "DEV"
+$Ver = "1.5"
 #IE Fix#
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
 #Set Execution Policy#
@@ -250,10 +254,11 @@ clear-host
         $memoryDmpPath = "c:\windows\memory.dmp"
         $minidumpPath = "c:\windows\minidump"
         $DumpFolder = "C:\Dell\logs\dump.zip"
-        $zipArchive = [System.IO.Compression.ZipFile]::Open($DumpFolder, 'Create')
+        #$zipArchive = [System.IO.Compression.ZipFile]::Open($DumpFolder, 'Create')
 
         # Check if at least one of the paths exist before accessing their LastWriteTime
         if ((Test-Path $memoryDmpPath) -or (Test-Path $minidumpPath)) {
+        $zipArchive = [System.IO.Compression.ZipFile]::Open($DumpFolder, 'Create')
         Write-Host "Collecting Dump files, This process may take around 5-10 minutes, please wait!"
            
             # Check if the file exists before accessing its LastWriteTime
@@ -291,9 +296,11 @@ clear-host
                     }
                 }
             }
+            # Close ZipFile #
+            $zipArchive.Dispose()
         }
         # Close ZipFile #
-        $zipArchive.Dispose()
+        #$zipArchive.Dispose()
 #MainMenu#
 DisplayMenu
 #Invoke-TssCollect#
