@@ -258,7 +258,7 @@ clear-host
         $minidumpPath = "c:\windows\minidump"
         #$DumpFolder = "c:\dell\dumps"
         $DumpFolder = "C:\Dell\logs\dump.zip"
-        $ZipFile = [System.IO.Compression.ZipFile]::Open($DumpFolder, 'Create')
+        $zipArchive = [System.IO.Compression.ZipFile]::Open($DumpFolder, 'Create')
 
         # Check if at least one of the paths exist before accessing their LastWriteTime
         if ((Test-Path $memoryDmpPath) -or (Test-Path $minidumpPath)) {
@@ -270,7 +270,6 @@ clear-host
                 $daysDifference = ($currentTimestamp - $memoryDmpTimestamp).Days
                 # Copy Memory.dmp if the conditions are met
                 if ($daysDifference -lt 300) {
-                    #[System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $memoryDmpPath, (Split-Path $memoryDmpPath -Leaf))
                     Get-ChildItem -Path $memoryDmpPath | ForEach-Object {
                         [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $_.FullName, $_.Name)
                     }
