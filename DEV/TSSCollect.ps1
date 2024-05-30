@@ -272,7 +272,7 @@ clear-host
                 $daysDifference = ($currentTimestamp - $memoryDmpTimestamp).Days
                 # Checking Memory.dmp if the conditions are met
                 
-                if ($daysDifference -lt 300) {
+                if ($daysDifference -lt 30) {
                     Get-ChildItem -Path $memoryDmpPath | ForEach-Object {
                     
                     # Compressing MEMORY.DMP log #
@@ -289,7 +289,7 @@ clear-host
                 $daysDifference2 = ($currentTimestamp - $minidumpPathTimestamp).Days
                 # Checking files from minidump folder if the conditions are met
                 
-                if ($daysDifference2 -lt 300) {
+                if ($daysDifference2 -lt 30) {
                 
                 # Compressing MiniDump logs #
                     [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $minidumpPath, (Split-Path $minidumpPath -Leaf))
