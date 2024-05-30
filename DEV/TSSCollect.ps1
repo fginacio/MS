@@ -258,6 +258,8 @@ clear-host
         $minidumpPath = "c:\windows\minidump"
         #$DumpFolder = "c:\dell\dumps"
         $DumpFolder = "C:\Dell\logs\dump.zip"
+        $ZipFile = [System.IO.Compression.ZipFile]::Open($DumpFolder, 'Create')
+
         # Check if at least one of the paths exist before accessing their LastWriteTime
         if ((Test-Path $memoryDmpPath) -or (Test-Path $minidumpPath)) {
            
@@ -268,9 +270,8 @@ clear-host
                 $daysDifference = ($currentTimestamp - $memoryDmpTimestamp).Days
                 # Copy Memory.dmp if the conditions are met
                 if ($daysDifference -lt 300) {
-                    #Copy-Item -Path $memoryDmpPath -Destination $DumpFolder -Recurse -ErrorAction SilentlyContinue
-                    #Compress-Archive -Path $memoryDmpPath -DestinationPath $DumpFolder -Force -CompressionLevel Optimal
-                    [System.IO.Compression.ZipFile]::CreateFromDirectory($memoryDmpPath.FullName, $DestPath, 'Optimal', $true)
+                    [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $memoryDmpPath, (Split-Path $memoryDmpPath -Leaf))
+                    
 
                 }
             }
@@ -281,11 +282,12 @@ clear-host
                 $daysDifference2 = ($currentTimestamp - $minidumpPathTimestamp).Days
                 # Copy files from minidump folder if the conditions are met
                 if ($daysDifference2 -lt 30) {
-                    #Copy-Item -Path $minidumpPath -Destination $DumpFolder -Recurse -ErrorAction SilentlyContinue
-                    Compress-Archive -Path $memoryDmpPath -DestinationPath $DumpFolder -Update -CompressionLevel Optimal -Force
+                    [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $minidumpPath, (Split-Path $minidumpPath -Leaf))
                 }
             }
         }
+        # Close ZipFile #
+        $zipArchive.Dispose()
 <# # Compressing logs #
 $DumpFolder = "c:\dell\dumps"
 $DestPath = "C:\Dell\logs\dump.zip"
