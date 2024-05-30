@@ -270,7 +270,10 @@ clear-host
                 $daysDifference = ($currentTimestamp - $memoryDmpTimestamp).Days
                 # Copy Memory.dmp if the conditions are met
                 if ($daysDifference -lt 300) {
-                    [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $memoryDmpPath, (Split-Path $memoryDmpPath -Leaf))
+                    #[System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $memoryDmpPath, (Split-Path $memoryDmpPath -Leaf))
+                    Get-ChildItem -Path $memoryDmpPath | ForEach-Object {
+                        [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $_.FullName, $_.Name)
+                    }
                     
 
                 }
