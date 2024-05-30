@@ -73,6 +73,7 @@ Function DisplayMenu {
             }
               
     $MENU = Read-Host "Start the collection (Y/N)"
+    Check-FreeSpace
     switch ($MENU)
     {
  
@@ -269,9 +270,12 @@ clear-host
                 $memoryDmpTimestamp = (Get-Item $memoryDmpPath).LastWriteTime
                 $currentTimestamp = Get-Date
                 $daysDifference = ($currentTimestamp - $memoryDmpTimestamp).Days
-                # Copy Memory.dmp if the conditions are met
+                # Checking Memory.dmp if the conditions are met
+                
                 if ($daysDifference -lt 300) {
                     Get-ChildItem -Path $memoryDmpPath | ForEach-Object {
+                    
+                    # Compressing MEMORY.DMP log #
                         [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $_.FullName, $_.Name)
                     }
                     
@@ -283,8 +287,11 @@ clear-host
                 $minidumpPathTimestamp = (Get-Item $minidumpPath).LastWriteTime
                 $currentTimestamp = Get-Date
                 $daysDifference2 = ($currentTimestamp - $minidumpPathTimestamp).Days
-                # Copy files from minidump folder if the conditions are met
+                # Checking files from minidump folder if the conditions are met
+                
                 if ($daysDifference2 -lt 30) {
+                
+                # Compressing MiniDump logs #
                     [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $minidumpPath, (Split-Path $minidumpPath -Leaf))
                 }
             }
