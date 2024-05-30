@@ -256,7 +256,8 @@ clear-host
         # Checking dump file timestamp is more than 30 Days
         $memoryDmpPath = "c:\windows\memory.dmp"
         $minidumpPath = "c:\windows\minidump"
-        $DumpFolder = "c:\dell\dumps"
+        #$DumpFolder = "c:\dell\dumps"
+        $DumpFolder = "c:\dell\Logs"
         # Check if at least one of the paths exist before accessing their LastWriteTime
         if ((Test-Path $memoryDmpPath) -or (Test-Path $minidumpPath)) {
            
@@ -267,7 +268,9 @@ clear-host
                 $daysDifference = ($currentTimestamp - $memoryDmpTimestamp).Days
                 # Copy Memory.dmp if the conditions are met
                 if ($daysDifference -lt 30) {
-                    Copy-Item -Path $memoryDmpPath -Destination $DumpFolder -Recurse -ErrorAction SilentlyContinue
+                    #Copy-Item -Path $memoryDmpPath -Destination $DumpFolder -Recurse -ErrorAction SilentlyContinue
+                    Compress-Archive -Path $memoryDmpPath -DestinationPath $DumpFolder -Force -CompressionLevel Optimal
+
                 }
             }
             # Check if the file exists before accessing its LastWriteTime
@@ -277,11 +280,12 @@ clear-host
                 $daysDifference2 = ($currentTimestamp - $minidumpPathTimestamp).Days
                 # Copy files from minidump folder if the conditions are met
                 if ($daysDifference2 -lt 30) {
-                    Copy-Item -Path $minidumpPath -Destination $DumpFolder -Recurse -ErrorAction SilentlyContinue
+                    #Copy-Item -Path $minidumpPath -Destination $DumpFolder -Recurse -ErrorAction SilentlyContinue
+                    Compress-Archive -Path $memoryDmpPath -DestinationPath $DumpFolder -Force -CompressionLevel Optimal
                 }
             }
         }
-# Compressing logs #
+<# # Compressing logs #
 $DumpFolder = "c:\dell\dumps"
 $DestPath = "C:\Dell\logs\dump.zip"
 $maximumFileSize = 4GB
@@ -320,7 +324,7 @@ if ($files.Count -gt 0) {
             Write-Progress -Activity "Compressing Files" -Status "Progress" -PercentComplete $totalProgress
         }
     }
-} 
+}#> 
 #MainMenu#
 DisplayMenu
 #Invoke-TssCollect#
