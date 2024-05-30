@@ -257,7 +257,7 @@ clear-host
         $memoryDmpPath = "c:\windows\memory.dmp"
         $minidumpPath = "c:\windows\minidump"
         #$DumpFolder = "c:\dell\dumps"
-        $DumpFolder = "C:\Dell\logs\dump.zip"
+        #$DumpFolder = "C:\Dell\logs\dump.zip"
         $zipArchive = [System.IO.Compression.ZipFile]::Open($DumpFolder, 'Create')
 
         # Check if at least one of the paths exist before accessing their LastWriteTime
