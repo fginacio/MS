@@ -267,7 +267,7 @@ clear-host
                 $currentTimestamp = Get-Date
                 $daysDifference = ($currentTimestamp - $memoryDmpTimestamp).Days
                 # Copy Memory.dmp if the conditions are met
-                if ($daysDifference -lt 30) {
+                if ($daysDifference -lt 300) {
                     #Copy-Item -Path $memoryDmpPath -Destination $DumpFolder -Recurse -ErrorAction SilentlyContinue
                     #Compress-Archive -Path $memoryDmpPath -DestinationPath $DumpFolder -Force -CompressionLevel Optimal
                     [System.IO.Compression.ZipFile]::CreateFromDirectory($memoryDmpPath.FullName, $DestPath, 'Optimal', $true)
