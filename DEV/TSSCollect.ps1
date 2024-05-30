@@ -26,7 +26,7 @@ Function Check-FreeSpace {
     # Get the free space of the C:\ drive in gigabytes
     $freeSpaceGB = [math]::Round((Get-WmiObject Win32_LogicalDisk -Filter "DeviceID='C:'").FreeSpace / 1GB, 2)
     # Define the threshold
-    $thresholdGB = 60
+    $thresholdGB = 6
     # Check if free space is less than the threshold
     if ($freeSpaceGB -lt $thresholdGB) {
         $Shell = New-Object -ComObject "WScript.Shell"
