@@ -283,7 +283,7 @@ clear-host
                 }
             }
             # Check if the file exists before accessing its LastWriteTime
-            if (Test-Path $minidumpPath) {
+            <#if (Test-Path $minidumpPath) {
                 $minidumpPathTimestamp = (Get-Item $minidumpPath).LastWriteTime
                 $currentTimestamp = Get-Date
                 $daysDifference2 = ($currentTimestamp - $minidumpPathTimestamp).Days
@@ -293,6 +293,21 @@ clear-host
                 
                 # Compressing MiniDump logs #
                     [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $minidumpPath, (Split-Path $minidumpPath -Leaf))
+                }
+            }#>
+            # Check if the file exists before accessing its LastWriteTime
+            if (Test-Path $minidumpPath) {
+                $minidumpPathTimestamp = (Get-Item $minidumpPath).LastWriteTime
+                $currentTimestamp = Get-Date
+                $daysDifference2 = ($currentTimestamp - $minidumpPathTimestamp).Days
+                # Checking files from minidump folder if the conditions are met
+                if ($daysDifference2 -lt 30) {
+                    # Get all files in the minidump folder
+                    $minidumpFiles = Get-ChildItem -Path $minidumpPath
+                    foreach ($file in $minidumpFiles) {
+                        # Compressing MiniDump logs
+                        [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $file.FullName, $file.Name)
+                    }
                 }
             }
         }
