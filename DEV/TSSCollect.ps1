@@ -289,7 +289,7 @@ clear-host
                 $daysDifference2 = ($currentTimestamp - $minidumpPathTimestamp).Days
                 # Checking files from minidump folder if the conditions are met
                 
-                if ($daysDifference2 -lt 30) {
+                if ($daysDifference2 -lt 300) {
                 
                 # Compressing MiniDump logs #
                     [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $minidumpPath, (Split-Path $minidumpPath -Leaf))
