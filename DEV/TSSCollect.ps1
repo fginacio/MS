@@ -27,7 +27,7 @@ Function Check-FreeSpace {
     # Get the free space of the C:\ drive in gigabytes
     $freeSpaceGB = [math]::Round((Get-WmiObject Win32_LogicalDisk -Filter "DeviceID='C:'").FreeSpace / 1GB, 2)
     # Define the threshold
-    $thresholdGB = 1
+    $thresholdGB = 60
     # Check if free space is less than the threshold
     if ($freeSpaceGB -lt $thresholdGB) {
         $Shell = New-Object -ComObject "WScript.Shell"
@@ -198,7 +198,7 @@ $ps = ($PSVersionTable).PSVersion.Major
 New-Item -Path C:\Dell\Tss -ItemType Directory
 New-Item -Path C:\Dell\Logs -ItemType Directory
 Start-Sleep -Seconds 5
-Check-FreeSpace
+#Check-FreeSpace
 #Downloading TSS#
 wget http://aka.ms/getTss -OutFile "c:\Dell\Tss.zip" -ErrorAction SilentlyContinue
 #wget https://github.com/fginacio/MS/raw/main/Tss.zip -OutFile c:\Dell\Tss.zip
