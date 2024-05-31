@@ -300,55 +300,46 @@ clear-host
             $zipArchive.Dispose()
         }#>
         #Creating a temporary dumps folder#
-        #Creating a temporary dumps folder#
-        # Checking dump file timestamp is more than 30 Days
-        $memoryDmpPath = "c:\windows\memory.dmp"
-        $minidumpPath = "c:\windows\minidump"
+        # Check if either memory dump or minidump files exist and are within 30 days
+        $memoryDmpPath = "C:\Windows\memory.dmp"
+        $minidumpPath = "C:\Windows\minidump"
         $DumpFolder = "C:\Dell\logs\dump.zip"
 
-        # Check if both paths exist and their last write times are within the last 30 days
-        if ((Test-Path $memoryDmpPath -and (Get-Date) - (Get-Item $memoryDmpPath).LastWriteTime).Days -lt 30 -and
-            (Test-Path $minidumpPath -and (Get-Date) - (Get-Item $minidumpPath).LastWriteTime).Days -lt 30) {
-    
+        $memoryDmpExists = Test-Path $memoryDmpPath
+        $minidumpExists = Test-Path $minidumpPath
+
+        $memoryDmpWithin30Days = $false
+        $minidumpWithin30Days = $false
+
+        if ($memoryDmpExists) {
+            $memoryDmpLastWriteTime = (Get-Item $memoryDmpPath).LastWriteTime
+            $memoryDmpWithin30Days = (New-TimeSpan -Start $memoryDmpLastWriteTime -End (Get-Date)).Days -lt 30
+        }
+
+        if ($minidumpExists) {
+            $minidumpLastWriteTime = (Get-Item $minidumpPath).LastWriteTime
+            $minidumpWithin30Days = (New-TimeSpan -Start $minidumpLastWriteTime -End (Get-Date)).Days -lt 30
+        }
+
+        if ($memoryDmpExists -and $memoryDmpWithin30Days -or $minidumpExists -and $minidumpWithin30Days) {
             $zipArchive = [System.IO.Compression.ZipFile]::Open($DumpFolder, 'Create')
             Write-Host "Collecting Dump files, This process may take around 5-10 minutes, please wait!"
-    
-            # Check if the file exists before accessing its LastWriteTime
-            if (Test-Path $memoryDmpPath) {
-                $memoryDmpTimestamp = (Get-Item $memoryDmpPath).LastWriteTime
-                $currentTimestamp = Get-Date
-                $daysDifference = ($currentTimestamp - $memoryDmpTimestamp).Days
-        
-                # Checking Memory.dmp if the conditions are met
-                if ($daysDifference -lt 30) {
-                    Get-ChildItem -Path $memoryDmpPath | ForEach-Object {
-            
-                    # Compressing MEMORY.DMP log #
-                        [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $_.FullName, $_.Name)
-                    }
+
+            if ($memoryDmpExists -and $memoryDmpWithin30Days) {
+                Get-ChildItem -Path $memoryDmpPath | ForEach-Object {
+                    [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $_.FullName, $_.Name)
                 }
             }
-            # Check if the file exists before accessing its LastWriteTime
-            if (Test-Path $minidumpPath) {
-                $minidumpPathTimestamp = (Get-Item $minidumpPath).LastWriteTime
-                $currentTimestamp = Get-Date
-                $daysDifference2 = ($currentTimestamp - $minidumpPathTimestamp).Days
-        
-                # Checking files from minidump folder if the conditions are met
-                if ($daysDifference2 -lt 30) {
-            
-                    # Get all files in the minidump folder
-                    $minidumpFiles = Get-ChildItem -Path $minidumpPath
-                    foreach ($file in $minidumpFiles) {
-               
-                    # Compressing MiniDump logs
-                        [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $file.FullName, $file.Name)
-                    }
+
+            if ($minidumpExists -and $minidumpWithin30Days) {
+                Get-ChildItem -Path $minidumpPath | ForEach-Object {
+                    [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $_.FullName, $_.Name)
                 }
             }
-            # Close ZipFile #
+
             $zipArchive.Dispose()
         }
+
 
 #MainMenu#
 DisplayMenu
