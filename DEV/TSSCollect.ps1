@@ -319,25 +319,28 @@ clear-host
         }
 
         if ($memoryDmpWithin30Days -or $minidumpWithin30Days) {
+            Add-Type -AssemblyName System.IO.Compression.FileSystem
             $zipFile = [System.IO.Compression.ZipFile]::Open($DumpFolder, 'Create')
+
             Write-Host "Collecting Dump files, This process may take around 5-10 minutes, please wait!"
 
             if ($memoryDmpWithin30Days) {
                 $memoryDmpFiles = Get-ChildItem -Path $memoryDmpPath
                 foreach ($file in $memoryDmpFiles) {
-                    $zipFile.AddFile($file.FullName, $file.Name)
+                    [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, $file.FullName, $file.Name)
                 }
             }
 
             if ($minidumpWithin30Days) {
                 $minidumpFiles = Get-ChildItem -Path $minidumpPath
                 foreach ($file in $minidumpFiles) {
-                    $zipFile.AddFile($file.FullName, $file.Name)
+                    [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipFile, $file.FullName, $file.Name)
                 }
             }
 
             $zipFile.Dispose()
         }
+
 
 
 
