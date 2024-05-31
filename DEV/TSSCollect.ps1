@@ -305,39 +305,38 @@ clear-host
         $minidumpPath = "C:\Windows\minidump"
         $DumpFolder = "C:\Dell\logs\dump.zip"
 
-        $memoryDmpExists = Test-Path $memoryDmpPath
-        $minidumpExists = Test-Path $minidumpPath
-
         $memoryDmpWithin30Days = $false
         $minidumpWithin30Days = $false
 
-        if ($memoryDmpExists) {
+        if (Test-Path $memoryDmpPath) {
             $memoryDmpLastWriteTime = (Get-Item $memoryDmpPath).LastWriteTime
             $memoryDmpWithin30Days = (New-TimeSpan -Start $memoryDmpLastWriteTime -End (Get-Date)).Days -lt 30
         }
 
-        if ($minidumpExists) {
+        if (Test-Path $minidumpPath) {
             $minidumpLastWriteTime = (Get-Item $minidumpPath).LastWriteTime
             $minidumpWithin30Days = (New-TimeSpan -Start $minidumpLastWriteTime -End (Get-Date)).Days -lt 30
         }
 
-        if ($memoryDmpExists -and $memoryDmpWithin30Days -or $minidumpExists -and $minidumpWithin30Days) {
-            $zipArchive = [System.IO.Compression.ZipFile]::Open($DumpFolder, 'Create')
+        if ($memoryDmpWithin30Days -or $minidumpWithin30Days) {
+            $zipFile = [System.IO.Compression.ZipFile]::Open($DumpFolder, 'Create')
             Write-Host "Collecting Dump files, This process may take around 5-10 minutes, please wait!"
 
-            if ($memoryDmpExists -and $memoryDmpWithin30Days) {
-                Get-ChildItem -Path $memoryDmpPath | ForEach-Object {
-                    [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $_.FullName, $_.Name)
+            if ($memoryDmpWithin30Days) {
+                $memoryDmpFiles = Get-ChildItem -Path $memoryDmpPath
+                foreach ($file in $memoryDmpFiles) {
+                    $zipFile.AddFile($file.FullName, $file.Name)
                 }
             }
 
-            if ($minidumpExists -and $minidumpWithin30Days) {
-                Get-ChildItem -Path $minidumpPath | ForEach-Object {
-                    [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zipArchive, $_.FullName, $_.Name)
+            if ($minidumpWithin30Days) {
+                $minidumpFiles = Get-ChildItem -Path $minidumpPath
+                foreach ($file in $minidumpFiles) {
+                    $zipFile.AddFile($file.FullName, $file.Name)
                 }
             }
 
-            $zipArchive.Dispose()
+            $zipFile.Dispose()
         }
 
 
