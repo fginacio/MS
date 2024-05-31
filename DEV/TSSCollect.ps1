@@ -300,14 +300,15 @@ clear-host
             $zipArchive.Dispose()
         }#>
         #Creating a temporary dumps folder#
+        #Creating a temporary dumps folder#
         # Checking dump file timestamp is more than 30 Days
         $memoryDmpPath = "c:\windows\memory.dmp"
         $minidumpPath = "c:\windows\minidump"
         $DumpFolder = "C:\Dell\logs\dump.zip"
 
-        # Check if at least one of the paths exist before accessing their LastWriteTime
-        if ((Test-Path $memoryDmpPath -and ((Get-Date) - (Get-Item $memoryDmpPath).LastWriteTime).Days -lt 30) -or 
-            (Test-Path $minidumpPath -and ((Get-Date) - (Get-Item $minidumpPath).LastWriteTime).Days -lt 30)) {
+        # Check if both paths exist and their last write times are within the last 30 days
+        if ((Test-Path $memoryDmpPath -and (Get-Date) - (Get-Item $memoryDmpPath).LastWriteTime).Days -lt 30 -and
+            (Test-Path $minidumpPath -and (Get-Date) - (Get-Item $minidumpPath).LastWriteTime).Days -lt 30) {
     
             $zipArchive = [System.IO.Compression.ZipFile]::Open($DumpFolder, 'Create')
             Write-Host "Collecting Dump files, This process may take around 5-10 minutes, please wait!"
@@ -348,7 +349,6 @@ clear-host
             # Close ZipFile #
             $zipArchive.Dispose()
         }
-
 
 #MainMenu#
 DisplayMenu
