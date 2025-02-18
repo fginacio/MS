@@ -11,9 +11,13 @@ $Location= 'PCIROOT(B4)#PCI(0100)#PCI(0000)#PCI(0200)#PCI(0000)#PCI(0800)#PCI(00
  
 Dismount-VMHostAssignableDevice -LocationPath $Location -force
 
+# Set automatic stop action to TurnOff
 Set-VM -VM $vm AutomaticStopAction TurnOff
  
 Add-VMAssignableDevice -LocationPath $Location -VMName $VM
+
+# Enable Write-Combining on the CPU
+Set-VM -GuestControlledCacheTypes $true -VMName $vm
  
 Set-VM $VM -HighMemoryMappedIoSpace 16GB
  
