@@ -38,5 +38,6 @@ Commands for pass-though
 https://docs.nvidia.com/grid/12.0/grid-vgpu-user-guide/index.html#using-gpu-pass-through-windows-server-hyper-v
 MMIO Space requirement
 https://docs.nvidia.com/grid/latest/grid-vgpu-release-notes-vmware-vsphere/index.html#pascal-gpus-in-passthrough-mode
- 
+Deploy graphics devices by using Discrete Device Assignment
+https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/deploy/deploying-graphics-devices-using-dda 
 #>
