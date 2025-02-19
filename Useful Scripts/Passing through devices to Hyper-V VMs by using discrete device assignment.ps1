@@ -19,7 +19,11 @@ Add-VMAssignableDevice -LocationPath $Location -VMName $VM
 # Enable Write-Combining on the CPU
 Set-VM -GuestControlledCacheTypes $true -VMName $vm
  
-Set-VM $VM -HighMemoryMappedIoSpace 16GB
+# Configure 32 bit MMIO space
+Set-VM -LowMemoryMappedIoSpace 3Gb -VMName $vm
+
+# Configure Greater than 32 bit MMIO space
+Set-VM -HighMemoryMappedIoSpace 33280Mb -VMName $vm
  
 Get-VMAssignableDevice -VMName $VM
 
