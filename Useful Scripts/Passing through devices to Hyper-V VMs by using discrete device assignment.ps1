@@ -27,6 +27,16 @@ Set-VM -HighMemoryMappedIoSpace 33280Mb -VMName $vm
  
 Get-VMAssignableDevice -VMName $VM
 
+
+#Remove a device and return it to the host
+#If you want to return the device back to its original state, you must stop the VM and issue this command:
+# Remove the device from the VM
+Remove-VMAssignableDevice -LocationPath $locationPath -VMName VMName
+# Mount the device back in the host
+Mount-VMHostAssignableDevice -LocationPath $locationPath
+#You can then re-enable the device in Device Manager, and the host operating system is able to interact with the device again.
+
+
 # Set the MMIO Space the default MMIO space is insufficient for GPU.
 # Please refer to Nvidia documentation for the MMIO space requirement
 # https://docs.nvidia.com/grid/latest/grid-vgpu-release-notes-vmware-vsphere/index.html#pascal-gpus-in-passthrough-mode
