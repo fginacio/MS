@@ -4,9 +4,6 @@
 
 # Add the GPU into the VM
 $VM= 'YOUR VM'
- 
-Set-VM $VM -GuestControlledCacheTypes $true
- 
 $Location= 'PCIROOT(B4)#PCI(0100)#PCI(0000)#PCI(0200)#PCI(0000)#PCI(0800)#PCI(0000)'
  
 Dismount-VMHostAssignableDevice -LocationPath $Location -force
@@ -24,14 +21,17 @@ Set-VM -LowMemoryMappedIoSpace 3Gb -VMName $vm
 
 # Configure Greater than 32 bit MMIO space
 Set-VM -HighMemoryMappedIoSpace 33280Mb -VMName $vm
- 
+
+# Check the GPU was assigned to VM 
 Get-VMAssignableDevice -VMName $VM
 
 
 #Remove a device and return it to the host
 #If you want to return the device back to its original state, you must stop the VM and issue this command:
+
 # Remove the device from the VM
 Remove-VMAssignableDevice -LocationPath $locationPath -VMName VMName
+
 # Mount the device back in the host
 Mount-VMHostAssignableDevice -LocationPath $locationPath
 #You can then re-enable the device in Device Manager, and the host operating system is able to interact with the device again.
