@@ -7,7 +7,7 @@ TSSv2: Windows PowerShell based Troubleshshooting script (TSS) toolset
 
 This is the Windows PowerShell based equivalent for the CMD based TSS toolset.
 
-For Downlaods please use official Microsoft sites:
+For Downloads please use official Microsoft sites:
 
 https://aka.ms/getTSS
 https://cesdiagtools.blob.core.windows.net/windows/TSSv2.zip
