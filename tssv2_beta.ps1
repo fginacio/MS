@@ -162,7 +162,7 @@ Function DisplayMenu {
            
 
     #OPTION - Default Collection + DUMP LOGS
-    Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula"
+    Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Setup -skipsdplist skipBPA -LogFolderPath $dell -AcceptEula"
     #Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noUpdate"
     Set-Location $tss
 
@@ -194,7 +194,7 @@ Function DisplayMenu {
                     $CaseNumber = "Cluster Collection $DateTime"
                 }
             
-            Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Cluster -skipsdplist skipBPA -LogFolderPath $dell -AcceptEula"
             #Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula -noUpdate"
             Set-Location $tss
 
@@ -221,7 +221,7 @@ Function DisplayMenu {
                     $CaseNumber = "HyperV Collection $DateTime"
                 }
             
-            Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp HyperV -skipsdplist skipBPA -LogFolderPath $dell -AcceptEula"
             #Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula -noUpdate"
             Set-Location $tss
 
@@ -248,7 +248,7 @@ Function DisplayMenu {
                 $CaseNumber = "Domain Controller Collection $DateTime"
             }
             
-            Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp DOM -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp DOM -skipsdplist skipBPA -LogFolderPath $dell -AcceptEula"
             #Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp dom -LogFolderPath $dell -AcceptEula -noUpdate"
             Set-Location $tss
 
@@ -276,7 +276,7 @@ Function DisplayMenu {
                     $CaseNumber = "Default Collection $DateTime"
                 }
             
-            Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Setup -skipsdplist skipBPA -LogFolderPath $dell -AcceptEula"
             #Invoke-Expression -Command "C:\dell\TSSv2\TSS.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula -noUpdate"
             Set-Location $tss
 
