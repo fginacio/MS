@@ -64,7 +64,7 @@ Function DisplayMenu {
     IF      (get-WindowsFeature -Name Failover-clustering | where Installed) {
     #OPTION - Cluster Collection#
             
-            Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp Cluster -skipsdplist skipBPA -LogFolderPath $dell -AcceptEula"
             Set-Location $tss
 
             #Compressing logs#
@@ -87,7 +87,7 @@ Function DisplayMenu {
     ELSEIF  (get-WindowsFeature -Name Hyper-V | where Installed) {
     #OPTION - HyperV Collection#
             
-            Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp HyperV -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp HyperV -skipsdplist skipBPA -LogFolderPath $dell -AcceptEula"
             Set-Location $tss
 
             #Compressing logs#
@@ -110,7 +110,7 @@ Function DisplayMenu {
     ELSEIF  (get-WindowsFeature -Name AD-Domain-Services | where Installed) {
     #OPTION - Active Directory Collection#
            
-            Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp DOM -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp DOM -skipsdplist skipBPA -LogFolderPath $dell -AcceptEula"
             Set-Location $tss
 
             #Compressing logs#
@@ -133,7 +133,7 @@ Function DisplayMenu {
     ELSE {
     #OPTION - Default Collection#
   
-            Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp Setup -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp Setup -skipsdplist skipBPA -LogFolderPath $dell -AcceptEula"
             Set-Location $tss
 
             #Compressing logs#
