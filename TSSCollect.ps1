@@ -20,7 +20,7 @@ V 1.5
     Added Check-ISEEnvironment to display a warning when run in PowerShell ISE.
     Removed the SDDC collection from SDPList for non-HCI clusters.
 #>
-
+Function Invoke-TssCollect {
 Function Check-ISEEnvironment {
     <#
     .SYNOPSIS
@@ -45,7 +45,7 @@ Function Check-ISEEnvironment {
 if (-not (Check-ISEEnvironment)) {
     return
 }
-Function Invoke-TssCollect {
+#Function Invoke-TssCollect {
 Function EndScript {
 Break
 }
