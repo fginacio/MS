@@ -16,35 +16,9 @@ V 1.4
     Checks for BSOD events with less than 30 days and collect Dump log (Memory.dmp and minidump folder) 
     Renamed main script to TSS.ps1
     Output logs available at c:\Dell\Logs
-V 1.5
-    Added Check-ISEEnvironment to display a warning when run in PowerShell ISE.
-    Removed the SDDC collection from SDPList for non-HCI clusters.
 #>
 
-Function Check-ISEEnvironment {
-    <#
-    .SYNOPSIS
-    Checks if the script is running in PowerShell ISE.
 
-    .DESCRIPTION
-    This function detects if the current session is running inside PowerShell ISE.
-    If so, it displays a warning and exits the function.
-
-    .EXAMPLE
-    Check-ISEEnvironment
-    #>
-
-    if ($psISE) {
-        Write-Warning "This task is not supported in PowerShell ISE. Please run it in the standard PowerShell console with admin rights."
-        return $false
-    }
-
-    return $true
-}
-
-if (-not (Check-ISEEnvironment)) {
-    return
-}
 Function Invoke-TssCollect {
 Function EndScript {
 Break
@@ -90,7 +64,7 @@ Function DisplayMenu {
     IF      (get-WindowsFeature -Name Failover-clustering | where Installed) {
     #OPTION - Cluster Collection#
             
-            Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp Cluster -skipsdplist skipBPA, skipSDDC -LogFolderPath $dell -AcceptEula"
+            Invoke-Expression -Command "C:\dell\Tss\TSS.ps1 -sdp Cluster -skipsdplist skipBPA -LogFolderPath $dell -AcceptEula"
             Set-Location $tss
 
             #Compressing logs#
@@ -210,9 +184,6 @@ Remove-Item "C:\Dell\TssCollect*.log" -Recurse -Force -ErrorAction Ignore
 Remove-Item "C:\Dell\Tss" -Recurse -Force -ErrorAction Ignore
 Remove-Item "C:\Dell\Tss.zip" -Recurse -Force -ErrorAction Ignore
 
-
-
-
 #Checking requirements to run (Minimun Powershell 5.1)#
 $ps = ($PSVersionTable).PSVersion.Major
 
@@ -250,7 +221,7 @@ else
 }
 
 clear-host
-$Ver = "1.5"
+$Ver = "1.4"
 
 #IE Fix#
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2

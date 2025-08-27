@@ -3,40 +3,7 @@
        TSSv2Collect_Offline.ps1
     .EXAMPLES
        Invoke-TSSv2Collect_Offline
-Fixes and Improvements:
-V 1.2
-    User can choose the output file name.
-    Check requirements before start scritp (powershell version 5.1 minimum)
-V 1.3
-    Added Check-ISEEnvironment to display a warning when run in PowerShell ISE.
-    Removed the SDDC collection from SDPList for non-HCI clusters.
 #>
-
-Function Check-ISEEnvironment {
-    <#
-    .SYNOPSIS
-    Checks if the script is running in PowerShell ISE.
-
-    .DESCRIPTION
-    This function detects if the current session is running inside PowerShell ISE.
-    If so, it displays a warning and exits the function.
-
-    .EXAMPLE
-    Check-ISEEnvironment
-    #>
-
-    if ($psISE) {
-        Write-Warning "This task is not supported in PowerShell ISE. Please run it in the standard PowerShell console with admin rights."
-        return $false
-    }
-
-    return $true
-}
-
-if (-not (Check-ISEEnvironment)) {
-    return
-}
-
 Function EndScript{ 
     break
 }
@@ -74,7 +41,7 @@ Switch ($MENU)
         2 {
     #OPTION2 - Cluster Collection
     #invoke-expression -command "C:\dell\TSSv2\TSSv2.ps1 -sdp Cluster -LogFolderPath $dell -AcceptEula"
-    invoke-expression -command "C:\dell\TSSv2\TSS.ps1 -sdp Cluster -skipsdplist skipBPA, skipSDDC -LogFolderPath $dell -AcceptEula"
+    invoke-expression -command "C:\dell\TSSv2\TSS.ps1 -sdp Cluster -skipsdplist skipBPA -LogFolderPath $dell -AcceptEula"
     $Shell = New-Object -ComObject "WScript.Shell"
     $Button = $Shell.Popup("Logs available at C:\Dell\SDP_Cluster\", 0, "Collection Successfull", 0)
     Start-Sleep -Seconds 2
@@ -115,7 +82,7 @@ Write-Host "Unpacking TSSv2..."
 #Unpacking TSSv2 at C:\Dell
     #Expand-Archive -Path c:\Dell\TSSv2.zip -DestinationPath c:\Dell\TSSv2\ -ErrorAction Ignore
 Clear-Host
-$Ver="1.3"
+$Ver="1.2"
 
 #IE Fix
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Internet Explorer\Main" -Name "DisableFirstRunCustomize" -Value 2
