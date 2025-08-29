@@ -36,7 +36,8 @@ Function Check-ISEEnvironment {
 
     if ($psISE) {
         Write-Warning "This task is not supported in PowerShell ISE. Please run it in the standard PowerShell console with admin rights."
-        return $false
+        Break
+	#return $false
     }
 
     return $true
